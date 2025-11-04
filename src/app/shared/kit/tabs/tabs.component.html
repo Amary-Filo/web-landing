@@ -1,0 +1,47 @@
+<div
+  class="ngp-tabs"
+  [class.ngp-tabs--orientation-vertical]="orientation === 'vertical'"
+  [class.ngp-tabs--appearance-pill]="appearance === 'pill'"
+  [class.ngp-tabs--appearance-cards]="appearance === 'cards'"
+  [class.ngp-tabs--appearance-underlined]="appearance === 'underlined'"
+  [class.ngp-tabs--stretch]="stretch"
+>
+  <div
+    class="ngp-tabs__list"
+    role="tablist"
+    [style.--tabs-gap]="gap"
+    [attr.aria-orientation]="orientation"
+  >
+    <button
+      type="button"
+      class="ngp-tabs__tab"
+      *ngFor="let tab of tabs; trackBy: trackByTab"
+      [class.ngp-tabs__tab--active]="isActive(tab)"
+      [class.ngp-tabs__tab--disabled]="disabled || tab.disabled"
+      (click)="onTabClick(tab)"
+      [attr.role]="'tab'"
+      [attr.aria-selected]="isActive(tab)"
+      [attr.aria-controls]="(tab.id ?? tab.label) + '-panel'"
+      [attr.id]="tab.id ?? tab.label"
+      [disabled]="disabled || tab.disabled"
+    >
+      <span class="ngp-tabs__icon" *ngIf="tab.icon" aria-hidden="true">
+        {{ tab.icon }}
+      </span>
+      <span class="ngp-tabs__label">{{ tab.label }}</span>
+      <span class="ngp-tabs__badge" *ngIf="tab.badge">
+        {{ tab.badge }}
+      </span>
+    </button>
+  </div>
+
+  <div
+    class="ngp-tabs__panel"
+    *ngIf="activeTab as tab"
+    role="tabpanel"
+    [attr.aria-labelledby]="(tab.id ?? tab.label)"
+    [attr.id]="(tab.id ?? tab.label) + '-panel'"
+  >
+    <ng-container *ngTemplateOutlet="tab.templateRef"></ng-container>
+  </div>
+</div>

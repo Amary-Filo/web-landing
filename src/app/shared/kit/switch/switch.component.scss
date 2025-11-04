@@ -1,0 +1,100 @@
+:host {
+  display: inline-flex;
+  font-family: var(--ngp-font-family);
+}
+
+.ngp-switch {
+  --switch-width: 3.25rem;
+  --switch-height: 1.75rem;
+  --switch-thumb-size: 1.25rem;
+
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ngp-spacing-xs, 0.35rem);
+  padding: var(--ngp-spacing-2xs, 0.2rem);
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  color: inherit;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--size-sm {
+    --switch-width: 2.5rem;
+    --switch-height: 1.35rem;
+    --switch-thumb-size: 1rem;
+    font-size: 0.8rem;
+  }
+
+  &--size-lg {
+    --switch-width: 3.75rem;
+    --switch-height: 2rem;
+    --switch-thumb-size: 1.4rem;
+    font-size: 1rem;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible .ngp-switch__track {
+    box-shadow: var(--ngp-focus-ring, 0 0 0 2px rgba(124, 92, 255, 0.5));
+  }
+
+  &--appearance-success.ngp-switch--on .ngp-switch__track {
+    background: var(--switch-bg-success, var(--ngp-success));
+  }
+
+  &--appearance-danger.ngp-switch--on .ngp-switch__track {
+    background: var(--switch-bg-danger, var(--ngp-danger));
+  }
+}
+
+.ngp-switch__track {
+  width: var(--switch-width);
+  height: var(--switch-height);
+  border-radius: 999px;
+  background: var(--switch-bg-off, rgba(255, 255, 255, 0.08));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  position: relative;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.ngp-switch--on .ngp-switch__track {
+  background: var(--switch-bg-on, var(--ngp-accent));
+  border-color: transparent;
+}
+
+.ngp-switch__thumb {
+  position: absolute;
+  top: calc(50% - var(--switch-thumb-size) / 2);
+  left: calc(var(--switch-height) / 2 - var(--switch-thumb-size) / 2);
+  width: var(--switch-thumb-size);
+  height: var(--switch-thumb-size);
+  border-radius: 50%;
+  background: var(--switch-handle-bg, #0f1427);
+  box-shadow: var(--switch-handle-shadow);
+  pointer-events: none;
+  z-index: 1;
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.ngp-switch--on .ngp-switch__thumb {
+  transform: translateX(
+    calc(var(--switch-width) - var(--switch-height))
+  );
+  background: var(--switch-handle-bg-on, var(--ngp-accent-contrast));
+}
+
+.ngp-switch__label {
+  font-size: 0.85rem;
+  color: var(--ngp-text-muted);
+}

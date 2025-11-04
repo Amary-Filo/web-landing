@@ -1,0 +1,194 @@
+:host.ngp-dialog-host {
+  position: relative;
+}
+
+.ngp-dialog {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ngp-spacing-lg, 1rem);
+  z-index: 1000;
+  animation-duration: 0.28s;
+  animation-fill-mode: both;
+  font-family: var(--ngp-font-family);
+
+  &--animation-fade {
+    animation-name: ngp-dialog-fade-in;
+  }
+
+  &--animation-scale {
+    animation-name: ngp-dialog-scale-in;
+  }
+
+  &--animation-slide {
+    animation-name: ngp-dialog-slide-in;
+  }
+}
+
+.ngp-dialog__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--dialog-backdrop, rgba(2, 4, 12, 0.65));
+  backdrop-filter: blur(12px);
+}
+
+.ngp-dialog__surface {
+  position: relative;
+  min-width: 320px;
+  max-width: min(90vw, 720px);
+  background: var(--dialog-surface, var(--ngp-surface-elevated));
+  border-radius: var(--dialog-radius, var(--ngp-radius-lg));
+  border: var(--ngp-border-width, 1px) solid
+    var(--dialog-border, var(--ngp-border-strong));
+  box-shadow: var(--dialog-shadow, var(--ngp-shadow-hard));
+  color: var(--dialog-body-color, var(--ngp-text-basic));
+  padding: var(--dialog-content-gap, var(--ngp-spacing-md, 0.75rem))
+    var(--ngp-spacing-lg, 1rem);
+  display: flex;
+  flex-direction: column;
+  gap: var(--dialog-content-gap, var(--ngp-spacing-md, 0.75rem));
+  z-index: 1;
+}
+
+.ngp-dialog--size-sm .ngp-dialog__surface {
+  max-width: 420px;
+}
+
+.ngp-dialog--size-lg .ngp-dialog__surface {
+  max-width: 920px;
+}
+
+.ngp-dialog__close {
+  position: absolute;
+  top: var(--ngp-spacing-sm, 0.5rem);
+  right: var(--ngp-spacing-sm, 0.5rem);
+  background: transparent;
+  border: none;
+  color: var(--dialog-close-color, var(--ngp-text-muted));
+  cursor: pointer;
+  font-size: 1.1rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    color: var(--dialog-close-color-hover, var(--ngp-text-primary));
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.ngp-dialog__header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ngp-spacing-2xs, 0.2rem);
+}
+
+.ngp-dialog__title {
+  font-size: 1.35rem;
+  color: var(--dialog-header-color, var(--ngp-text-primary));
+}
+
+.ngp-dialog__subtitle {
+  font-size: 0.95rem;
+  color: var(--ngp-text-muted);
+}
+
+.ngp-dialog__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ngp-spacing-sm, 0.5rem);
+}
+
+.ngp-dialog__footer {
+  display: flex;
+  gap: var(--ngp-spacing-sm, 0.5rem);
+  justify-content: flex-end;
+  padding-top: var(--ngp-spacing-sm, 0.5rem);
+  background: var(--dialog-footer-bg, rgba(255, 255, 255, 0.04));
+  margin: 0 calc(var(--ngp-spacing-lg, 1rem) * -1)
+    calc(var(--ngp-spacing-lg, 1rem) * -1);
+  padding: var(--ngp-spacing-sm, 0.5rem) var(--ngp-spacing-lg, 1rem);
+  border-radius: 0 0 var(--dialog-radius, var(--ngp-radius-lg))
+    var(--dialog-radius, var(--ngp-radius-lg));
+  border-top: 1px solid var(--ngp-border-muted);
+}
+
+.ngp-dialog__footer-button {
+  padding: 0.65rem 1.1rem;
+  border-radius: var(--ngp-radius-sm, 0.5rem);
+  border: 1px solid transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--primary {
+    background: var(--ngp-accent);
+    color: var(--ngp-accent-contrast);
+  }
+
+  &--danger {
+    background: var(--ngp-danger);
+    color: var(--ngp-accent-contrast);
+  }
+
+  &--link {
+    background: transparent;
+    color: var(--ngp-text-muted);
+    border-color: transparent;
+
+    &:hover {
+      color: var(--ngp-text-primary);
+    }
+  }
+}
+
+@keyframes ngp-dialog-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ngp-dialog-scale-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ngp-dialog-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ngp-dialog-scroll-lock {
+  overflow: hidden;
+}
+

@@ -1,0 +1,96 @@
+:host {
+  display: inline-flex;
+  font-family: var(--ngp-font-family);
+}
+
+.ngp-toggle {
+  --toggle-padding-y: 0.35rem;
+  --toggle-padding-x: 0.9rem;
+
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ngp-spacing-xs, 0.35rem);
+  padding: var(--toggle-padding-y) var(--toggle-padding-x);
+  border-radius: var(--toggle-radius, var(--ngp-radius-sm));
+  border: 1px solid var(--toggle-border, var(--ngp-control-border));
+  background: var(--toggle-bg-off, transparent);
+  color: var(--toggle-color-off, var(--ngp-text-muted));
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &--size-sm {
+    --toggle-padding-y: 0.25rem;
+    --toggle-padding-x: 0.65rem;
+    font-size: 0.8rem;
+  }
+
+  &--size-lg {
+    --toggle-padding-y: 0.5rem;
+    --toggle-padding-x: 1.15rem;
+    font-size: 1rem;
+  }
+
+  &:hover {
+    border-color: var(
+      --toggle-border-hover,
+      var(--ngp-control-border-hover)
+    );
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--ngp-focus-ring, 0 0 0 2px rgba(124, 92, 255, 0.35));
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &--active {
+    background: var(--toggle-bg-on, var(--ngp-accent));
+    border-color: transparent;
+    color: var(--toggle-color-on, var(--ngp-accent-contrast));
+  }
+
+  &--appearance-solid {
+    background: var(--toggle-bg-solid, var(--ngp-accent));
+    color: var(--toggle-color-solid, var(--ngp-accent-contrast));
+    border-color: transparent;
+
+    &:hover {
+      filter: brightness(1.05);
+    }
+  }
+
+  &--appearance-outline {
+    background: transparent;
+    border-width: 2px;
+    color: var(--toggle-outline-color, var(--ngp-accent));
+  }
+
+  &--appearance-soft {
+    background: var(--toggle-soft-bg, rgba(255, 255, 255, 0.06));
+    color: var(--toggle-soft-color, var(--ngp-text-basic));
+  }
+
+  &--appearance-outline.ngp-toggle--active {
+    background: var(--toggle-bg-on, var(--ngp-accent));
+    border-color: transparent;
+    color: var(--toggle-color-on, var(--ngp-accent-contrast));
+  }
+}
+
+.ngp-toggle__icon {
+  font-size: 1rem;
+}
+
+.ngp-toggle__label {
+  white-space: nowrap;
+}
+

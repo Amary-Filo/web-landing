@@ -1,0 +1,92 @@
+<div
+  class="ngp-select"
+  [class.ngp-select--open]="panelOpen"
+  [class.ngp-select--disabled]="disabled"
+>
+  <button
+    #triggerButton
+    type="button"
+    class="ngp-select__trigger"
+    [attr.aria-haspopup]="'listbox'"
+    [attr.aria-expanded]="panelOpen"
+    [attr.aria-disabled]="disabled"
+    (click)="togglePanel()"
+    (blur)="onTriggerBlur()"
+  >
+    <span class="ngp-select__value" *ngIf="selectedOption; else placeholderTpl">
+      {{ selectedOption.label }}
+    </span>
+    <ng-template #placeholderTpl>
+      <span class="ngp-select__placeholder">{{ placeholder }}</span>
+    </ng-template>
+
+    <span class="ngp-select__clear" *ngIf="clearable && selectedOption">
+      <button type="button" class="ngp-select__clear-btn" (click)="onClear($event)">
+        ✕
+      </button>
+    </span>
+
+    <span class="ngp-select__chevron" aria-hidden="true"></span>
+  </button>
+
+  <div
+    #panel
+    class="ngp-select__panel"
+    *ngIf="panelOpen"
+    role="listbox"
+    [style.max-height]="panelMaxHeight"
+  >
+    <ng-container *ngIf="hasGroups; else flatOptions">
+      <div
+        class="ngp-select__group"
+        *ngFor="let group of optionGroups; trackBy: trackByGroup"
+        role="group"
+      >
+        <div class="ngp-select__group-label">
+          {{ group.label }}
+          <span class="ngp-select__group-description" *ngIf="group.description">
+            {{ group.description }}
+          </span>
+        </div>
+
+        <button
+          type="button"
+          class="ngp-select__option"
+          data-ngp-option
+          *ngFor="let option of group.options; trackBy: trackByOption"
+          [class.ngp-select__option--selected]="isSelected(option)"
+          [class.ngp-select__option--disabled]="option.disabled"
+          (click)="onSelect(option)"
+          role="option"
+          [attr.aria-selected]="isSelected(option)"
+          [disabled]="option.disabled"
+        >
+          <span class="ngp-select__option-label">{{ option.label }}</span>
+          <span class="ngp-select__option-hint" *ngIf="option.hint">
+            {{ option.hint }}
+          </span>
+        </button>
+      </div>
+    </ng-container>
+
+    <ng-template #flatOptions>
+      <button
+        type="button"
+        class="ngp-select__option"
+        data-ngp-option
+        *ngFor="let option of options; trackBy: trackByOption; let i = index"
+        [class.ngp-select__option--selected]="isSelected(option)"
+        [class.ngp-select__option--disabled]="option.disabled"
+        (click)="onSelect(option)"
+        role="option"
+        [attr.aria-selected]="isSelected(option)"
+        [disabled]="option.disabled"
+      >
+        <span class="ngp-select__option-label">{{ option.label }}</span>
+        <span class="ngp-select__option-hint" *ngIf="option.hint">
+          {{ option.hint }}
+        </span>
+      </button>
+    </ng-template>
+  </div>
+</div>

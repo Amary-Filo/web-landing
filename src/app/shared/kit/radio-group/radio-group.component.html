@@ -1,0 +1,39 @@
+<fieldset
+  class="ngp-radio-group"
+  [class.ngp-radio-group--horizontal]="layout === 'horizontal'"
+  [class.ngp-radio-group--disabled]="disabled"
+  [class.ngp-radio-group--size-sm]="size === 'sm'"
+  [class.ngp-radio-group--size-lg]="size === 'lg'"
+>
+  <legend class="ngp-radio-group__legend" *ngIf="legend">
+    {{ legend }}
+  </legend>
+  <div class="ngp-radio-group__description" *ngIf="description">
+    {{ description }}
+  </div>
+
+  <div class="ngp-radio-group__list">
+    <label
+      class="ngp-radio"
+      *ngFor="let option of options; trackBy: trackByOption"
+      [class.ngp-radio--disabled]="disabled || option.disabled"
+    >
+      <input
+        type="radio"
+        class="ngp-radio__input"
+        [name]="name"
+        [disabled]="disabled || option.disabled"
+        [checked]="isChecked(option)"
+        (blur)="onBlur()"
+        (change)="onOptionSelect(option)"
+      />
+      <span class="ngp-radio__control" aria-hidden="true"></span>
+      <span class="ngp-radio__label">
+        {{ option.label }}
+        <span class="ngp-radio__hint" *ngIf="option.hint">
+          {{ option.hint }}
+        </span>
+      </span>
+    </label>
+  </div>
+</fieldset>

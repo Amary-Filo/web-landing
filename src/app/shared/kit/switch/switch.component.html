@@ -1,0 +1,23 @@
+<button
+  type="button"
+  class="ngp-switch"
+  [class.ngp-switch--on]="value"
+  [class.ngp-switch--size-sm]="size === 'sm'"
+  [class.ngp-switch--size-lg]="size === 'lg'"
+  [class.ngp-switch--appearance-success]="appearance === 'success'"
+  [class.ngp-switch--appearance-danger]="appearance === 'danger'"
+  [disabled]="disabled"
+  role="switch"
+  [attr.aria-checked]="value"
+  (click)="toggle()"
+  (blur)="onBlur()"
+>
+  <span class="ngp-switch__track"></span>
+  <span class="ngp-switch__thumb"></span>
+  <span class="ngp-switch__label" *ngIf="value && checkedLabel">
+    {{ checkedLabel }}
+  </span>
+  <span class="ngp-switch__label" *ngIf="!value && uncheckedLabel">
+    {{ uncheckedLabel }}
+  </span>
+</button>

@@ -1,0 +1,41 @@
+<fieldset
+  class="ngp-checkbox-group"
+  [class.ngp-checkbox-group--horizontal]="layout === 'horizontal'"
+  [class.ngp-checkbox-group--disabled]="disabled"
+  [class.ngp-checkbox-group--size-sm]="size === 'sm'"
+  [class.ngp-checkbox-group--size-lg]="size === 'lg'"
+>
+  <legend class="ngp-checkbox-group__legend" *ngIf="legend">
+    {{ legend }}
+  </legend>
+  <div class="ngp-checkbox-group__description" *ngIf="description">
+    {{ description }}
+  </div>
+
+  <div class="ngp-checkbox-group__list">
+    <label
+      class="ngp-checkbox"
+      *ngFor="let option of options; trackBy: trackByOption"
+      [class.ngp-checkbox--disabled]="disabled || option.disabled"
+    >
+      <input
+        type="checkbox"
+        class="ngp-checkbox__input"
+        [name]="name"
+        [checked]="isChecked(option)"
+        [disabled]="disabled || option.disabled"
+        (change)="onToggle(option)"
+        (blur)="onBlur()"
+      />
+      <span class="ngp-checkbox__control" aria-hidden="true">
+        <span class="ngp-checkbox__checkmark">✓</span>
+      </span>
+      <span class="ngp-checkbox__label">
+        {{ option.label }}
+        <span class="ngp-checkbox__hint" *ngIf="option.hint">
+          {{ option.hint }}
+        </span>
+      </span>
+    </label>
+  </div>
+</fieldset>
