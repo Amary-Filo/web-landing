@@ -1,1 +1,170 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./styles/mixins/mixins.scss" as mx;
+@use "./styles/fonts.scss";
+@use "./styles/ui.scss";
+@import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900");
+
+:root {
+  // Font
+  --title-font: "Inter", sans-serif;
+  --text-font: "Inter", sans-serif;
+
+  // Colors
+  --body-bg-color: #12121a;
+  --body-bg-color-rgb: 18, 18, 26;
+  --body-text-color: #fff;
+  --body-text-color-alt: #12121a;
+
+  --accent-gray-color: #727272;
+  --accent-gray-color-rgb: 114, 114, 114;
+
+  --text-color: var(--accent-gray-color);
+  --text-color-rgb: var(--accent-gray-color-rgb);
+}
+
+// body#dark {
+//   // colors
+//   --body-bg-color: #1c1727;
+//   --body-bg-color-rgb: 28, 23, 39;
+//   --body-text-color: #fff;
+//   --body-text-color-alt: #000;
+
+//   --accent-gray-color: #b3b3b3cc;
+//   --accent-gray-color-rgb: 179, 179, 179;
+
+//   --text-color: var(--accent-gray-color);
+//   --text-color-rgb: var(--accent-gray-color-rgb);
+// }
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  transition: color, background-color 0.3s ease-in-out;
+}
+
+#root,
+#__next {
+  isolation: isolate;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+  font-family: var(--text-font);
+  font-weight: normal;
+  cursor: default;
+  padding-top: mx.rem(50);
+  background: var(--body-bg-color);
+  color: var(--body-text-color);
+
+  &.sbx-frameless {
+    padding-top: 0;
+  }
+}
+
+// Typography
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.title {
+  overflow-wrap: break-word;
+
+  font-family: var(--title-font);
+  // font-weight: 700;
+}
+
+// h1 {
+//   font-size: mx.rem(49);
+// }
+// h2 {
+//   font-size: mx.rem(39);
+// }
+// h3 {
+//   font-size: mx.rem(31);
+// }
+// h4 {
+//   font-size: mx.rem(25);
+// }
+// h5 {
+//   font-size: mx.rem(20);
+// }
+
+// small {
+//   font-size: mx.rem(13);
+// }
+
+a {
+  text-decoration: none;
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
+  &.link {
+    color: var(--cl-cmain);
+    &:hover {
+      color: var(--cl-caccent);
+    }
+  }
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+// Template
+
+.sc {
+  position: relative;
+  // &:not(.pg-hd) {
+  //   margin-top: mx.rem(250);
+  //   @include mx.b(desktop) {
+  //     margin-top: mx.rem(200);
+  //   }
+  //   @include mx.b(tablet) {
+  //     margin-top: mx.rem(150);
+  //   }
+  //   @include mx.b(mobile) {
+  //     margin-top: mx.rem(100);
+  //   }
+  // }
+}
+
+.container {
+  --container-width: #{mx.rem(1230)};
+
+  position: relative;
+  max-width: var(--container-width);
+  width: 100%;
+
+  margin: 0 auto;
+  padding: mx.rem(15);
+
+  @include mx.b(mobile) {
+    padding: mx.rem(10);
+  }
+}

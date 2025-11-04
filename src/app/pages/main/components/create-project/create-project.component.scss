@@ -1,0 +1,90 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: stretch;
+  margin-top: 50px;
+}
+
+.item {
+  max-width: 370px;
+  width: 100%;
+  padding: 40px;
+  border-radius: 25px;
+  border: 3px solid transparent;
+  border-bottom-width: 5px;
+  overflow: hidden;
+  background-color: #1f1f2a;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--cl-main);
+
+    .title,
+    .title:before {
+      --title-cls: var(--cl-main), #ffffff30;
+    }
+  }
+
+  .title,
+  .title::before {
+    background: linear-gradient(90deg, var(--title-cls, #fff, #ffffff30));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: 0.3s ease-in-out;
+  }
+
+  &.selected {
+    border-color: var(--cl-main);
+    box-shadow: 0 7px 0 var(--cl-main);
+    transform: scale(1.03);
+
+    .title,
+    .title:before {
+      --title-cls: var(--cl-main), #ffffff30;
+    }
+  }
+
+  .best {
+    min-height: max-content;
+    padding: 2px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--cl-main), var(--cl-accent));
+    overflow: hidden;
+
+    &-wrap {
+      padding: 7px 15px;
+      border-radius: 8px;
+      background-color: #29293f;
+      line-height: 1;
+    }
+  }
+
+  .info {
+    padding: 20px 0;
+    border-top: 2px solid #3e3e53;
+    border-bottom: 2px solid #3e3e53;
+
+    &-item {
+      padding: 7px 15px;
+      border-radius: 5px;
+      background-color: #29293f;
+    }
+  }
+
+  .benefits {
+    height: 100%;
+  }
+}
+
+.ui-form-order {
+  display: block;
+  margin-top: 200px;
+}
+
+.ui-callout {
+  margin-top: 70px;
+}

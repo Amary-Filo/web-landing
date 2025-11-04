@@ -1,0 +1,69 @@
+@use 'main' as mx;
+
+$mediaWidthLaptop: mx.rem(1440);
+$mediaWidthDesktop: mx.rem(1024);
+$mediaWidthTablet: mx.rem(769);
+$mediaWidthMobile: mx.rem(550);
+$mediaWidthExtraMobile: mx.rem(400);
+
+// Breakpoints
+@mixin b($point) {
+  @if $point==laptop {
+    @media (max-width: $mediaWidthLaptop) {
+      @content;
+    }
+  }
+
+  @if $point == desktop {
+    @media (max-width: $mediaWidthDesktop) {
+      @content;
+    }
+  } @else if $point == tablet {
+    @media (max-width: $mediaWidthTablet) {
+      @content;
+    }
+  } @else if $point == mobile {
+    @media (max-width: $mediaWidthMobile) {
+      @content;
+    }
+  } @else if $point == extramobile {
+    @media (max-width: $mediaWidthExtraMobile) {
+      @content;
+    }
+  } @else if $point == mobile3x {
+    @media only screen and (-webkit-min-device-pixel-ratio: 3),
+      only screen and (min-resolution: 3dppx),
+      only screen and (min-resolution: 350dpi) {
+      @content;
+    }
+  } @else {
+    @media (max-width: ($point + 'px')) {
+      @content;
+    }
+  }
+}
+
+// Breakpoints with borders
+@mixin bb($point, $point2: 0) {
+  @if $point==desktop {
+    @media (max-width: $mediaWidthLaptop) and (min-width: $mediaWidthDesktop) {
+      @content;
+    }
+  } @else if $point==tablet {
+    @media (max-width: $mediaWidthDesktop) and (min-width: $mediaWidthTablet) {
+      @content;
+    }
+  } @else if $point==mobile {
+    @media (max-width: $mediaWidthTablet) and (min-width: $mediaWidthMobile) {
+      @content;
+    }
+  } @else if $point==extramobile {
+    @media (max-width: $mediaWidthMobile) and (min-width: 320px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: ($point + 'px')) and (min-width: ($point2 + 'px')) {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+<section class="sc">
+  <div class="container">
+    <div class="content fl fl-dc">
+      <img src="assets/img/hero.svg" class="bg-img" alt="" />
+      <div class="subtext">
+        <b class="op-7">Clean</b> <span class="op-7"> UX. </span>
+        <b class="op-7">Solid</b> <span class="op-7"> (Web3). </span>
+        <b class="op-7">Real</b> <span class="op-7"> Results. </span>
+      </div>
+      <h1 class="title s-xl">
+        <span class="t-gr cl-g-white-1">Make </span>
+        <span class="app">
+          <span
+            class="flip"
+            [class.animating]="isAnimating()"
+            [class]="'t-gr cl-g-' + color()"
+          >
+            {{ text() }}
+          </span>
+        </span>
+        <br />
+        Feel Simple.
+      </h1>
+      <ui-arrow-line />
+      <p class="text fz-xl">
+        From Idea to (<span
+          class="flip"
+          [class.animating]="isAnimating()"
+          [class]="'t-gr cl-g-' + color()"
+        >
+          {{ text() }} </span
+        >) in <span [class]="'fw-7 t-gr cl-g-' + color()">Weeks</span>, not
+        Months
+      </p>
+      <span class="depends">depends on project requirements</span>
+      <div class="buttons fl g-30 fl-sbc">
+        <div [class]="'btn fw-7 fz-md g-bg g-a cl-g-' + color()">
+          Get a quote
+        </div>
+        <span class="fw-6 fz-lg">OR</span>
+        <div class="btn">Check our demo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="sc">
+  <div class="container">
+    <div class="content fl fl-dc">
+      <img src="assets/img/hero.svg" class="bg-img" alt="" />
+      <div class="subtext">Clean UX. Solid (Web3). Real Results.</div>
+      <h1 class="title s-xl">
+        <span class="t-gr cl-g-white-1">Make</span>
+        <span class="app t-gr cl-g-blue-1">
+          <span [class]="'t-gr cl-g-' + color()">{{ text() }}</span></span
+        >
+        <br />
+        Feel Simple.
+      </h1>
+      <ui-arrow-line />
+      <p class="text fz-xl">
+        From Idea to ({{ text() }}) in
+        <span [class]="'fw-7 t-gr cl-g-' + color()">Weeks</span>, not Months
+      </p>
+      <span class="depends">depends on project requirements</span>
+      <div class="buttons fl g-30 fl-sbc">
+        <div class="btn">Get a quote</div>
+        <span class="fw-6 fz-lg">OR</span>
+        <div class="btn">Check our demo</div>
+      </div>
+    </div>
+  </div>
+</section> -->

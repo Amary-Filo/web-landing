@@ -1,0 +1,39 @@
+// @import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900");
+
+// @use "mixins/main" as mx;
+
+// // Icons
+// @include mx.font-face("CIcons", "/assets/fonts/icons/icons", 500);
+
+// // Nunito
+// // @include font-face("Nunito", "/assets/fonts/Nunito/Nunito-ExtraLight", 200);
+// // @include font-face("Nunito", "/assets/fonts/Nunito/Nunito-Light", 300);
+// @include mx.font-face("Nunito", "/assets/fonts/Nunito/Nunito-Regular", normal);
+// @include mx.font-face("Nunito", "/assets/fonts/Nunito/Nunito-Medium", 600);
+// @include mx.font-face("Nunito", "/assets/fonts/Nunito/Nunito-SemiBold", 700);
+// @include mx.font-face("Nunito", "/assets/fonts/Nunito/Nunito-Bold", 800);
+// // @include font-face("Nunito", "/assets/fonts/Nunito/Nunito-Black", 900);
+
+// // Space Gritesk
+// // @include font-face("Space Grotesk", "/assets/fonts/Space_Grotesk/SpaceGrotesk-Light", 300);
+// @include mx.font-face(
+//   "Space Grotesk",
+//   "/assets/fonts/Space_Grotesk/SpaceGrotesk-Regular",
+//   normal
+// );
+// @include mx.font-face(
+//   "Space Grotesk",
+//   "/assets/fonts/Space_Grotesk/SpaceGrotesk-Medium",
+//   600
+// );
+// @include mx.font-face(
+//   "Space Grotesk",
+//   "/assets/fonts/Space_Grotesk/SpaceGrotesk-SemiBold",
+//   700
+// );
+// @include mx.font-face(
+//   "Space Grotesk",
+//   "/assets/fonts/Space_Grotesk/SpaceGrotesk-Bold",
+//   800
+// );
+// // @include font-face("Space Grotesk", "/assets/fonts/Space_Grotesk/SpaceGrotesk-Bold", bold);

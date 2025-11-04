@@ -1,0 +1,22 @@
+<div
+  class="callout"
+  [class]="'cl-g-' + color()"
+  [style.--bg-color]="bgColor()"
+  [style.--max-width]="width()"
+>
+  <div class="info fl fl-dc g-5">
+    <div class="title fw-7">{{ title() }}</div>
+    <p class="text fz-sm">
+      @if(accent()) {
+      <b class="accent">{{ accent() }}</b
+      >, {{ " " }} } {{ text() }}
+    </p>
+  </div>
+  <div
+    (click)="btnClick.emit()"
+    class="btn g-bg g-a"
+    [class]="'cl-g-' + color()"
+  >
+    {{ btnText() }}
+  </div>
+</div>

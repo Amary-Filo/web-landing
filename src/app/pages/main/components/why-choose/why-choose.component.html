@@ -1,0 +1,36 @@
+<section class="sc">
+  <div class="container">
+    <div class="card">
+      <div class="section-head g-sm">
+        <h2 class="title s-md t-u">Why Choose Us</h2>
+        <span class="sub-text s-sm">
+          Speed, clarity, and reliable delivery for real Web3 products
+        </span>
+      </div>
+
+      <div class="fl fl-sbc fl-w g-40">
+        @for (item of data; track $index) {
+        <div class="item fl g-15">
+          <div class="icon">
+            <ui-icon [name]="item.icon" size="30px" />
+          </div>
+          <div class="fl fl-dc g-5">
+            <h3 class="title s-xs fw-8">{{ item.title }}</h3>
+            <p class="text op-8 fz-sm">{{ item.text }}</p>
+          </div>
+        </div>
+        }
+      </div>
+
+      <ui-info-block
+        class="ui-info-block"
+        [title]="`Ready for build with us web3 universary?`"
+        text="Open our lead form, write us what you want to create and we'll discuss it with you!"
+        btnText="Yes, im ready. Let’s do it!"
+        [width]="'800px'"
+        bgColor="#29293F"
+        (btnClick)="btnClick()"
+      />
+    </div>
+  </div>
+</section>

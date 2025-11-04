@@ -1,0 +1,13 @@
+@if(gradient()) {
+
+<svg width="0" height="0" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient [attr.id]="gradientId" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" [attr.stop-color]="stop1()" />
+      <stop offset="100%" [attr.stop-color]="stop2()" />
+    </linearGradient>
+  </defs>
+</svg>
+}
+
+<ng-icon [name]="name()" [size]="size()" />

@@ -1,0 +1,31 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.card {
+  max-width: 1050px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 65px;
+
+  border-radius: 55px;
+  border: 5px solid #29293f;
+  border-bottom: 20px solid #29293f;
+  background: linear-gradient(130deg, #12121a, #1f1f35);
+  overflow: hidden;
+}
+
+.item {
+  max-width: 275px;
+  width: 100%;
+
+  .icon {
+    height: max-content;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: #212a4b;
+  }
+}
+
+.ui-info-block {
+  display: block;
+  margin-top: 80px;
+}

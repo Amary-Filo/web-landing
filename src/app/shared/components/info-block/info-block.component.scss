@@ -1,0 +1,30 @@
+.callout {
+  display: grid;
+  grid-template-columns: 1fr minmax(200px, 250px);
+  grid-gap: 50px;
+  align-items: center;
+
+  max-width: var(--max-width, 700px);
+  width: 100%;
+  margin: 0 auto;
+  padding: 25px 50px;
+  border-radius: 15px;
+  background-color: var(--bg-color, #1f1f2a);
+
+  .title {
+    color: #9595af;
+  }
+
+  .text {
+    color: #808095;
+  }
+
+  .accent {
+    color: var(--cl-main, #ff0b85);
+  }
+
+  .btn {
+    max-width: 100%;
+    width: 100%;
+  }
+}

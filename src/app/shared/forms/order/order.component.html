@@ -1,0 +1,40 @@
+<section class="sc">
+  <div class="container">
+    <div
+      class="content"
+      [class]="'cl-g-' + gradient()"
+      appFlicker
+      [flickerIntensity]="'high'"
+    >
+      <div class="info">
+        <div class="head fl fl-dc g-20">
+          <h3 class="title t-gr t-u s-sm">Lets finalize <br />A brief</h3>
+          <span class="fz-md op-8 fw-6">
+            You can send your approximate app build brief and we will discuss it
+            with you.
+          </span>
+        </div>
+
+        <div class="fl g-10 m-t-30">
+          <div class="item fl fl-dc g-5">
+            <h4 class="title fz-xs fw-6">Approximate price</h4>
+            <span class="text fw-8 fz-lg">€ {{ price() }}+</span>
+          </div>
+          <div class="item fl fl-dc g-5">
+            <h4 class="title fz-xs fw-6">Approximate Time</h4>
+            <span class="text fw-8 fz-lg">{{ estimate() }} weeks</span>
+          </div>
+        </div>
+
+        <div class="callout-text fw-5 fz-sm m-t-30 m-auto t-c">
+          This is not a final Brief. Price and time can be changed after eye to
+          eye call for clarify everything.
+        </div>
+      </div>
+
+      <div class="form">
+        <input type="text" />
+      </div>
+    </div>
+  </div>
+</section>

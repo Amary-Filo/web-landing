@@ -1,0 +1,39 @@
+.content {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(300px, 390px) minmax(300px, 385px);
+  grid-gap: 30px;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  max-width: 950px;
+
+  margin: 0 auto;
+  padding: 50px;
+
+  border-radius: 25px;
+  border: 3px solid var(--cl-main, #1f1f35);
+
+  background: linear-gradient(130deg, #12121a, #1f1f35);
+  transition: 0.3s ease-in-out;
+}
+
+.title {
+  color: #e0e0f3;
+}
+
+.text {
+  color: #808095;
+}
+
+.att {
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #2b2b3b;
+  color: #808095;
+}
+
+.accent {
+  color: #d174ff;
+}

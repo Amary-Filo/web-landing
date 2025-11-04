@@ -1,0 +1,114 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.sc {
+  margin-top: 150px;
+}
+
+.content {
+  align-items: center;
+  text-align: center;
+
+  .subtext {
+    font-size: 28px;
+    margin-bottom: 30px;
+    z-index: 99;
+
+    b {
+      transition: 0.3s ease-in-out;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .title {
+    margin-bottom: 30px;
+
+    .app {
+      margin-left: 20px;
+      transition: 0.3s ease-in-out;
+
+      &::before,
+      &::after {
+        font-weight: 500;
+        transition: 0.3s ease-in-out;
+      }
+
+      &::before {
+        content: "{";
+        margin-right: 15px;
+      }
+
+      &::after {
+        content: "}";
+        margin-left: 15px;
+      }
+    }
+  }
+
+  .text {
+    margin-top: 30px;
+  }
+
+  .depends,
+  .depends::before {
+    background: linear-gradient(90deg, #ffffff30, #fff, #ffffff30);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .buttons {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 50px;
+
+    .btn {
+      width: 100%;
+      max-width: 100%;
+      box-shadow: 0px 0px 10px var(--btn-shadow, -10px)
+        rgba(var(--cl-main-rgb), 0.3);
+      transition: 0.25s ease-in-out;
+
+      &:hover {
+        // transform: scale(1.05);
+        --btn-shadow: 10px;
+      }
+    }
+  }
+}
+
+.bg-img {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+
+  left: 50%;
+  top: -100px;
+  transform: translateX(-50%);
+
+  width: 1200px;
+  min-width: 1200px;
+  height: auto;
+}
+
+.flip {
+  position: relative;
+  display: inline-block;
+  will-change: transform, opacity;
+
+  &.animating {
+    animation: slideFlip 0.6s ease forwards;
+  }
+}
+
+@keyframes slideFlip {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

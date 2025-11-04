@@ -1,0 +1,36 @@
+<section class="sc">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="title s-xl">What we offer</h2>
+      <span class="sub-text">
+        We cover the entire Web3 front-end: from wallet onboarding to release
+        and source code transfer. Below is the basic set that you get by
+        default.
+      </span>
+    </div>
+
+    <div class="content fl fl-w g-20">
+      @for (item of data; track $index) {
+      <div class="item item--blue">
+        <div class="info fl fl-dc g-10">
+          <ui-icon
+            [gradient]="'#D174FF,#A1A0FF'"
+            [name]="item.icon"
+            size="50px"
+          />
+          <h3 class="title fw-7">{{ item.title }}</h3>
+          <p class="text fw-5 op-5 t-c">{{ item.text }}</p>
+        </div>
+      </div>
+      }
+    </div>
+
+    <ui-callout>
+      <span class="t-c fz-sm">
+        Contracts for production are on the client side.
+        <br />
+        We use testnet for the prototype.
+      </span>
+    </ui-callout>
+  </div>
+</section>

@@ -1,0 +1,51 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+footer {
+  padding-bottom: 20px;
+}
+
+.company-info {
+  width: max-content;
+  margin: 10px auto;
+}
+
+.company-info,
+.company-info:before {
+  background: linear-gradient(90deg, #ffffff30, #fff, #ffffff30);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.img {
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+
+.info-wrap {
+  max-width: 850px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+  align-items: center;
+  border-radius: 50px;
+  padding: 30px;
+  border: 1px solid #29293f;
+  background-color: #171721;
+}
+
+.links {
+  width: max-content;
+}
+
+.item {
+  .title {
+    color: #808095;
+  }
+}
+
+.inner {
+  max-width: 650px;
+  width: 100%;
+  margin: 0 auto;
+}

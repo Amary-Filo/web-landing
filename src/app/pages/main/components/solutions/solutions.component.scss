@@ -1,0 +1,58 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.content {
+  justify-content: center;
+  margin-bottom: 100px;
+}
+
+.item {
+  max-width: 380px;
+  padding: 10px;
+  border: 1px solid #29293f;
+  border-radius: 30px;
+  background-color: #171721;
+  overflow: hidden;
+
+  .head {
+    padding: 20px 20px;
+  }
+
+  .info {
+    padding: 0 15px;
+
+    .text {
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #1f1f2a;
+    }
+  }
+
+  .tip {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 7px;
+    border-radius: 5px;
+    background-color: #1f1f2a;
+
+    &-text,
+    &-text::before {
+      background: linear-gradient(
+        90deg,
+        var(--title-cls, #ffffff60, #fff, #ffffff60)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .buttons {
+    padding: 10px 15px;
+  }
+
+  .btn {
+    max-width: 100%;
+  }
+}

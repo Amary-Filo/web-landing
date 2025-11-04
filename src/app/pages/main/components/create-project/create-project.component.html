@@ -1,0 +1,88 @@
+<section class="sc">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="title s-xl t-u">
+        let’s <br />
+        create project
+      </h2>
+      <span class="sub-text">
+        We offer several ready-made service packages. They are designed to
+        simplify your choice and give you a rough estimate of the development
+        cost.
+      </span>
+    </div>
+
+    <!-- <h3 class="title t-u s-sm fw-9">Packages</h3>
+    <p class="line-text m-t-10 fz-md op-7">
+      We offer several ready-made service packages. They are designed to
+      simplify your choice and give you a rough estimate of the development
+      cost.
+    </p> -->
+
+    <div class="list">
+      @for (item of data; track $index) {
+      <div
+        [class]="'item fl fl-dc g-20 cl-g-' + item.color"
+        [class.selected]="selected() === $index"
+        (click)="selected.set($index)"
+      >
+        <h4 class="title fz-3xl">{{ item.title }}</h4>
+        <p class="text fz-sm op-8 fw-6">{{ item.text }}</p>
+        <div class="best">
+          <div class="best-wrap">
+            <span class="fw-8 t-gr fz-sm">
+              <span class="fz-xs">Best for</span>
+              <br />
+              {{ item.best }}
+            </span>
+          </div>
+        </div>
+        <b>What’s included:</b>
+        <div class="benefits fl fl-dc g-10">
+          @for (benefit of item.included; track $index) {
+          <div class="benefit-item fl g-10 fz-xs fw-6">
+            <ui-icon name="checkLine" size="20px" [gradient]="item.gradient" />
+            {{ benefit }}
+          </div>
+          }
+        </div>
+        <div class="info m-t-10 fl fl-sbc g-10">
+          <div class="info-item fl g-10 fw-9 fz-sm">
+            <ui-icon name="moneyEuroBoxLine" size="20px" />
+            from {{ item.from }}+
+          </div>
+          <div class="info-item fl g-10 fw-9 fz-sm">
+            <ui-icon name="calendar2Line" size="20px" />
+            {{ item.estimate }} weeks
+          </div>
+        </div>
+        <div class="btn" [class.bordered]="selected() === $index">
+          @if(selected() === $index) { You choose this Tier } @else { Choose
+          {{ item.title }} tier }
+        </div>
+      </div>
+      }
+    </div>
+
+    <ui-form-order
+      [color]="formData().gradient[0]"
+      [gradient]="formData().color"
+      [price]="formData().from"
+      [estimate]="formData().estimate"
+      class="ui-form-order"
+    />
+
+    <ui-callout class="ui-callout">
+      <span class="t-c fz-sm">
+        We would like to remind you that we only deal with frontend development
+        of blockchain projects. We do not write production code for smart
+        contracts; you must do this on your own, and we will integrate it.
+      </span>
+    </ui-callout>
+
+    <div class="callout-text m-t-20 m-auto t-c">
+      Payment in stages: 50% at the start · 30% after the first demo · 20% upon
+      release. <span class="link">More info in FAQ.</span>
+    </div>
+  </div>
+</section>

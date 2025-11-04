@@ -1,0 +1,63 @@
+<section class="sc">
+  <div class="container">
+    <div class="section-head left">
+      <h2 class="title s-lg">
+        Networks <br />
+        & Multichain Coverage
+      </h2>
+      <span class="sub-text">
+        Mainnet & testnet ready. Seamless chain switching, per-chain contract
+        mapping, explorer deep links.
+      </span>
+    </div>
+
+    <div class="content">
+      <div class="fl g-30">
+        @for (item of tabs(); track $index) {
+        <span
+          class="tab fz-xxl t-u fw-9 lh-1"
+          [class.active]="tab() === item"
+          (click)="tab.set(item)"
+          >{{ item.replace("-", " ") }}</span
+        >
+        }
+      </div>
+
+      <div class="list fl fl-w g-30">
+        @for (item of dataFiltered(); track $index) {
+        <div
+          class="item fl fl-dc g-20"
+          [attr.style]="
+            '--border-cl:' + item.color[0] + ';--item-cl:' + item.color[1]
+          "
+        >
+          <div class="fl fl-sbc">
+            <ui-icon [name]="item.icon" size="50px" />
+            <div class="chain fl fl-cc fw-7 fz-sm">{{ item.chain }}</div>
+          </div>
+          <div class="fl fl-dc g-10">
+            <h3 class="title">{{ item.title }}</h3>
+            <p class="text">{{ item.text }}</p>
+          </div>
+          <div class="fl fl-w g-10">
+            @for (chip of item.chips; track $index) {
+            <div [class]="'chip fw-8 fz-xs t-gr cl-g-' + colorChip[chip]">
+              {{ chips[chip] }}
+            </div>
+            }
+          </div>
+        </div>
+        }
+      </div>
+
+      <ui-info-block
+        [title]="`Can't find your network?`"
+        accent="Don't worry"
+        text="tell us which network you use and we'll add it for you!"
+        btnText="I have another network!"
+        color="pink-2"
+        (btnClick)="btnClick()"
+      />
+    </div>
+  </div>
+</section>
