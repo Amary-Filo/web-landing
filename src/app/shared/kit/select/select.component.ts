@@ -1,31 +1,33 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  ElementRef,
-  EventEmitter,
-  HostListener,
-  Input,
-  OnDestroy,
-  Output,
-  ViewChild,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
+  booleanAttribute,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from "@angular/forms";
-import { NgpOption, NgpOptionGroup } from "../models/ngp-option.model";
-import { NgpKitDataService } from "../data/kit-data.service";
+  NgpSelect,
+  NgpSelectDropdown,
+  NgpSelectOption,
+  NgpSelectPortal,
+} from 'ng-primitives/select';
+import { NgpOption, NgpOptionGroup } from '../models/ngp-option.model';
+import { NgpKitDataService } from '../data/kit-data.service';
 
-type NgpSelectDataset = "countries" | "timezones";
+type NgpSelectDataset = 'countries' | 'timezones';
 
 @Component({
-  selector: "ngp-select",
+  selector: 'ngp-select',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./select.component.html",
-  styleUrls: ["./select.component.scss"],
+  imports: [CommonModule, NgpSelect, NgpSelectDropdown, NgpSelectOption, NgpSelectPortal],
+  templateUrl: './select.component.html',
+  styleUrls: ['./select.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -35,90 +37,85 @@ type NgpSelectDataset = "countries" | "timezones";
     },
   ],
 })
-export class NgpSelectComponent<T = unknown>
-  implements ControlValueAccessor, OnDestroy
-{
-  @Input() placeholder = "Выберите значение";
-  @Input() disabled = false;
-  private _dataset?: NgpSelectDataset;
-  @Input() clearable = false;
-  @Input() compareWith: (a: T | null, b: T | null) => boolean = (a, b) =>
-    a === b;
-  @Input() panelMaxHeight = "var(--select-panel-max-height)";
+export class NgpSelectComponent<T = unknown> implements ControlValueAccessor {
+  private readonly kitData = inject(NgpKitDataService);
 
-  @Output() valueChange = new EventEmitter<T | null>();
-  @Output() opened = new EventEmitter<void>();
-  @Output() closed = new EventEmitter<void>();
+  readonly placeholder = input<string>('Выберите значение');
+  readonly clearable = input(false, { transform: booleanAttribute });
+  readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
+  readonly compareWithInput = input<(a: T | null, b: T | null) => boolean>(
+    (a, b) => a === b,
+    { alias: 'compareWith' },
+  );
+  readonly dataset = input<NgpSelectDataset | undefined>(undefined);
+  readonly optionsInput = input<NgpOption<T>[] | null>(null, { alias: 'options' });
+  readonly optionGroupsInput = input<NgpOptionGroup<T>[] | null>(null, { alias: 'optionGroups' });
+  readonly panelMaxHeight = input('var(--select-panel-max-height)');
 
-  @ViewChild("triggerButton", { read: ElementRef })
-  triggerButton?: ElementRef<HTMLButtonElement>;
+  readonly valueChange = output<T | null>();
+  readonly opened = output<void>();
+  readonly closed = output<void>();
 
-  @ViewChild("panel", { read: ElementRef })
-  panelRef?: ElementRef<HTMLDivElement>;
+  private readonly internalValue = signal<T | null>(null);
+  private readonly openState = signal(false);
+  private readonly selectedOption = signal<NgpOption<T> | null>(null);
+  private readonly options = signal<NgpOption<T>[]>([]);
+  private readonly groups = signal<NgpOptionGroup<T>[]>([]);
+  private readonly cvaDisabled = signal(false);
 
-  panelOpen = false;
-  keyboardActiveIndex = -1;
+  readonly isDisabled = computed(() => this.disabledInput() || this.cvaDisabled());
+  readonly hasGroups = computed(() => this.groups().length > 0);
+  readonly compareFn = computed(() => {
+    const fn = this.compareWithInput();
+    return (a?: T, b?: T) => fn(a ?? null, b ?? null);
+  });
+  readonly value = this.internalValue;
 
-  private _options: NgpOption<T>[] = [];
-  private _groups: NgpOptionGroup<T>[] = [];
-  private onChange: (value: T | null) => void = () => undefined;
-  private onTouched: () => void = () => undefined;
-  private documentClickUnlisten?: () => void;
+  constructor() {
+    effect(
+      () => {
+        const dataset = this.dataset();
+        if (dataset) {
+          this.resolveDataset(dataset);
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
-  selectedOption: NgpOption<T> | null = null;
+    effect(
+      () => {
+        const opts = this.optionsInput();
+        if (opts) {
+          this.options.set(opts);
+          this.groups.set([]);
+          this.syncSelection();
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
-  constructor(
-    private readonly cdr: ChangeDetectorRef,
-    private readonly elementRef: ElementRef<HTMLElement>,
-    private readonly kitData: NgpKitDataService,
-  ) {}
+    effect(
+      () => {
+        const groups = this.optionGroupsInput();
+        if (groups) {
+          this.groups.set(groups);
+          this.options.set([]);
+          this.syncSelection();
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
-  @Input()
-  set dataset(value: NgpSelectDataset | undefined) {
-    if (value && value !== this._dataset) {
-      this._dataset = value;
-      this.resolveDataset(value);
-    }
+    effect(() => {
+      this.compareWithInput();
+      this.syncSelection();
+    });
   }
 
-  get dataset(): NgpSelectDataset | undefined {
-    return this._dataset;
-  }
-
-  @Input()
-  set options(options: NgpOption<T>[] | null) {
-    this._options = options ?? [];
-    this._groups = [];
-    this.syncValue();
-  }
-
-  @Input()
-  set optionGroups(groups: NgpOptionGroup<T>[] | null) {
-    this._groups = groups ?? [];
-    this._options = [];
-    this.syncValue();
-  }
-
-  get options(): NgpOption<T>[] {
-    return this._options;
-  }
-
-  get optionGroups(): NgpOptionGroup<T>[] {
-    return this._groups;
-  }
-
-  get hasGroups(): boolean {
-    return this._groups.length > 0;
-  }
-
-  ngOnDestroy(): void {
-    this.detachDocumentListener();
-  }
-
+  // region ControlValueAccessor
   writeValue(value: T | null): void {
-    const option = this.findOption(value);
-    this.selectedOption = option;
-    this.cdr.markForCheck();
+    this.internalValue.set(value);
+    this.syncSelection();
   }
 
   registerOnChange(fn: (value: T | null) => void): void {
@@ -130,195 +127,69 @@ export class NgpSelectComponent<T = unknown>
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this.cdr.markForCheck();
+    this.cvaDisabled.set(isDisabled);
+  }
+  // endregion
+
+  readonly open = computed(() => this.openState());
+  readonly currentSelected = computed(() => this.selectedOption());
+  readonly flatOptions = computed(() => this.options());
+  readonly groupedOptions = computed(() => this.groups());
+
+  private onChange: (value: T | null) => void = () => undefined;
+  private onTouched: () => void = () => undefined;
+
+  onPrimitiveChange(value: T | null): void {
+    this.internalValue.set(value);
+    this.syncSelection();
+    this.onChange(value);
+    this.valueChange.emit(value);
   }
 
-  togglePanel(): void {
-    if (this.disabled) {
-      return;
-    }
-    this.panelOpen ? this.closePanel() : this.openPanel();
-  }
-
-  openPanel(): void {
-    if (this.disabled || this.panelOpen) {
-      return;
-    }
-    this.panelOpen = true;
-    this.attachDocumentListener();
-    this.opened.emit();
-    this.cdr.markForCheck();
-  }
-
-  closePanel(): void {
-    if (!this.panelOpen) {
-      return;
-    }
-    this.panelOpen = false;
-    this.keyboardActiveIndex = -1;
-    this.detachDocumentListener();
-    this.closed.emit();
-    this.cdr.markForCheck();
-  }
-
-  onSelect(option: NgpOption<T>): void {
-    if (option.disabled) {
-      return;
-    }
-    this.selectedOption = option;
-    this.onChange(option.value);
-    this.valueChange.emit(option.value);
-    this.closePanel();
+  onOpenChange(isOpen: boolean): void {
+    this.openState.set(isOpen);
+    (isOpen ? this.opened : this.closed).emit();
   }
 
   onClear(event: MouseEvent): void {
+    event.preventDefault();
     event.stopPropagation();
-    this.selectedOption = null;
-    this.onChange(null);
-    this.valueChange.emit(null);
-    this.closePanel();
+    this.onPrimitiveChange(null);
   }
 
-  onTriggerBlur(): void {
+  handleBlur(): void {
     this.onTouched();
   }
 
-  isSelected(option: NgpOption<T>): boolean {
-    if (!this.selectedOption) {
-      return false;
-    }
-    return this.compareWith(option.value, this.selectedOption.value);
-  }
-
-  trackByOption(_: number, option: NgpOption<T>): string | number {
-    return typeof option.value === "string" || typeof option.value === "number"
+  trackOption(_: number, option: NgpOption<T>): string | number {
+    return typeof option.value === 'string' || typeof option.value === 'number'
       ? option.value
       : option.label;
   }
 
-  trackByGroup(_: number, group: NgpOptionGroup<T>): string {
-    return group.label;
-  }
-
-  @HostListener("keydown", ["$event"])
-  onHostKeydown(event: KeyboardEvent): void {
-    if (this.disabled) {
-      return;
-    }
-
-    switch (event.key) {
-      case "Enter":
-      case " ":
-        event.preventDefault();
-        this.togglePanel();
-        break;
-      case "ArrowDown":
-        event.preventDefault();
-        this.openPanel();
-        this.moveActiveIndex(1);
-        break;
-      case "ArrowUp":
-        event.preventDefault();
-        this.openPanel();
-        this.moveActiveIndex(-1);
-        break;
-      case "Escape":
-        this.closePanel();
-        break;
-      default:
-        break;
-    }
-  }
-
-  private syncValue(): void {
-    if (!this.selectedOption) {
-      return;
-    }
-
-    const match = this.findOption(this.selectedOption.value);
-    if (!match) {
-      this.selectedOption = null;
-      this.onChange(null);
-      this.valueChange.emit(null);
-    } else {
-      this.selectedOption = match;
-    }
-    this.cdr.markForCheck();
-  }
-
-  private findOption(value: T | null): NgpOption<T> | null {
+  private syncSelection(): void {
+    const value = this.internalValue();
     if (value == null) {
-      return null;
+      this.selectedOption.set(null);
+      return;
     }
-    const list = this.hasGroups
-      ? this._groups.flatMap((group) => group.options)
-      : this._options;
 
-    return (
-      list.find((option) => this.compareWith(option.value, value)) ?? null
-    );
+    const comparator = this.compareWithInput();
+    const list = this.hasGroups()
+      ? this.groups().flatMap((group) => group.options)
+      : this.options();
+    const match = list.find((option) => comparator(option.value ?? null, value ?? null)) ?? null;
+    this.selectedOption.set(match);
   }
 
   private resolveDataset(dataset: NgpSelectDataset): void {
-    if (dataset === "countries") {
-      this.optionGroups = this.kitData.getCountryOptions() as unknown as NgpOptionGroup<T>[];
-    } else if (dataset === "timezones") {
-      this.optionGroups = this.kitData.getTimezoneGroups() as unknown as NgpOptionGroup<T>[];
+    if (dataset === 'countries') {
+      this.groups.set(this.kitData.getCountryOptions() as unknown as NgpOptionGroup<T>[]);
+      this.options.set([]);
+    } else if (dataset === 'timezones') {
+      this.groups.set(this.kitData.getTimezoneGroups() as unknown as NgpOptionGroup<T>[]);
+      this.options.set([]);
     }
-    this.cdr.markForCheck();
-  }
-
-  private attachDocumentListener(): void {
-    if (this.documentClickUnlisten) {
-      return;
-    }
-    const handler = (event: MouseEvent) => {
-      const host = this.elementRef.nativeElement;
-      if (!host.contains(event.target as Node)) {
-        this.closePanel();
-      }
-    };
-    window.addEventListener("click", handler, true);
-    this.documentClickUnlisten = () => {
-      window.removeEventListener("click", handler, true);
-      this.documentClickUnlisten = undefined;
-    };
-  }
-
-  private detachDocumentListener(): void {
-    if (this.documentClickUnlisten) {
-      this.documentClickUnlisten();
-    }
-  }
-
-  private moveActiveIndex(direction: 1 | -1): void {
-    const list = this.hasGroups
-      ? this._groups.flatMap((group) => group.options)
-      : this._options;
-    if (!list.length) {
-      return;
-    }
-    let idx = this.keyboardActiveIndex;
-    do {
-      idx = (idx + direction + list.length) % list.length;
-    } while (list[idx]?.disabled && idx !== this.keyboardActiveIndex);
-
-    this.keyboardActiveIndex = idx;
-    this.scrollActiveIntoView();
-  }
-
-  private scrollActiveIntoView(): void {
-    if (!this.panelRef) {
-      return;
-    }
-    const panel = this.panelRef.nativeElement;
-    const list = Array.from(
-      panel.querySelectorAll<HTMLElement>("[data-ngp-option]"),
-    );
-    const active = list[this.keyboardActiveIndex];
-    if (active) {
-      active.scrollIntoView({ block: "nearest" });
-    }
+    this.syncSelection();
   }
 }

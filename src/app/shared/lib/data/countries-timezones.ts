@@ -1,7 +1,4 @@
-// Auto-generated via countries-and-timezones.
-// Provides continent aware country + timezone data for NG Primitives kit.
-
-import { NgpOptionGroup } from '../models/ngp-option.model';
+import { NgpOptionGroup } from './combobox-data';
 
 export interface NgpCountryTimeZone {
   code: string;

@@ -1,5 +1,15 @@
 @use "../mixins/mixins" as mx;
 
+.select-placeholder {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--ngp-selected, #808095);
+}
+
+.select-placeholder.selected {
+  --ngp-selected: #e6e6f0;
+}
+
 .section-head {
   display: flex;
   flex-direction: column;
@@ -43,12 +53,16 @@
   }
 }
 
+a.accent {
+  color: #ff0b85 !important;
+}
+
 .link {
   text-decoration: none;
-  color: #ff0b85;
   opacity: 0.8;
   transition: 0.3s ease-in-out;
   cursor: pointer;
+  color: #ff0b85;
 
   &:hover {
     opacity: 1;

@@ -3,9 +3,11 @@ import { UIIconComponent } from '../../../../shared/components/icon/icon.compone
 import { UICalloutComponent } from '../../../../shared/components/callout/callout.component';
 import { UiFormOrderComponent } from '../../../../shared/forms/order/order.component';
 
+export type TTiers = 'start' | 'pro' | 'scale';
 type TData = {
   title: string;
   text: string;
+  tier: TTiers;
   best: string;
   from: string;
   estimate: string;
@@ -25,6 +27,7 @@ export class CreateProjectSectionComponent {
   readonly data: TData[] = [
     {
       title: 'Start',
+      tier: 'start',
       text: 'Launch a clickable Web3 interface fast, with clear scope and weekly demos.',
       best: 'MVP/POC with 1–2 core flows.',
       from: '6.5k',
@@ -42,6 +45,7 @@ export class CreateProjectSectionComponent {
     },
     {
       title: 'Pro',
+      tier: 'pro',
       text: 'The sweet spot for real users—modular features, API wiring, and calm UX.',
       best: 'Full module set (ex. Swap/Liquidity)',
       from: '10k',
@@ -58,6 +62,7 @@ export class CreateProjectSectionComponent {
     },
     {
       title: 'Scale',
+      tier: 'scale',
       text: 'End-to-end product delivery with custom UX, dashboards, and release handover.',
       best: 'Multi-module product  (ex. Admins)',
       from: '15k',

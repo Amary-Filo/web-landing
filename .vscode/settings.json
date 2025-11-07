@@ -1,0 +1,40 @@
+{
+  // Используй TS из проекта (важно для Angular 20)
+  "typescript.tsdk": "node_modules/typescript/lib",
+
+  // Производительность: следи за файловыми вотчерами
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/.angular/**": true,
+    "**/coverage/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/dist": true,
+    "**/.angular": true,
+    "**/coverage": true
+  },
+
+  // TS серверу — больше памяти, если монорепо
+  "typescript.tsserver.maxTsServerMemory": 4096,
+
+  // Форматирование
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "angular-schematics.schematicsDefaultOptions": {
+    "angular-*": {
+      "style": "scss",
+      "externalTemplate": true
+    },
+    "angular-component": {
+      "skipChangeDetectionOnPush": true
+    },
+    "angular-page": {
+      "skipChangeDetectionOnPush": true
+    }
+  },
+
+}

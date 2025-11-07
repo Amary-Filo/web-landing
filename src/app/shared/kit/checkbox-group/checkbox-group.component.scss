@@ -1,7 +1,6 @@
 :host {
   display: block;
   font-family: var(--ngp-font-family);
-  color: var(--checkbox-label-color, var(--ngp-control-text));
 }
 
 .ngp-checkbox-group {
@@ -11,26 +10,6 @@
   display: flex;
   flex-direction: column;
   gap: var(--ngp-spacing-sm, 0.5rem);
-
-  &--horizontal .ngp-checkbox-group__list {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: var(--ngp-spacing-sm, 0.5rem);
-  }
-
-  &--disabled {
-    opacity: 0.6;
-  }
-
-  &--size-sm .ngp-checkbox {
-    --checkbox-size: 1rem;
-    --checkbox-font-size: 0.85rem;
-  }
-
-  &--size-lg .ngp-checkbox {
-    --checkbox-size: 1.25rem;
-    --checkbox-font-size: 1rem;
-  }
 }
 
 .ngp-checkbox-group__legend {
@@ -51,71 +30,83 @@
   gap: var(--ngp-spacing-xs, 0.35rem);
 }
 
+.ngp-checkbox-group--horizontal .ngp-checkbox-group__list {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--ngp-spacing-sm, 0.5rem);
+}
+
+.ngp-checkbox-group--size-sm .ngp-checkbox {
+  --checkbox-size: 1rem;
+  --checkbox-font-size: 0.85rem;
+}
+
+.ngp-checkbox-group--size-lg .ngp-checkbox {
+  --checkbox-size: 1.25rem;
+  --checkbox-font-size: 1rem;
+}
+
 .ngp-checkbox {
   --checkbox-size: 1.15rem;
   --checkbox-font-size: 0.95rem;
 
-  position: relative;
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
   gap: var(--ngp-spacing-sm, 0.5rem);
-  padding: var(--ngp-spacing-xs, 0.35rem);
+  padding: var(--ngp-spacing-xs, 0.35rem) var(--ngp-spacing-sm, 0.5rem);
   border-radius: var(--checkbox-radius, var(--ngp-radius-sm));
+  border: 1px solid var(--checkbox-border, var(--ngp-control-border));
+  background: transparent;
   cursor: pointer;
-  transition: background-color 0.15s ease;
-
-  &:hover {
-    background: var(--checkbox-hover-bg, rgba(255, 255, 255, 0.05));
-  }
-
-  &--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+  font: inherit;
+  color: var(--checkbox-label-color, var(--ngp-control-text));
+  transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
-.ngp-checkbox__input {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  cursor: inherit;
+.ngp-checkbox[data-hover] {
+  background: var(--checkbox-hover-bg, rgba(255, 255, 255, 0.05));
 }
 
-.ngp-checkbox__control {
+.ngp-checkbox[data-focus-visible] {
+  outline: var(--ngp-focus-ring);
+  outline-offset: 2px;
+}
+
+.ngp-checkbox[data-checked] {
+  border-color: var(--checkbox-check-bg, var(--ngp-accent));
+  background: var(--checkbox-selected-bg, rgba(124, 92, 255, 0.18));
+}
+
+.ngp-checkbox[data-disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ngp-checkbox__box {
   width: var(--checkbox-size);
   height: var(--checkbox-size);
   border-radius: var(--checkbox-radius, var(--ngp-radius-sm));
-  border: 2px solid
-    var(--checkbox-border, var(--ngp-control-border, rgba(255, 255, 255, 0.2)));
+  border: 2px solid var(--checkbox-border, var(--ngp-control-border));
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: transparent;
-  color: var(--checkbox-check-color, var(--ngp-accent-contrast));
-  transition:
-    border-color 0.2s ease,
-    background-color 0.2s ease,
-    color 0.2s ease,
-    box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.ngp-checkbox__input:focus-visible + .ngp-checkbox__control {
-  box-shadow: var(--ngp-focus-ring);
-}
-
-.ngp-checkbox__input:checked + .ngp-checkbox__control {
+.ngp-checkbox[data-checked] .ngp-checkbox__box {
   background: var(--checkbox-check-bg, var(--ngp-accent));
   border-color: var(--checkbox-check-bg, var(--ngp-accent));
 }
 
-.ngp-checkbox__checkmark {
+.ngp-checkbox__check {
   font-size: calc(var(--checkbox-size) * 0.75);
-  transform: scale(0);
-  transition: transform 0.2s ease;
+  color: var(--checkbox-check-color, var(--ngp-accent-contrast));
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 
-.ngp-checkbox__input:checked + .ngp-checkbox__control .ngp-checkbox__checkmark {
-  transform: scale(1);
+.ngp-checkbox[data-checked] .ngp-checkbox__check {
+  opacity: 1;
 }
 
 .ngp-checkbox__label {
@@ -123,10 +114,10 @@
   flex-direction: column;
   gap: var(--ngp-spacing-2xs, 0.2rem);
   font-size: var(--checkbox-font-size);
+  text-align: left;
 }
 
 .ngp-checkbox__hint {
   font-size: 0.75rem;
   color: var(--ngp-text-muted);
 }
-

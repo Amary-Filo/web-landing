@@ -1,40 +1,42 @@
 :host {
   display: block;
   font-family: var(--ngp-font-family);
-  color: var(--ngp-text-basic);
 }
 
 .ngp-tabs {
   display: flex;
   flex-direction: column;
   gap: var(--ngp-spacing-md, 0.75rem);
+}
 
-  &--orientation-vertical {
-    flex-direction: row;
+.ngp-tabs--orientation-vertical .ngp-tabs__container {
+  display: flex;
+  gap: var(--ngp-spacing-lg, 1rem);
+}
 
-    .ngp-tabs__list {
-      flex-direction: column;
-      min-width: 12rem;
-    }
+.ngp-tabs--orientation-vertical .ngp-tabs__list {
+  flex-direction: column;
+  min-width: 12rem;
+}
 
-    .ngp-tabs__panel {
-      flex: 1;
-    }
-  }
+.ngp-tabs--stretch .ngp-tabs__list {
+  justify-content: stretch;
+}
+
+.ngp-tabs__container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ngp-spacing-md, 0.75rem);
+  background: var(--tabs-bg, transparent);
+  border-radius: var(--ngp-radius-md);
+  border: 1px solid var(--tabs-border, var(--ngp-border-muted));
+  padding: var(--ngp-spacing-sm, 0.5rem);
 }
 
 .ngp-tabs__list {
   display: flex;
   flex-wrap: wrap;
   gap: var(--tabs-gap, var(--ngp-spacing-sm, 0.5rem));
-  background: var(--tabs-bg, transparent);
-  padding: var(--ngp-spacing-xs, 0.35rem);
-  border-radius: var(--ngp-radius-md, 10px);
-  border: 1px solid var(--tabs-border, var(--ngp-border-muted));
-}
-
-.ngp-tabs--stretch .ngp-tabs__list {
-  justify-content: stretch;
 }
 
 .ngp-tabs__tab {
@@ -49,74 +51,67 @@
   color: var(--ngp-text-muted);
   cursor: pointer;
   font-weight: 600;
-  transition:
-    color 0.2s ease,
-    background-color 0.2s ease,
-    transform 0.15s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
 
-  &:hover {
-    color: var(--ngp-text-primary);
-  }
+.ngp-tabs__tab[data-focus-visible] {
+  outline: var(--ngp-focus-ring, 0 0 0 2px rgba(124, 92, 255, 0.35));
+  outline-offset: 2px;
+}
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
+.ngp-tabs__tab[data-active] {
+  color: var(--ngp-text-primary);
+}
+
+.ngp-tabs__tab--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
 
 .ngp-tabs--appearance-underlined .ngp-tabs__tab {
   border-radius: 0;
-  padding-bottom: calc(var(--tabs-padding-y, 0.45rem) + 0.35rem);
+  padding-bottom: calc(var(--tabs-padding-y, 0.45rem) + 0.3rem);
+}
 
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 3px;
-    border-radius: var(--tabs-indicator-radius, 999px);
-    background: transparent;
-    transition: background-color 0.2s ease;
-  }
+.ngp-tabs--appearance-underlined .ngp-tabs__tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+  border-radius: var(--tabs-indicator-radius, 999px);
+  background: transparent;
+  transition: background-color 0.2s ease;
+}
 
-  &--active {
-    color: var(--ngp-text-primary);
-
-    &::after {
-      background: var(--tabs-indicator-color, var(--ngp-accent));
-    }
-  }
+.ngp-tabs--appearance-underlined .ngp-tabs__tab[data-active]::after {
+  background: var(--tabs-indicator-color, var(--ngp-accent));
 }
 
 .ngp-tabs--appearance-pill .ngp-tabs__tab {
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.04);
+}
 
-  &--active {
-    background: var(--tabs-indicator-color, var(--ngp-accent));
-    color: var(--ngp-accent-contrast);
-  }
+.ngp-tabs--appearance-pill .ngp-tabs__tab[data-active] {
+  background: var(--tabs-indicator-color, var(--ngp-accent));
+  color: var(--ngp-accent-contrast);
 }
 
 .ngp-tabs--appearance-cards .ngp-tabs__tab {
   background: rgba(255, 255, 255, 0.03);
   border-radius: var(--ngp-radius-md);
-
-  &--active {
-    background: var(--ngp-surface-elevated);
-    box-shadow: 0 10px 24px rgba(10, 12, 28, 0.35);
-    color: var(--ngp-text-primary);
-  }
 }
 
-.ngp-tabs__tab--active {
+.ngp-tabs--appearance-cards .ngp-tabs__tab[data-active] {
+  background: var(--ngp-surface-elevated);
+  box-shadow: 0 10px 24px rgba(10, 12, 28, 0.35);
   color: var(--ngp-text-primary);
 }
 
 .ngp-tabs__icon {
   font-size: 1rem;
-  opacity: 0.85;
 }
 
 .ngp-tabs__badge {
@@ -130,11 +125,14 @@
 }
 
 .ngp-tabs__panel {
-  background: var(--ngp-surface-2);
-  border-radius: var(--ngp-radius-md);
   padding: var(--ngp-spacing-lg, 1rem);
+  border-radius: var(--ngp-radius-md);
+  background: var(--ngp-surface-2);
   border: 1px solid var(--ngp-border-muted);
   color: var(--ngp-text-basic);
   box-shadow: var(--ngp-shadow-soft);
 }
 
+.ngp-tabs__panel:not([data-active]) {
+  display: none;
+}

@@ -1,34 +1,76 @@
-// flicker.directive.ts
-import { Directive, Input, OnInit, OnDestroy, signal } from '@angular/core';
+import {
+  Directive,
+  Input,
+  OnInit,
+  OnDestroy,
+  ElementRef,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+
+type Intensity = 'low' | 'medium' | 'high';
+type Cfg = { min: number; max: number; chance: number };
 
 @Directive({
   selector: '[appFlicker]',
   standalone: true,
-  host: {
-    '[style.--flicker-opacity]': 'flicker()',
-  },
 })
-export class FlickerDirective implements OnInit, OnDestroy {
-  @Input() flickerIntensity: 'low' | 'medium' | 'high' = 'high';
+export class FlickerDirective implements OnInit, OnDestroy, OnChanges {
+  @Input() flickerIntensity: Intensity = 'high';
 
-  flicker = signal('1');
-  private interval: ReturnType<typeof setInterval> | null = null;
+  private cfgs: Record<Intensity, Cfg> = {
+    low: { min: 150, max: 400, chance: 0.95 },
+    medium: { min: 80, max: 250, chance: 0.85 },
+    high: { min: 50, max: 180, chance: 0.75 },
+  };
 
-  ngOnInit(): void {
-    const config: Record<string, any> = {
-      low: { min: 150, max: 400, chance: 0.95 },
-      medium: { min: 80, max: 250, chance: 0.85 },
-      high: { min: 50, max: 180, chance: 0.75 },
-    };
+  private stopped = false;
+  private timeoutId: any = null;
 
-    const cfg = config[this.flickerIntensity];
+  constructor(private el: ElementRef<HTMLElement>) {}
 
-    this.interval = setInterval(() => {
-      this.flicker.set(Math.random() < cfg.chance ? '1' : String(1 - Math.random() * 0.4));
-    }, Math.random() * (cfg.max - cfg.min) + cfg.min);
+  ngOnInit() {
+    // Важно: задать стартовое значение, чтобы сразу что-то было видно.
+    this.set('--flicker-opacity', '1');
+    this.loop();
   }
 
-  ngOnDestroy(): void {
-    clearInterval(this.interval!);
+  ngOnChanges(ch: SimpleChanges) {
+    if (ch['flickerIntensity'] && !ch['flickerIntensity'].firstChange) {
+      this.stop();
+      this.loop();
+    }
+  }
+
+  ngOnDestroy() {
+    this.stop();
+  }
+
+  private loop() {
+    this.stopped = false;
+    const cfg = this.cfgs[this.flickerIntensity];
+
+    const tick = () => {
+      if (this.stopped) return;
+
+      const val = Math.random() < cfg.chance ? '1' : (1 - Math.random() * 0.4).toFixed(3);
+      this.set('--flicker-opacity', val);
+
+      const delay = cfg.min + Math.random() * (cfg.max - cfg.min);
+      this.timeoutId = setTimeout(() => requestAnimationFrame(tick), delay);
+    };
+
+    tick();
+  }
+
+  private stop() {
+    this.stopped = true;
+    if (this.timeoutId) clearTimeout(this.timeoutId);
+    this.timeoutId = null;
+  }
+
+  private set(name: string, value: string) {
+    // setProperty надёжнее для CSS-переменных, чем setAttribute/Renderer2.setStyle
+    this.el.nativeElement.style.setProperty(name, value);
   }
 }

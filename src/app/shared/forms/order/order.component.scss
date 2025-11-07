@@ -55,11 +55,17 @@
 .item {
   border-radius: 15px;
   padding: 15px 20px;
-  background-color: #1f1f2a;
+  background-color: #29293f;
 
   .title {
-    color: #808095;
+    color: #9999b2;
   }
+}
+
+.ico {
+  border-radius: 20px;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 // @keyframes flicker-glow {
@@ -81,3 +87,9 @@
 //     opacity: 0;
 //   }
 // }
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}

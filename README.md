@@ -255,3 +255,80 @@ export class StatusFilterComponent {
 
 - Добавлен пакет [`countries-and-timezones`](https://www.npmjs.com/package/countries-and-timezones) для генерации полного списка стран и таймзон.
 - При сборке возможны предупреждения о превышении CSS-бюджета для `ngp-select` и `ngp-combobox`. Это ожидаемо из-за расширенных стилей; при необходимости отрегулируйте бюджет или минифицируйте стили.
+
+## Angular Primitives Integration
+
+Проект использует официальный пакет [`ng-primitives`](https://angularprimitives.com/) вместе с его peer-зависимостями (`@angular/cdk`, `@floating-ui/dom`). Над каждой директивой библиотеки построена удобная обёртка в `src/app/shared/kit`, поэтому поведение обеспечивают примитивы, а единый API остаётся внутри вашего набора компонентов.
+
+### Установка
+
+```bash
+npm install ng-primitives @angular/cdk@^19 @floating-ui/dom@^1.6.0
+```
+
+### Где искать обёртки
+
+- `src/app/shared/kit/select` – селект на базе `ngpSelect` (поддержка датасетов стран/таймзон).
+- `src/app/shared/kit/combobox` – комбобокс c поиском (`ngpCombobox`).
+- `src/app/shared/kit/radio-group` и `checkbox-group` – группы переключателей (`ngpRadioGroup`, `ngpCheckbox`).
+- `src/app/shared/kit/switch` и `toggle` – булевые переключатели (`ngpSwitch`, `ngpToggle`).
+- `src/app/shared/kit/tabs` – табы и директива `ngpTabset`.
+- `src/app/shared/kit/dialog` – диалог с анимациями и динамическим контентом (`ngpDialog`).
+
+Импорт выглядит привычно:
+
+```ts
+import { NgpSelectComponent } from 'src/app/shared/kit/select/select.component';
+import { NgpComboboxComponent } from 'src/app/shared/kit/combobox/combobox.component';
+import { NgpTabsComponent, NgpTabDirective } from 'src/app/shared/kit/tabs';
+```
+
+### Примеры
+
+```html
+<ngp-select
+  dataset="countries"
+  clearable
+  (valueChange)="onCountryChange($event)"
+></ngp-select>
+
+<ngp-combobox
+  dataset="timezones"
+  [searchable]="true"
+  placeholder="Выберите таймзону"
+  (valueChange)="onTimezone($event)"
+></ngp-combobox>
+
+<ngp-dialog
+  [open]="showDialog"
+  [config]="dialogConfig"
+  (action)="handleDialog($event)"
+>
+  <p>Контент диалога</p>
+</ngp-dialog>
+```
+
+Нужно обернуть примитив под свои правила (аналог host directives)? Создайте отдельный standalone-компонент, подключите нужную обёртку из `kit` и пробрасывайте только необходимые Inputs/Outputs – Angular Primitives автоматически добавит `data-*` атрибуты для стилизации состояний.
+
+### Стилизация
+
+Все токены собраны в `src/app/shared/kit/kit.tokens.scss`. Их можно комбинировать с примерной темой из `ng-primitives/example-theme`, но родной набор переменных остаётся главным источником:
+
+```scss
+@use "src/app/shared/kit/kit.tokens" as kit;
+
+@include kit.ngp-theme('.theme-brand', (
+  ngp-accent: #4f46e5,
+  select-bg: #11172d,
+  dialog-backdrop: rgba(20, 20, 35, 0.78)
+));
+
+ngp-combobox.theme-halloween {
+  --combobox-bg: #2b1843;
+  --combobox-option-bg-selected: rgba(255, 149, 0, 0.3);
+}
+```
+
+### Датасеты
+
+`NgpKitDataService` по-прежнему отдаёт подготовленные списки стран и таймзон (данные из `countries-and-timezones`). Достаточно указать `dataset="countries" | "timezones"` у селекта или комбобокса, чтобы получить сгруппированные опции. При необходимости можно передать собственные `options`/`optionGroups`.

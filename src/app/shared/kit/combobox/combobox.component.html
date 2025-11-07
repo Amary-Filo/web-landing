@@ -1,137 +1,95 @@
 <div
   class="ngp-combobox"
-  [class.ngp-combobox--open]="panelOpen"
-  [class.ngp-combobox--disabled]="disabled"
+  [class.ngp-combobox--open]="open()"
+  [class.ngp-combobox--disabled]="isDisabled()"
+  [ngpComboboxValue]="value()"
+  [ngpComboboxDisabled]="isDisabled()"
+  [ngpComboboxAllowDeselect]="clearable()"
+  [ngpComboboxCompareWith]="compareFn()"
+  (ngpComboboxValueChange)="onPrimitiveChange($event)"
+  (ngpComboboxOpenChange)="onOpenChange($event)"
+  (focusout)="handleBlur()"
+  ngpCombobox
 >
-  <div class="ngp-combobox__control">
-    <ng-container [ngSwitch]="triggerMode">
-      <input
-        *ngSwitchCase="'field'"
-        #inputField
-        type="text"
-        class="ngp-combobox__input"
-        [placeholder]="placeholder"
-        [disabled]="disabled || !searchable"
-        [value]="searchTerm"
-        (focus)="onInputFocus()"
-        (input)="onInput($event)"
-      />
+  <input
+    class="ngp-combobox__input"
+    ngpComboboxInput
+    [value]="inputDisplay()"
+    [placeholder]="placeholder()"
+    [readonly]="!searchable()"
+    (input)="onInput($event)"
+  />
 
-      <button
-        *ngSwitchDefault
-        type="button"
-        class="ngp-combobox__button"
-        (click)="togglePanel()"
-        (focus)="onToggleButtonFocus()"
-        [attr.aria-expanded]="panelOpen"
-        [attr.aria-haspopup]="'listbox'"
-        [attr.aria-disabled]="disabled"
-      >
-        <span
-          class="ngp-combobox__button-label"
-          *ngIf="selectedOption; else placeholderTpl"
-          >{{ selectedOption.label }}</span
-        >
-        <ng-template #placeholderTpl>
-          <span class="ngp-combobox__placeholder">{{ placeholder }}</span>
-        </ng-template>
-      </button>
-    </ng-container>
-
+  @if (clearable() && currentSelected()) {
     <button
-      *ngIf="clearable && selectedOption"
       type="button"
       class="ngp-combobox__clear"
       (click)="onClear($event)"
-      [disabled]="disabled"
+      aria-label="Очистить"
     >
       ✕
     </button>
+  }
 
-    <button
-      type="button"
-      class="ngp-combobox__toggle"
-      (click)="togglePanel()"
-      [disabled]="disabled"
-      aria-hidden="true"
-    >
-      <span class="ngp-combobox__chevron"></span>
-    </button>
-  </div>
-
-  <div
-    #panel
-    class="ngp-combobox__panel"
-    *ngIf="panelOpen"
-    role="listbox"
+  <button
+    ngpComboboxButton
+    type="button"
+    class="ngp-combobox__toggle"
+    aria-label="Переключить список"
   >
-    <div
-      class="ngp-combobox__search"
-      *ngIf="searchable && triggerMode === 'button'"
-    >
-      <input
-        type="text"
-        class="ngp-combobox__search-input"
-        [placeholder]="placeholder"
-        [value]="searchTerm"
-        (input)="onInput($event)"
-        autofocus
-      />
-    </div>
+    <span class="ngp-combobox__chevron" aria-hidden="true"></span>
+  </button>
 
-    <ng-container *ngIf="hasGroups; else flatOptions">
-      <div
-        class="ngp-combobox__group"
-        *ngFor="let group of filteredGroups; trackBy: trackByGroup"
-      >
-        <div class="ngp-combobox__group-label">
-          {{ group.label }}
+  <div *ngpComboboxPortal ngpComboboxDropdown class="ngp-combobox__dropdown">
+    @if (hasGroups()) {
+      @for (group of filteredGroups(); track group.label) {
+        <div class="ngp-combobox__group">
+          <div class="ngp-combobox__group-label">
+            {{ group.label }}
+            @if (group.description) {
+              <span class="ngp-combobox__group-description">{{ group.description }}</span>
+            }
+          </div>
+
+          @for (option of group.options; track option.value ?? option.label) {
+            <div
+              class="ngp-combobox__option"
+              [class.ngp-combobox__option--with-hint]="option.hint"
+              [ngpComboboxOptionValue]="option.value"
+              [ngpComboboxOptionDisabled]="option.disabled"
+              ngpComboboxOption
+            >
+              <span class="ngp-combobox__option-label">{{ option.label }}</span>
+              @if (option.hint) {
+                <span class="ngp-combobox__option-hint">{{ option.hint }}</span>
+              }
+            </div>
+          }
         </div>
-        <button
-          type="button"
+      }
+
+      @if (!filteredGroups().length) {
+        <div class="ngp-combobox__empty">Ничего не найдено</div>
+      }
+    } @else {
+      @for (option of filteredOptions(); track option.value ?? option.label) {
+        <div
           class="ngp-combobox__option"
-          data-ngp-option
-          *ngFor="let option of group.options; trackBy: trackByOption"
-          [class.ngp-combobox__option--selected]="isSelected(option)"
-          [class.ngp-combobox__option--disabled]="option.disabled"
-          (click)="onSelect(option)"
-          role="option"
-          [attr.aria-selected]="isSelected(option)"
-          [disabled]="option.disabled"
+          [class.ngp-combobox__option--with-hint]="option.hint"
+          [ngpComboboxOptionValue]="option.value"
+          [ngpComboboxOptionDisabled]="option.disabled"
+          ngpComboboxOption
         >
           <span class="ngp-combobox__option-label">{{ option.label }}</span>
-          <span class="ngp-combobox__option-hint" *ngIf="option.hint">
-            {{ option.hint }}
-          </span>
-        </button>
-      </div>
-    </ng-container>
+          @if (option.hint) {
+            <span class="ngp-combobox__option-hint">{{ option.hint }}</span>
+          }
+        </div>
+      }
 
-    <ng-template #flatOptions>
-      <button
-        type="button"
-        class="ngp-combobox__option"
-        data-ngp-option
-        *ngFor="let option of filteredOptions; trackBy: trackByOption"
-        [class.ngp-combobox__option--selected]="isSelected(option)"
-        [class.ngp-combobox__option--disabled]="option.disabled"
-        (click)="onSelect(option)"
-        role="option"
-        [attr.aria-selected]="isSelected(option)"
-        [disabled]="option.disabled"
-      >
-        <span class="ngp-combobox__option-label">{{ option.label }}</span>
-        <span class="ngp-combobox__option-hint" *ngIf="option.hint">
-          {{ option.hint }}
-        </span>
-      </button>
-
-      <div
-        class="ngp-combobox__empty"
-        *ngIf="!filteredOptions.length && searchTerm"
-      >
-        Ничего не найдено
-      </div>
-    </ng-template>
+      @if (!filteredOptions().length) {
+        <div class="ngp-combobox__empty">Ничего не найдено</div>
+      }
+    }
   </div>
 </div>

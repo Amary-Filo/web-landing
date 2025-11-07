@@ -1,23 +1,22 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from "@angular/forms";
+  booleanAttribute,
+  computed,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgpSwitch, NgpSwitchThumb } from 'ng-primitives/switch';
 
 @Component({
-  selector: "ngp-switch",
+  selector: 'ngp-switch',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./switch.component.html",
-  styleUrls: ["./switch.component.scss"],
+  imports: [CommonModule, NgpSwitch, NgpSwitchThumb],
+  templateUrl: './switch.component.html',
+  styleUrls: ['./switch.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -28,24 +27,26 @@ import {
   ],
 })
 export class NgpSwitchComponent implements ControlValueAccessor {
-  @Input() checkedLabel?: string;
-  @Input() uncheckedLabel?: string;
-  @Input() size: "sm" | "md" | "lg" = "md";
-  @Input() disabled = false;
-  @Input() appearance: "primary" | "success" | "danger" = "primary";
+  readonly checkedLabel = input<string | undefined>(undefined);
+  readonly uncheckedLabel = input<string | undefined>(undefined);
+  readonly appearance = input<'primary' | 'success' | 'danger'>('primary');
+  readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
 
-  @Output() valueChange = new EventEmitter<boolean>();
+  readonly valueChange = output<boolean>();
 
-  value = false;
+  private readonly value = signal(false);
+  private readonly cvaDisabled = signal(false);
+
+  readonly currentValue = this.value;
+  readonly isDisabled = computed(() => this.disabledInput() || this.cvaDisabled());
+  readonly label = computed(() => (this.value() ? this.checkedLabel() : this.uncheckedLabel()));
 
   private onChange: (value: boolean) => void = () => undefined;
   private onTouched: () => void = () => undefined;
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
-
+  // region ControlValueAccessor
   writeValue(value: boolean | null): void {
-    this.value = Boolean(value);
-    this.cdr.markForCheck();
+    this.value.set(Boolean(value));
   }
 
   registerOnChange(fn: (value: boolean) => void): void {
@@ -57,22 +58,17 @@ export class NgpSwitchComponent implements ControlValueAccessor {
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this.cdr.markForCheck();
+    this.cvaDisabled.set(isDisabled);
+  }
+  // endregion
+
+  onPrimitiveChange(checked: boolean): void {
+    this.value.set(checked);
+    this.onChange(checked);
+    this.valueChange.emit(checked);
   }
 
-  toggle(): void {
-    if (this.disabled) {
-      return;
-    }
-    this.value = !this.value;
-    this.onChange(this.value);
-    this.valueChange.emit(this.value);
-    this.cdr.markForCheck();
-  }
-
-  onBlur(): void {
+  handleBlur(): void {
     this.onTouched();
   }
 }
-

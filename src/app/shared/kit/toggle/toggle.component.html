@@ -1,23 +1,22 @@
 <button
-  type="button"
   class="ngp-toggle"
-  [class.ngp-toggle--active]="value"
-  [class.ngp-toggle--size-sm]="size === 'sm'"
-  [class.ngp-toggle--size-lg]="size === 'lg'"
-  [class.ngp-toggle--appearance-solid]="appearance === 'solid'"
-  [class.ngp-toggle--appearance-outline]="appearance === 'outline'"
-  [class.ngp-toggle--appearance-soft]="appearance === 'soft'"
-  [disabled]="disabled"
-  role="button"
-  [attr.aria-pressed]="value"
-  (click)="toggle()"
-  (blur)="onBlur()"
+  type="button"
+  [class.ngp-toggle--appearance-solid]="appearance() === 'solid'"
+  [class.ngp-toggle--appearance-outline]="appearance() === 'outline'"
+  [class.ngp-toggle--selected]="currentValue()"
+  [disabled]="isDisabled()"
+  [ngpToggleSelected]="currentValue()"
+  [ngpToggleDisabled]="isDisabled()"
+  (ngpToggleSelectedChange)="onPrimitiveChange($event)"
+  (focusout)="handleBlur()"
+  ngpToggle
+  ngpButton
 >
-  <span class="ngp-toggle__icon" *ngIf="icon" aria-hidden="true">
-    {{ icon }}
-  </span>
-  <span class="ngp-toggle__label" *ngIf="displayLabel">
-    {{ displayLabel }}
-  </span>
+  @if (icon()) {
+    <span class="ngp-toggle__icon" aria-hidden="true">{{ icon() }}</span>
+  }
+  @if (displayLabel()) {
+    <span class="ngp-toggle__label">{{ displayLabel() }}</span>
+  }
   <ng-content></ng-content>
 </button>

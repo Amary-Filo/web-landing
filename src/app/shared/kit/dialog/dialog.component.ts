@@ -1,156 +1,140 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  ComponentRef,
-  ElementRef,
   EventEmitter,
-  HostBinding,
-  HostListener,
-  Input,
-  OnChanges,
-  OnDestroy,
-  Output,
-  SimpleChanges,
   Type,
   ViewChild,
   ViewContainerRef,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
+  effect,
+  input,
+  model,
+  output,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
-  NgpDialogAnimation,
-  NgpDialogConfig,
-} from "../models/ngp-dialog.model";
+  NgpDialog,
+  NgpDialogDescription,
+  NgpDialogOverlay,
+  NgpDialogTitle,
+  provideDialogState,
+} from 'ng-primitives/dialog';
+import { NgpDialogAnimation, NgpDialogButton, NgpDialogConfig } from '../models/ngp-dialog.model';
 
 @Component({
-  selector: "ngp-dialog",
+  selector: 'ngp-dialog',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./dialog.component.html",
-  styleUrls: ["./dialog.component.scss"],
+  imports: [CommonModule, NgpDialog, NgpDialogOverlay, NgpDialogTitle, NgpDialogDescription],
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [provideDialogState()],
 })
-export class NgpDialogComponent
-  implements OnChanges, AfterViewInit, OnDestroy
-{
-  @Input() open = false;
-  @Input() config: NgpDialogConfig | null = null;
-  @Input() animation: NgpDialogAnimation = "fade";
-  @Input() size: "sm" | "md" | "lg" = "md";
-  @Input() backdropClosable = true;
-  @Input() contentComponent?: Type<unknown>;
-  @Input() contentInputs?: Record<string, unknown>;
-  @Input() contentOutputs?: Record<string, (value: unknown) => void>;
+export class NgpDialogComponent implements AfterViewInit {
+  readonly openModel = model(false, { alias: 'open' });
+  readonly config = input<NgpDialogConfig | null>(null);
+  readonly animation = input<NgpDialogAnimation>('fade');
+  readonly contentComponent = input<Type<unknown> | undefined>(undefined);
+  readonly contentInputs = input<Record<string, unknown> | undefined>(undefined);
+  readonly contentOutputs = input<Record<string, (value: unknown) => void> | undefined>(undefined);
 
-  @Output() closed = new EventEmitter<void>();
-  @Output() opened = new EventEmitter<void>();
-  @Output() action = new EventEmitter<{ action: string; value?: unknown }>();
+  readonly opened = output<void>();
+  readonly closed = output<void>();
+  readonly action = output<{ action: string; value?: unknown }>();
 
-  @ViewChild("dynamicHost", { read: ViewContainerRef })
+  @ViewChild('dynamicHost', { read: ViewContainerRef })
   dynamicHost?: ViewContainerRef;
 
-  @ViewChild("dialogSurface", { read: ElementRef })
-  surfaceRef?: ElementRef<HTMLDivElement>;
+  readonly open = this.openModel;
+  readonly backdropClosable = signal(true);
+  readonly buttons = signal<NgpDialogButton[]>([]);
 
-  @HostBinding("class.ngp-dialog-host")
-  hostClass = true;
+  private readonly viewReady = signal(false);
+  private dynamicComponentRef?: any;
 
-  private dynamicComponentRef?: ComponentRef<unknown>;
+  constructor() {
+    effect(() => {
+      const config = this.config();
+      this.buttons.set(config?.buttons ?? []);
+      this.backdropClosable.set(config?.backdropClosable !== false);
+    });
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+    effect(
+      () => {
+        if (!this.viewReady()) {
+          return;
+        }
+        const isOpen = this.open();
+        if (isOpen) {
+          this.renderDynamicContent();
+          this.applyScrollLock(true);
+          this.opened.emit();
+        } else {
+          this.clearDynamicContent();
+          this.applyScrollLock(false);
+          this.closed.emit();
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes["open"]) {
-      if (this.open) {
-        this.attachGlobalLock();
+    effect(
+      () => {
+        if (!this.viewReady() || !this.open()) {
+          return;
+        }
+        this.contentComponent();
+        this.contentInputs();
+        this.contentOutputs();
         this.renderDynamicContent();
-        this.opened.emit();
-      } else {
-        this.detachDynamicContent();
-        this.releaseGlobalLock();
-      }
-    }
-    if (
-      changes["contentComponent"] ||
-      changes["contentInputs"] ||
-      changes["contentOutputs"]
-    ) {
-      if (this.open) {
-        this.renderDynamicContent();
-      }
-    }
-    this.cdr.markForCheck();
+      },
+      { allowSignalWrites: true },
+    );
   }
 
   ngAfterViewInit(): void {
-    if (this.open) {
+    this.viewReady.set(true);
+    if (this.open()) {
       this.renderDynamicContent();
+      this.applyScrollLock(true);
+      this.opened.emit();
     }
-  }
-
-  ngOnDestroy(): void {
-    this.releaseGlobalLock();
-    this.detachDynamicContent();
   }
 
   get heading(): string | undefined {
-    return this.config?.heading;
+    return this.config()?.heading;
   }
 
   get subheading(): string | undefined {
-    return this.config?.subheading;
+    return this.config()?.subheading;
   }
 
-  get buttons() {
-    return this.config?.buttons ?? [];
-  }
-
-  get showCloseButton(): boolean {
-    if (this.config?.closeButton === false) {
-      return false;
-    }
-    return true;
-  }
-
-  onDialogClick(event: MouseEvent): void {
-    event.stopPropagation();
-  }
-
-  onBackdropClick(): void {
-    if (this.backdropClosable && this.config?.backdropClosable !== false) {
-      this.close();
-    }
-  }
-
-  @HostListener("document:keydown.escape", ["$event"])
-  onEscape(event: KeyboardEvent | Event): void {
-    const keyboardEvent = event as KeyboardEvent;
-    if (!this.open) {
-      return;
-    }
-    keyboardEvent.preventDefault();
-    if (this.backdropClosable && this.config?.backdropClosable !== false) {
-      this.close();
-    }
-  }
-
-  triggerButton(actionName: string, value?: unknown): void {
-    if (actionName === "close") {
-      this.close();
-    }
-    this.action.emit({ action: actionName, value });
+  get isBackdropClosable(): boolean {
+    return this.backdropClosable();
   }
 
   close(): void {
-    if (!this.open) {
+    if (!this.open()) {
       return;
     }
-    this.open = false;
-    this.detachDynamicContent();
-    this.releaseGlobalLock();
-    this.closed.emit();
-    this.cdr.markForCheck();
+    this.openModel.set(false);
+  }
+
+  onOverlayClick(event: MouseEvent): void {
+    if (!this.isBackdropClosable) {
+      return;
+    }
+    if (event.target === event.currentTarget) {
+      this.close();
+    }
+  }
+
+  onButtonClick(button: NgpDialogButton): void {
+    if (button.action === 'close') {
+      this.close();
+    }
+    this.action.emit({ action: button.action, value: button.value });
   }
 
   private renderDynamicContent(): void {
@@ -160,30 +144,35 @@ export class NgpDialogComponent
     this.dynamicHost.clear();
     this.dynamicComponentRef?.destroy();
     this.dynamicComponentRef = undefined;
-    if (!this.contentComponent) {
+
+    const componentType = this.contentComponent();
+    if (!componentType) {
       return;
     }
-    const componentRef = this.dynamicHost.createComponent(
-      this.contentComponent,
-    );
-    if (this.contentInputs) {
-      Object.entries(this.contentInputs).forEach(([key, value]) => {
+
+    const componentRef = this.dynamicHost.createComponent(componentType);
+    const inputs = this.contentInputs();
+    if (inputs) {
+      Object.entries(inputs).forEach(([key, value]) => {
         (componentRef.instance as Record<string, unknown>)[key] = value;
       });
     }
-    if (this.contentOutputs) {
-      Object.entries(this.contentOutputs).forEach(([key, handler]) => {
+
+    const outputs = this.contentOutputs();
+    if (outputs) {
+      Object.entries(outputs).forEach(([key, handler]) => {
         const output = (componentRef.instance as Record<string, unknown>)[key];
         if (output instanceof EventEmitter) {
           output.subscribe(handler);
         }
       });
     }
+
     componentRef.changeDetectorRef.markForCheck();
     this.dynamicComponentRef = componentRef;
   }
 
-  private detachDynamicContent(): void {
+  private clearDynamicContent(): void {
     if (this.dynamicComponentRef) {
       this.dynamicComponentRef.destroy();
       this.dynamicComponentRef = undefined;
@@ -191,11 +180,7 @@ export class NgpDialogComponent
     this.dynamicHost?.clear();
   }
 
-  private attachGlobalLock(): void {
-    document.documentElement.classList.add("ngp-dialog-scroll-lock");
-  }
-
-  private releaseGlobalLock(): void {
-    document.documentElement.classList.remove("ngp-dialog-scroll-lock");
+  private applyScrollLock(locked: boolean): void {
+    document.documentElement.classList.toggle('ngp-dialog-scroll-lock', locked);
   }
 }

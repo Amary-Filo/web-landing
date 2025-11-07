@@ -26,12 +26,25 @@
 
   color: rgba(var(--btn-text-color), 1);
   cursor: pointer;
+  transition: 0.3s ease-in-out;
 
   &-text {
     background: none;
   }
 
-  // &[class*="cl-g-"],
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transition: 0.3s ease-in-out;
+
+    &.g-bg {
+      &:after,
+      &::before {
+        display: none !important;
+      }
+    }
+  }
+
   &.g-bg {
     --btn-text-color: 255, 255, 255;
     border: none;

@@ -32,9 +32,87 @@
         </div>
       </div>
 
-      <div class="form">
-        <input type="text" />
-      </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="fl fl-dc g-15">
+        <app-combobox
+          [options]="countries"
+          [emitMode]="'object'"
+          [searchable]="true"
+          [color]="'cl-g-' + gradient()"
+          [placeholder]="'Select your country'"
+          formControlName="country"
+        >
+          <!-- айтем -->
+          <ng-template #optionTpl let-o let-selected>
+            <span class="fl g-10" [style.opacity]="selected ? 1 : 0.8">
+              <img
+                width="20px"
+                class="ico"
+                [src]="o.flag"
+                alt="flag {{ o.value }}"
+                loading="lazy"
+              />
+              <span class="lbl">{{ o.value }}</span>
+            </span>
+          </ng-template>
+
+          <!-- выбранное значение -->
+          <ng-template #valueTpl let-o let-selected>
+            @if (o) {
+            <span
+              class="fl g-10 select-placeholder"
+              [class.selected]="selected"
+            >
+              <img width="20px" class="ico" [src]="o.flag" alt="" />
+              <span class="lbl">{{ o.value }}</span>
+            </span>
+            } @else {
+            <span class="select-placeholder">Select your country</span>
+            }
+          </ng-template>
+        </app-combobox>
+
+        <input
+          app-input
+          type="text"
+          placeholder="Your name"
+          formControlName="name"
+        />
+
+        <div class="form-group">
+          <app-radio-group formControlName="type" orientation="horizontal">
+            <app-radio-item value="telegram">Telegram</app-radio-item>
+            <app-radio-item value="email">Email</app-radio-item>
+          </app-radio-group>
+          <input
+            app-input
+            type="text"
+            [placeholder]="'Your ' + form.controls.type.value"
+            formControlName="contact"
+          />
+        </div>
+        <textarea
+          app-textarea
+          placeholder="Describe your project"
+          formControlName="text"
+        ></textarea>
+
+        {{ form.invalid }}
+
+        <button
+          class="btn g-bg g-a w-100 m-t-10"
+          [class]="'cl-g-' + gradient()"
+          type="submit"
+          [disabled]="form.invalid"
+        >
+          Send approximate Brief!
+        </button>
+        <div class="callout-text m-auto t-c fz-sm">
+          By clicking the button, you agree to <br />
+          our
+          <a href="#" class="link accent">privacy policy</a>
+          and <a href="#" class="link accent">terms</a> of data transfer.
+        </div>
+      </form>
     </div>
   </div>
 </section>

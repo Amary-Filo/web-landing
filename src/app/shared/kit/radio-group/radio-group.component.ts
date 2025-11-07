@@ -1,24 +1,24 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from "@angular/forms";
-import { NgpOption } from "../models/ngp-option.model";
+  booleanAttribute,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgpRadioGroup, NgpRadioIndicator, NgpRadioItem } from 'ng-primitives/radio';
+import { NgpOption } from '../models/ngp-option.model';
 
 @Component({
-  selector: "ngp-radio-group",
+  selector: 'ngp-radio-group',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./radio-group.component.html",
-  styleUrls: ["./radio-group.component.scss"],
+  imports: [CommonModule, NgpRadioGroup, NgpRadioItem, NgpRadioIndicator],
+  templateUrl: './radio-group.component.html',
+  styleUrls: ['./radio-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -28,32 +28,49 @@ import { NgpOption } from "../models/ngp-option.model";
     },
   ],
 })
-export class NgpRadioGroupComponent<T = unknown>
-  implements ControlValueAccessor
-{
-  @Input() options: NgpOption<T>[] = [];
-  @Input() layout: "horizontal" | "vertical" = "vertical";
-  @Input() disabled = false;
-  @Input() name = `ngp-radio-${Math.random().toString(36).slice(2)}`;
-  @Input() size: "sm" | "md" | "lg" = "md";
-  @Input() legend?: string;
-  @Input() description?: string;
+export class NgpRadioGroupComponent<T = unknown> implements ControlValueAccessor {
+  readonly legend = input<string | undefined>(undefined);
+  readonly description = input<string | undefined>(undefined);
+  readonly layout = input<'horizontal' | 'vertical'>('vertical');
+  readonly size = input<'sm' | 'md' | 'lg'>('md');
+  readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
+  readonly compareWithInput = input<(a: T | null, b: T | null) => boolean>((a, b) => a === b, {
+    alias: 'compareWith',
+  });
+  readonly optionsInput = input<NgpOption<T>[] | null>(null, { alias: 'options' });
 
-  @Input() compareWith: (a: T | null, b: T | null) => boolean = (a, b) =>
-    a === b;
+  readonly valueChange = output<T | null>();
 
-  @Output() valueChange = new EventEmitter<T | null>();
+  private readonly value = signal<T | null>(null);
+  private readonly options = signal<NgpOption<T>[]>([]);
+  private readonly cvaDisabled = signal(false);
 
-  value: T | null = null;
+  readonly currentValue = this.value;
+  readonly isDisabled = computed(() => this.disabledInput() || this.cvaDisabled());
+  readonly orientation = computed(() => (this.layout() === 'horizontal' ? 'horizontal' : 'vertical'));
 
-  private onChange: (value: T | null) => void = () => undefined;
-  private onTouched: () => void = () => undefined;
+  constructor() {
+    effect(
+      () => {
+        const opts = this.optionsInput();
+        if (opts) {
+          this.options.set(opts);
+          this.syncSelection();
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+    effect(() => {
+      this.compareWithInput();
+      this.syncSelection();
+    });
+  }
 
+  // region ControlValueAccessor
   writeValue(value: T | null): void {
-    this.value = value;
-    this.cdr.markForCheck();
+    this.value.set(value);
+    this.syncSelection();
   }
 
   registerOnChange(fn: (value: T | null) => void): void {
@@ -65,31 +82,40 @@ export class NgpRadioGroupComponent<T = unknown>
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this.cdr.markForCheck();
+    this.cvaDisabled.set(isDisabled);
+  }
+  // endregion
+
+  private onChange: (value: T | null) => void = () => undefined;
+  private onTouched: () => void = () => undefined;
+
+  get optionsList(): NgpOption<T>[] {
+    return this.options();
   }
 
-  onOptionSelect(option: NgpOption<T>): void {
-    if (this.disabled || option.disabled) {
-      return;
-    }
-    this.value = option.value;
-    this.onChange(option.value);
-    this.valueChange.emit(option.value);
-    this.cdr.markForCheck();
+  onPrimitiveChange(value: T | null): void {
+    this.value.set(value);
+    this.syncSelection();
+    this.onChange(value);
+    this.valueChange.emit(value);
   }
 
-  isChecked(option: NgpOption<T>): boolean {
-    return this.compareWith(option.value, this.value);
+  handleBlur(): void {
+    this.onTouched();
   }
 
-  trackByOption(_: number, option: NgpOption<T>): string | number {
-    return typeof option.value === "string" || typeof option.value === "number"
+  trackOption(_: number, option: NgpOption<T>): string | number {
+    return typeof option.value === 'string' || typeof option.value === 'number'
       ? option.value
       : option.label;
   }
 
-  onBlur(): void {
-    this.onTouched();
+  private syncSelection(): void {
+    const compare = this.compareWithInput();
+    const current = this.value();
+    const match = this.options().find((option) => compare(option.value ?? null, current ?? null));
+    if (!match && current != null) {
+      this.value.set(null);
+    }
   }
 }

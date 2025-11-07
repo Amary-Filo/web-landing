@@ -1,24 +1,24 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
-  EventEmitter,
-  Input,
-  Output,
-} from "@angular/core";
-import { CommonModule } from "@angular/common";
-import {
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-} from "@angular/forms";
-import { NgpOption } from "../models/ngp-option.model";
+  booleanAttribute,
+  computed,
+  effect,
+  input,
+  output,
+  signal,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgpCheckbox } from 'ng-primitives/checkbox';
+import { NgpOption } from '../models/ngp-option.model';
 
 @Component({
-  selector: "ngp-checkbox-group",
+  selector: 'ngp-checkbox-group',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: "./checkbox-group.component.html",
-  styleUrls: ["./checkbox-group.component.scss"],
+  imports: [CommonModule, NgpCheckbox],
+  templateUrl: './checkbox-group.component.html',
+  styleUrls: ['./checkbox-group.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     {
@@ -28,31 +28,49 @@ import { NgpOption } from "../models/ngp-option.model";
     },
   ],
 })
-export class NgpCheckboxGroupComponent<T = unknown>
-  implements ControlValueAccessor
-{
-  @Input() options: NgpOption<T>[] = [];
-  @Input() layout: "horizontal" | "vertical" = "vertical";
-  @Input() disabled = false;
-  @Input() legend?: string;
-  @Input() description?: string;
-  @Input() name = `ngp-checkbox-${Math.random().toString(36).slice(2)}`;
-  @Input() size: "sm" | "md" | "lg" = "md";
+export class NgpCheckboxGroupComponent<T = unknown> implements ControlValueAccessor {
+  readonly legend = input<string | undefined>(undefined);
+  readonly description = input<string | undefined>(undefined);
+  readonly layout = input<'horizontal' | 'vertical'>('vertical');
+  readonly size = input<'sm' | 'md' | 'lg'>('md');
+  readonly disabledInput = input(false, { alias: 'disabled', transform: booleanAttribute });
+  readonly compareWithInput = input<(a: T, b: T) => boolean>((a, b) => a === b, {
+    alias: 'compareWith',
+  });
+  readonly optionsInput = input<NgpOption<T>[] | null>(null, { alias: 'options' });
 
-  @Input() compareWith: (a: T, b: T) => boolean = (a, b) => a === b;
+  readonly valueChange = output<T[]>();
 
-  @Output() valueChange = new EventEmitter<T[]>();
+  private readonly value = signal<T[]>([]);
+  private readonly options = signal<NgpOption<T>[]>([]);
+  private readonly cvaDisabled = signal(false);
 
-  value: T[] = [];
+  readonly values = this.value;
+  readonly isDisabled = computed(() => this.disabledInput() || this.cvaDisabled());
+  readonly orientation = computed(() => (this.layout() === 'horizontal' ? 'horizontal' : 'vertical'));
 
-  private onChange: (value: T[]) => void = () => undefined;
-  private onTouched: () => void = () => undefined;
+  constructor() {
+    effect(
+      () => {
+        const opts = this.optionsInput();
+        if (opts) {
+          this.options.set(opts);
+          this.syncSelection();
+        }
+      },
+      { allowSignalWrites: true },
+    );
 
-  constructor(private readonly cdr: ChangeDetectorRef) {}
+    effect(() => {
+      this.compareWithInput();
+      this.syncSelection();
+    });
+  }
 
+  // region ControlValueAccessor
   writeValue(value: T[] | null): void {
-    this.value = Array.isArray(value) ? [...value] : [];
-    this.cdr.markForCheck();
+    this.value.set(Array.isArray(value) ? [...value] : []);
+    this.syncSelection();
   }
 
   registerOnChange(fn: (value: T[]) => void): void {
@@ -64,40 +82,54 @@ export class NgpCheckboxGroupComponent<T = unknown>
   }
 
   setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-    this.cdr.markForCheck();
+    this.cvaDisabled.set(isDisabled);
+  }
+  // endregion
+
+  private onChange: (value: T[]) => void = () => undefined;
+  private onTouched: () => void = () => undefined;
+
+  get optionsList(): NgpOption<T>[] {
+    return this.options();
   }
 
-  onToggle(option: NgpOption<T>): void {
-    if (this.disabled || option.disabled) {
+  toggleOption(option: NgpOption<T>): void {
+    if (this.isDisabled() || option.disabled) {
       return;
     }
-    const exists = this.value.some((item) =>
-      this.compareWith(item, option.value),
-    );
-    if (exists) {
-      this.value = this.value.filter(
-        (item) => !this.compareWith(item, option.value),
-      );
-    } else {
-      this.value = [...this.value, option.value];
-    }
-    this.onChange(this.value);
-    this.valueChange.emit(this.value);
-    this.cdr.markForCheck();
+    const compare = this.compareWithInput();
+    const current = this.value();
+    const exists = current.some((item) => compare(item, option.value));
+    const next = exists
+      ? current.filter((item) => !compare(item, option.value))
+      : [...current, option.value];
+    this.value.set(next);
+    this.onChange(next);
+    this.valueChange.emit(next);
   }
 
   isChecked(option: NgpOption<T>): boolean {
-    return this.value.some((item) => this.compareWith(item, option.value));
+    const compare = this.compareWithInput();
+    return this.value().some((item) => compare(item, option.value));
   }
 
-  trackByOption(_: number, option: NgpOption<T>): string | number {
-    return typeof option.value === "string" || typeof option.value === "number"
+  handleBlur(): void {
+    this.onTouched();
+  }
+
+  trackOption(_: number, option: NgpOption<T>): string | number {
+    return typeof option.value === 'string' || typeof option.value === 'number'
       ? option.value
       : option.label;
   }
 
-  onBlur(): void {
-    this.onTouched();
+  private syncSelection(): void {
+    const compare = this.compareWithInput();
+    const filtered = this.value().filter((item) =>
+      this.options().some((option) => compare(item, option.value)),
+    );
+    if (filtered.length !== this.value().length) {
+      this.value.set(filtered);
+    }
   }
 }

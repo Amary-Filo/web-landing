@@ -1,41 +1,39 @@
 <fieldset
   class="ngp-checkbox-group"
-  [class.ngp-checkbox-group--horizontal]="layout === 'horizontal'"
-  [class.ngp-checkbox-group--disabled]="disabled"
-  [class.ngp-checkbox-group--size-sm]="size === 'sm'"
-  [class.ngp-checkbox-group--size-lg]="size === 'lg'"
+  [class.ngp-checkbox-group--horizontal]="orientation() === 'horizontal'"
+  [class.ngp-checkbox-group--size-sm]="size() === 'sm'"
+  [class.ngp-checkbox-group--size-lg]="size() === 'lg'"
+  [attr.aria-disabled]="isDisabled()"
 >
-  <legend class="ngp-checkbox-group__legend" *ngIf="legend">
-    {{ legend }}
-  </legend>
-  <div class="ngp-checkbox-group__description" *ngIf="description">
-    {{ description }}
-  </div>
+  @if (legend()) {
+    <legend class="ngp-checkbox-group__legend">{{ legend() }}</legend>
+  }
+
+  @if (description()) {
+    <div class="ngp-checkbox-group__description">{{ description() }}</div>
+  }
 
   <div class="ngp-checkbox-group__list">
-    <label
-      class="ngp-checkbox"
-      *ngFor="let option of options; trackBy: trackByOption"
-      [class.ngp-checkbox--disabled]="disabled || option.disabled"
-    >
-      <input
-        type="checkbox"
-        class="ngp-checkbox__input"
-        [name]="name"
-        [checked]="isChecked(option)"
-        [disabled]="disabled || option.disabled"
-        (change)="onToggle(option)"
-        (blur)="onBlur()"
-      />
-      <span class="ngp-checkbox__control" aria-hidden="true">
-        <span class="ngp-checkbox__checkmark">✓</span>
-      </span>
-      <span class="ngp-checkbox__label">
-        {{ option.label }}
-        <span class="ngp-checkbox__hint" *ngIf="option.hint">
-          {{ option.hint }}
+    @for (option of optionsList; track trackOption($index, option)) {
+      <button
+        class="ngp-checkbox"
+        [ngpCheckboxChecked]="isChecked(option)"
+        [ngpCheckboxDisabled]="isDisabled() || option.disabled"
+        (ngpCheckboxCheckedChange)="toggleOption(option)"
+        (focusout)="handleBlur()"
+        ngpCheckbox
+        type="button"
+      >
+        <span class="ngp-checkbox__box">
+          <span class="ngp-checkbox__check">✓</span>
         </span>
-      </span>
-    </label>
+        <span class="ngp-checkbox__label">
+          {{ option.label }}
+          @if (option.hint) {
+            <span class="ngp-checkbox__hint">{{ option.hint }}</span>
+          }
+        </span>
+      </button>
+    }
   </div>
 </fieldset>

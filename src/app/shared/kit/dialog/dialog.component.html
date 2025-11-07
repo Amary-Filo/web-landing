@@ -1,57 +1,61 @@
-<div
-  class="ngp-dialog"
-  *ngIf="open"
-  [class.ngp-dialog--animation-fade]="animation === 'fade'"
-  [class.ngp-dialog--animation-scale]="animation === 'scale'"
-  [class.ngp-dialog--animation-slide]="animation === 'slide-up'"
-  [class.ngp-dialog--size-sm]="size === 'sm'"
-  [class.ngp-dialog--size-lg]="size === 'lg'"
-  (click)="onBackdropClick()"
->
-  <div class="ngp-dialog__backdrop"></div>
+@if (open()) {
   <div
-    #dialogSurface
-    class="ngp-dialog__surface"
-    tabindex="-1"
-    role="dialog"
-    [attr.aria-modal]="true"
-    (click)="onDialogClick($event)"
+    class="ngp-dialog"
+    [attr.data-animation]="animation()"
+    ngpDialogOverlay
+    [ngpDialogOverlayCloseOnClick]="false"
+    (click)="onOverlayClick($event)"
   >
-    <button
-      *ngIf="showCloseButton"
-      type="button"
-      class="ngp-dialog__close"
-      (click)="close()"
-      aria-label="Закрыть диалог"
+    <div
+      #surface
+      class="ngp-dialog__surface"
+      ngpDialog
+      (click)="$event.stopPropagation()"
     >
-      ✕
-    </button>
+      @if (config()?.closeButton !== false) {
+        <button
+          type="button"
+          class="ngp-dialog__close"
+          (click)="close()"
+          aria-label="Закрыть диалог"
+        >
+          ✕
+        </button>
+      }
 
-    <header class="ngp-dialog__header" *ngIf="heading || subheading">
-      <h2 class="ngp-dialog__title" *ngIf="heading">{{ heading }}</h2>
-      <p class="ngp-dialog__subtitle" *ngIf="subheading">
-        {{ subheading }}
-      </p>
-    </header>
+      @if (heading || subheading) {
+        <header class="ngp-dialog__header">
+          @if (heading) {
+            <h2 class="ngp-dialog__title" ngpDialogTitle>{{ heading }}</h2>
+          }
+          @if (subheading) {
+            <p class="ngp-dialog__subtitle" ngpDialogDescription>{{ subheading }}</p>
+          }
+        </header>
+      }
 
-    <section class="ngp-dialog__body">
-      <ng-content></ng-content>
-      <ng-container #dynamicHost></ng-container>
-    </section>
+      <section class="ngp-dialog__body">
+        <ng-content></ng-content>
+        <ng-container #dynamicHost></ng-container>
+      </section>
 
-    <footer class="ngp-dialog__footer" *ngIf="buttons.length">
-      <button
-        *ngFor="let button of buttons"
-        type="button"
-        class="ngp-dialog__footer-button"
-        [class.ngp-dialog__footer-button--primary]="button.appearance === 'primary'"
-        [class.ngp-dialog__footer-button--danger]="button.appearance === 'danger'"
-        [class.ngp-dialog__footer-button--link]="button.appearance === 'link'"
-        [disabled]="button.disabled"
-        (click)="triggerButton(button.action, button.value)"
-      >
-        {{ button.label }}
-      </button>
-    </footer>
+      @if (buttons().length) {
+        <footer class="ngp-dialog__footer">
+          @for (button of buttons(); track button.label) {
+            <button
+              type="button"
+              class="ngp-dialog__footer-button"
+              [class.ngp-dialog__footer-button--primary]="button.appearance === 'primary'"
+              [class.ngp-dialog__footer-button--danger]="button.appearance === 'danger'"
+              [class.ngp-dialog__footer-button--link]="button.appearance === 'link'"
+              [disabled]="button.disabled"
+              (click)="onButtonClick(button)"
+            >
+              {{ button.label }}
+            </button>
+          }
+        </footer>
+      }
+    </div>
   </div>
-</div>
+}
