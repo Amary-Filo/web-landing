@@ -1,36 +1,36 @@
-import { Component, inject, input, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InputComponent } from '../../lib/input.component';
-import { TextareaComponent } from '../../lib/textarea.component';
+import { Component, inject, signal } from '@angular/core';
 import {
+  ReactiveFormsModule,
+  FormsModule,
   FormControl,
   FormGroup,
-  FormsModule,
-  ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-
+import { injectDialogRef, NgpDialog, NgpDialogOverlay } from 'ng-primitives/dialog';
+import { UIIconComponent } from '../../components/icon/icon.component';
+import { ComboboxComponent } from '../../lib/combobox.component';
+import { InputComponent } from '../../lib/input.component';
 import { RadioGroupComponent } from '../../lib/radio/radio-group.component';
 import { RadioItemComponent } from '../../lib/radio/radio-item.component';
-import { TTiers } from 'src/app/pages/main/components';
-import { ComboboxComponent } from '../../lib/combobox.component';
-import { COUNTRIES_LIST } from '../../lib/data/combobox-data';
-import { DataCollectorService } from 'src/app/core/services/data-collector.service';
+import { TextareaComponent } from '../../lib/textarea.component';
 import {
   OrderFormControls,
-  TContactType,
   TFormType,
+  TContactType,
 } from 'src/app/core/interfaces/form.interfaces';
 import { contactByTypeValidator, contactGroupValidator } from 'src/app/core/utils/form.validators';
-import { UIIconComponent } from '../../components/icon/icon.component';
+import { TTiers } from 'src/app/pages/main/components';
+import { COUNTRIES_LIST } from '../../lib/data/combobox-data';
+import { HttpClient } from '@angular/common/http';
+import { DataCollectorService } from 'src/app/core/services/data-collector.service';
 
 @Component({
-  selector: 'ui-form-order',
+  selector: 'ui-dialog-talk',
   standalone: true,
-  templateUrl: './order.component.html',
-  styleUrl: './order.component.scss',
   imports: [
+    NgpDialog,
+    NgpDialogOverlay,
     ReactiveFormsModule,
     FormsModule,
     CommonModule,
@@ -41,15 +41,11 @@ import { UIIconComponent } from '../../components/icon/icon.component';
     ComboboxComponent,
     UIIconComponent,
   ],
+  templateUrl: './talk-dialog.component.html',
+  styleUrl: './talk-dialog.component.scss',
 })
-export class UiFormOrderComponent {
-  color = input<string>('#fe70a1');
-  gradient = input<string>('pink-1');
-  price = input<string>('10000');
-  estimate = input<string>('4+');
-  tier = input<TTiers>('start');
-  isSend = input<boolean>(false);
-
+export class TalkDialog {
+  protected readonly dialogRef = injectDialogRef<string>();
   private dataCollector = inject(DataCollectorService);
   private http = inject(HttpClient);
   private endpoint = 'http://127.0.0.1:54321/functions/v1/contact';
@@ -84,23 +80,18 @@ export class UiFormOrderComponent {
         nonNullable: true,
         validators: [Validators.required],
       }),
-      tier: new FormControl<TTiers>(this.tier(), {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      price: new FormControl(this.price(), {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
-      estimate: new FormControl(this.estimate(), {
-        nonNullable: true,
-        validators: [Validators.required],
-      }),
+      tier: new FormControl<TTiers | null>(null),
+      price: new FormControl(null, { nonNullable: true }),
+      estimate: new FormControl(null, { nonNullable: true }),
 
       meta: this.dataCollector.getMetaFormGroup(),
     } as any,
     { validators: [contactGroupValidator] } as any
   );
+
+  close() {
+    this.dialogRef.close();
+  }
 
   onSubmit(): void {
     this.form.markAllAsTouched();

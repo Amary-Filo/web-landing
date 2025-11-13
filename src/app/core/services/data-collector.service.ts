@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UAParser } from 'ua-parser-js';
 import { DeviceDetectorService } from 'ngx-device-detector';
@@ -12,21 +12,18 @@ import {
 } from '../interfaces/form.interfaces';
 
 export interface CollectedMetaData {
-  // Timezone
   timezone: string;
   timezoneOffset: number;
   timezoneGMT: string;
   region: string;
   currentDateTime: string;
 
-  // Browser
   browserLanguage: string;
   browserLanguages: string;
   userAgent: string;
   browserName: string;
   browserVersion: string;
 
-  // Device
   osName: string;
   osVersion: string;
   deviceType: string;
@@ -35,12 +32,10 @@ export interface CollectedMetaData {
   screenHeight: number;
   devicePixelRatio: number;
 
-  // Navigation
   referrerUrl: string;
   currentUrl: string;
   pageTitle: string;
 
-  // UTM Parameters
   utmSource: string | null;
   utmMedium: string | null;
   utmCampaign: string | null;
@@ -66,14 +61,10 @@ interface UTMParams {
 
 @Injectable({ providedIn: 'root' })
 export class DataCollectorService {
+  private deviceService = inject(DeviceDetectorService);
   private parser = new UAParser();
   private cachedData?: CollectedMetaData;
 
-  constructor(private deviceService: DeviceDetectorService) {}
-
-  /**
-   * Собрать все метаданные один раз и закэшировать
-   */
   collectMetaData(): CollectedMetaData {
     if (this.cachedData) return this.cachedData;
 
@@ -82,21 +73,18 @@ export class DataCollectorService {
     const utmParams = this.getUTMParams();
 
     this.cachedData = {
-      // === TIMEZONE & TIME ===
       timezone: timezoneData.timezone,
       timezoneOffset: timezoneData.timezoneOffset,
       timezoneGMT: timezoneData.timezoneGMT,
       region: timezoneData.region,
       currentDateTime: timezoneData.currentDateTime,
 
-      // === BROWSER & LANGUAGE ===
       browserLanguage: navigator.language || 'unknown',
       browserLanguages: JSON.stringify(Array.from(navigator.languages || [navigator.language])),
       userAgent: navigator.userAgent,
       browserName: uaResult.browser.name || 'Unknown',
       browserVersion: uaResult.browser.version || 'Unknown',
 
-      // === DEVICE DETECTOR ===
       osName: uaResult.os.name || 'Unknown',
       osVersion: uaResult.os.version || 'Unknown',
       deviceType: uaResult.device.type || 'desktop',
@@ -105,12 +93,10 @@ export class DataCollectorService {
       screenHeight: window.innerHeight,
       devicePixelRatio: window.devicePixelRatio || 1,
 
-      // === NAVIGATION ===
       referrerUrl: document.referrer || 'direct',
       currentUrl: window.location.href,
       pageTitle: document.title,
 
-      // === UTM ===
       utmSource: utmParams.utmSource,
       utmMedium: utmParams.utmMedium,
       utmCampaign: utmParams.utmCampaign,
@@ -121,14 +107,10 @@ export class DataCollectorService {
     return this.cachedData;
   }
 
-  /**
-   * Создать готовую FormGroup для скрытых полей
-   */
   getMetaFormGroup(): FormGroup<TMetaControls> {
     const data = this.collectMetaData();
 
     return new FormGroup<TMetaControls>({
-      // === GEO ===
       geo: new FormGroup<TMetaGeoControls>({
         timezone: new FormControl(data.timezone, { nonNullable: true }),
         timezoneOffset: new FormControl(data.timezoneOffset, { nonNullable: true }),
@@ -137,7 +119,6 @@ export class DataCollectorService {
         currentDateTime: new FormControl(data.currentDateTime, { nonNullable: true }),
       }),
 
-      // === BROWSER ===
       browser: new FormGroup<TMetaBrowserControls>({
         browserLanguage: new FormControl(data.browserLanguage, { nonNullable: true }),
         browserLanguages: new FormControl(data.browserLanguages, { nonNullable: true }),
@@ -146,7 +127,6 @@ export class DataCollectorService {
         browserVersion: new FormControl(data.browserVersion, { nonNullable: true }),
       }),
 
-      // === DEVICE ===
       device: new FormGroup<TMetaDeviceControls>({
         osName: new FormControl(data.osName, { nonNullable: true }),
         osVersion: new FormControl(data.osVersion, { nonNullable: true }),
@@ -157,14 +137,12 @@ export class DataCollectorService {
         devicePixelRatio: new FormControl(data.devicePixelRatio, { nonNullable: true }),
       }),
 
-      // === NAVIGATION ===
       navigation: new FormGroup<TMetaNavigationControls>({
         referrerUrl: new FormControl(data.referrerUrl, { nonNullable: true }),
         currentUrl: new FormControl(data.currentUrl, { nonNullable: true }),
         pageTitle: new FormControl(data.pageTitle, { nonNullable: true }),
       }),
 
-      // === UTM ===
       utm: new FormGroup<TMetaUtmControls>({
         utmSource: new FormControl(data.utmSource),
         utmMedium: new FormControl(data.utmMedium),
@@ -175,9 +153,6 @@ export class DataCollectorService {
     });
   }
 
-  /**
-   * Получить данные таймзоны с гарантированным результатом
-   */
   private getTimezoneData(): TimezoneData {
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
     const now = new Date();
@@ -199,9 +174,6 @@ export class DataCollectorService {
     };
   }
 
-  /**
-   * Получить UTM параметры с гарантированным результатом
-   */
   private getUTMParams(): UTMParams {
     const params = new URLSearchParams(window.location.search);
     return {
@@ -213,22 +185,19 @@ export class DataCollectorService {
     };
   }
 
-  /**
-   * Отладка - вывести все собранные данные
-   */
-  debugLog(): void {
-    const data = this.collectMetaData();
-    console.table({
-      Timezone: data.timezone,
-      GMT: data.timezoneGMT,
-      Region: data.region,
-      Browser: `${data.browserName} ${data.browserVersion}`,
-      OS: `${data.osName} ${data.osVersion}`,
-      Device: `${data.deviceType} (Mobile: ${data.isMobile})`,
-      Screen: `${data.screenWidth}x${data.screenHeight}`,
-      Language: data.browserLanguage,
-      Referrer: data.referrerUrl,
-      'UTM Source': data.utmSource || 'none',
-    });
-  }
+  // debugLog(): void {
+  //   const data = this.collectMetaData();
+  //   console.table({
+  //     Timezone: data.timezone,
+  //     GMT: data.timezoneGMT,
+  //     Region: data.region,
+  //     Browser: `${data.browserName} ${data.browserVersion}`,
+  //     OS: `${data.osName} ${data.osVersion}`,
+  //     Device: `${data.deviceType} (Mobile: ${data.isMobile})`,
+  //     Screen: `${data.screenWidth}x${data.screenHeight}`,
+  //     Language: data.browserLanguage,
+  //     Referrer: data.referrerUrl,
+  //     'UTM Source': data.utmSource || 'none',
+  //   });
+  // }
 }

@@ -1,17 +1,34 @@
 <header>
   <div class="container">
-    <div class="content fl fl-sbc g-30">
+    <div class="content fl fl-sbc g-30" [class.menu-opened]="menuOpen()">
+      <ui-icon
+        class="menu-bars"
+        size="30px"
+        [name]="icon()"
+        [class.menu-opened]="menuOpen()"
+        (click)="toggleMenu()"
+      />
+
       <div class="logo">
         <ui-icon name="amfiLogoFill" size="30px" />
       </div>
-      <menu class="fl g-30">
-        <a href="#" class="link fw-6">Home</a>
-        <a href="#" class="link fw-6">About</a>
-        <a href="#" class="link fw-6">Solutions</a>
-        <a href="#" class="link fw-6">Brief</a>
-        <a href="#" class="link fw-6">FAQ</a>
-      </menu>
-      <span class="btn fw-7 fz-md g-bg g-a cl-g-pink-1">Let's Talk</span>
+
+      <nav class="fl g-30">
+        @for (item of navItems; track $index) {
+        <a
+          href="javascript:void(0)"
+          class="link fw-6"
+          [class.active]="activeSection() === item.id"
+          (click)="onNavItemClick(item.id)"
+        >
+          {{ item.label }}
+        </a>
+        }
+      </nav>
+
+      <span class="btn fw-7 fz-md g-bg g-a cl-g-pink-1" (click)="openDialog()"
+        >Let's Talk</span
+      >
     </div>
   </div>
 </header>

@@ -1,7 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { TTiers } from 'src/app/pages/main/components';
 
-// === GEO ===
 export type TMetaGeo = {
   timezone: string;
   timezoneOffset: number;
@@ -14,7 +13,6 @@ export type TMetaGeoControls = {
   [K in keyof TMetaGeo]: FormControl<TMetaGeo[K]>;
 };
 
-// === BROWSER ===
 export type TMetaBrowser = {
   browserLanguage: string;
   browserLanguages: string;
@@ -27,7 +25,6 @@ export type TMetaBrowserControls = {
   [K in keyof TMetaBrowser]: FormControl<TMetaBrowser[K]>;
 };
 
-// === DEVICE ===
 export type TMetaDevice = {
   osName: string;
   osVersion: string;
@@ -42,7 +39,6 @@ export type TMetaDeviceControls = {
   [K in keyof TMetaDevice]: FormControl<TMetaDevice[K]>;
 };
 
-// === NAVIGATION ===
 export type TMetaNavigation = {
   referrerUrl: string;
   currentUrl: string;
@@ -53,7 +49,6 @@ export type TMetaNavigationControls = {
   [K in keyof TMetaNavigation]: FormControl<TMetaNavigation[K]>;
 };
 
-// === UTM ===
 export type TMetaUtm = {
   utmSource: string | null;
   utmMedium: string | null;
@@ -66,7 +61,6 @@ export type TMetaUtmControls = {
   [K in keyof TMetaUtm]: FormControl<TMetaUtm[K]>;
 };
 
-// === META (ВСЕ ГРУППЫ) ===
 export type TMetaValue = TMetaGeo & TMetaBrowser & TMetaDevice & TMetaNavigation & TMetaUtm;
 
 export type TMetaControls = {
@@ -77,29 +71,28 @@ export type TMetaControls = {
   utm: FormGroup<TMetaUtmControls>;
 };
 
-// Forms
 export type TContactType = 'telegram' | 'email';
+export type TFormType = 'brief' | 'question';
 
-export type OrderFormValue = {
-  name: string;
-  type: TContactType;
-  contact: string | null;
-  text: string | null;
-  country: string | null;
-  tier: TTiers;
-  price: string;
-  estimate: string;
-  meta: TMetaValue;
-};
+export interface TFormData {
+  type: FormControl<TFormType>;
+  meta: FormGroup<TMetaControls>;
+}
 
-export type OrderFormControls = {
+export interface BaseFormControls extends TFormData {
   name: FormControl<string>;
-  type: FormControl<TContactType>;
-  contact: FormControl<string | null>;
-  text: FormControl<string | null>;
-  country: FormControl<string | null>;
+  contact: FormControl<string>;
+  message: FormControl<string | null>;
+}
+
+export interface OrderFormControls extends BaseFormControls {
+  formatContact: FormControl<TContactType>;
+  country: FormControl<{
+    key: string;
+    value: string;
+    flag: string;
+  } | null>;
   tier: FormControl<TTiers>;
   price: FormControl<string>;
   estimate: FormControl<string>;
-  meta: FormGroup<TMetaControls>;
-};
+}

@@ -14,7 +14,7 @@ import { Icons, IconName } from './types';
 
 let NEXT_ID = 0;
 
-type GradientInput = string | [string, string] | null | undefined;
+type GradientInput = string | string[] | null | undefined;
 
 @Component({
   selector: 'ui-icon',

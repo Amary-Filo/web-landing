@@ -8,7 +8,7 @@
         </span>
       </div>
 
-      <div class="fl fl-sbc fl-w g-40">
+      <div class="items">
         @for (item of data; track $index) {
         <div class="item fl g-15">
           <div class="icon">
@@ -29,7 +29,7 @@
         btnText="Yes, im ready. Let’s do it!"
         [width]="'800px'"
         bgColor="#29293F"
-        (btnClick)="btnClick()"
+        (btnClick)="goTo('brief')"
       />
     </div>
   </div>

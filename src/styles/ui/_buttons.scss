@@ -1,5 +1,13 @@
 @use "../mixins/mixins" as mx;
 
+button {
+  &.btn {
+    &:not([disabled]) {
+      cursor: pointer;
+    }
+  }
+}
+
 .btn {
   --btn-text-color: var(--text-color-rgb);
   --btn-bgc-rgb: var(--cl-main-rgb, 140, 140, 140);
@@ -25,8 +33,9 @@
   max-width: max-content;
 
   color: rgba(var(--btn-text-color), 1);
-  cursor: pointer;
   transition: 0.3s ease-in-out;
+
+  cursor: pointer;
 
   &-text {
     background: none;
@@ -58,22 +67,5 @@
     &:active {
       background-color: rgba(var(--btn-bgc-rgb), var(--btn-bgc-opacity-active));
     }
-  }
-
-  &.w {
-    &-100 {
-      width: 100%;
-    }
-
-    &-base {
-      max-width: mx.rem(300);
-      width: 100%;
-    }
-  }
-
-  &.fill {
-    --btn-bgc-opacity: 1;
-    --btn-bgc-opacity-hover: 0.9;
-    --btn-bgc-opacity-active: 0.95;
   }
 }

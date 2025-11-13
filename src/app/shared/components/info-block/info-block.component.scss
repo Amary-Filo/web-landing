@@ -1,3 +1,5 @@
+@use "../../../../styles/mixins/mixins.scss" as mx;
+
 .callout {
   display: grid;
   grid-template-columns: 1fr minmax(200px, 250px);
@@ -11,8 +13,16 @@
   border-radius: 15px;
   background-color: var(--bg-color, #1f1f2a);
 
+  @include mx.b(tablet) {
+    max-width: 100%;
+    grid-gap: 20px;
+    padding: 25px;
+    grid-template-columns: 1fr;
+  }
+
   .title {
     color: #9595af;
+    width: 100%;
   }
 
   .text {

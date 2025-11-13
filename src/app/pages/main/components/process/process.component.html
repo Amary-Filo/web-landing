@@ -11,7 +11,7 @@
       </span>
     </div>
 
-    <div class="content fl fl-sbc fl-w">
+    <div class="content">
       @for (item of data; track $index) {
       <div class="item fl" [attr.data-number]="$index + 1">
         <div class="info fl fl-dc g-10">
@@ -32,7 +32,7 @@
 
     <div class="callout-text m-t-20 m-auto t-c">
       Payment in stages: 50% at the start · 30% after the first demo · 20% upon
-      release. <span class="link">More info in FAQ.</span>
+      release. <span class="link" (click)="goTo('faq')">More info in FAQ.</span>
     </div>
   </div>
 </section>

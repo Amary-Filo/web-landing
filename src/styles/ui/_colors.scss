@@ -1,188 +1,21 @@
 @use "../mixins/mixins.scss" as mx;
 
 $colors: (
-  /* Basic */ ("cmain", #86acb9),
-  ("caccent", #eddbc3),
-  /*
-      Other
-      ai
-      design
-      seo
-    */ // ("ai", #8bafff),
-  ("design", #9068c7),
-  ("blog", #7dafc2),
-  ("seo", #d1b870),
-  ("about", #4e5166),
-  ("project", #2fad94),
-  ("development", #e8eaed),
-  ("subscribe", #86bbd8),
-  // ("info", #656ebd),
-  // ("complete", #8542b9),
-  ("warn", #00a8e8),
-  ("error", #e80047),
-  ("gallery", #88a096),
-  ("order", #b38fae),
-  ("feature", #a1cdf4),
-  ("instruments", #a997df),
-  ("attention", #eeff00),
-  /*
-      Frontend
-      angular
-      css3
-      gulp
-      html5
-      ionic
-      ngrx
-      pug
-      react
-      rxjs
-      scss
-      typescript
-      vue
-    */
-    ("frontend", #acc3a6),
-  ("angular", #ff5f5f),
-  ("css3", #3595d0),
-  ("css", #3595d0),
-  ("gulp", #d44346),
-  ("html5", #e8622b),
-  ("ionic", #4c8af0),
-  ("ngrx", #ba2bd2),
-  ("rxjs", #d30b8e),
-  ("pug", #f0cca3),
-  ("react", #58fdf7),
-  ("sass", #c66493),
-  ("typescript", #3178c6),
-  ("vue", #42b883),
-  ("swiftui", #f05138),
-  /*
-      Blockchain
-      +amaryfilo
-      bitcoin
-      coins
-      metamask
-      walletconnect
-      wallets
-      web3js
-    */
-    // ("blockchain", #F3C677),
-  ("blockchain", #89909f),
-  ("javascript", #ce5374),
-  ("bitcoin", #ff7b00),
-  ("coins", #611dff),
-  ("metamask", #ee8219),
-  ("wallet", #c37bd5),
-  ("walletconnect", #3c99fc),
-  ("web3js", #2980b9),
-  ("tools", #6a7da5),
-  /*
-      Backend
-      api
-      graphql
-      nodejs
-      laravel
-      php
-      rest
-    */
-    ("backend", #6e7271),
-  ("api", #590e72),
-  ("graphql", #de35a6),
-  ("nodejs", #87c248),
-  ("laravel", #f55247),
-  ("php", #8892be),
-  ("rest", #4dbf6f),
-  ("json", #bf7e4d),
-  /*
-      git
-      bitbucket
-      github
-      gitflow
-      npmjs
-    */
-    ("git", #c9510c),
-  ("bitbucket", #205081),
-  ("github", #6e5494),
-  ("gitflow", #22809a),
-  ("npm", #cb3837),
-  /*
-      Databases
-      apache
-      nginx
-      mysql
-      mongodb
-      postgres
-    */
-    ("database", #8bc5ff),
-  ("apache", #d12028),
-  ("nginx", #009a00),
-  ("mongodb", #589636),
-  ("mysql", #00758f),
-  ("postgres", #31648d),
-  /*
-      CMS
-      bitrix
-      custom
-      octobercms
-      winter
-      wordpress
-    */
-    // ("cms", #ff9d8b),
-  ("customcms", #859ccc),
-  ("octobercms", #ff9941),
-  ("wintercms", #50b3ce),
-  /*
-      Social
-      behance
-      demo
-      facebook
-      instagram
-      linkedin
-      twitter
-      youtube
-    */
-    ("behance", #1769ff),
-  ("dribble", #ea4c89),
-  ("facebook", #1877f2),
-  ("instagram", #e1306c),
-  ("linkedin", #0077b5),
-  ("twitter", #1da1f2),
-  ("youtube", #f00),
-  ("telegram", #0088cc),
-  // ("vk", #07f),
-  // ("patreon", #F96753),
+  // Social
+  // ("dribble", #ea4c89),
+  // ("facebook", #1877f2),
+  // ("instagram", #e1306c),
+  // ("linkedin", #0077b5),
+  // ("twitter", #1da1f2),
+  // ("youtube", #f00),
+  // ("telegram", #0088cc),
   // Sandbox
-  ("app", #007bff),
-  ("crypto", #ae00ff),
-  ("ui", #088942)
+  // ("app", #007bff),
+  // ("crypto", #ae00ff),
+  // ("ui", #088942)
 );
 
 $gradients: (
-  ("main", #eddbc3, #86acb9),
-  // Colors
-  ("bluepurple", #5d69be, #c89feb),
-  ("purplepink", #a15dbe, #eb9fca),
-  ("green", #358270, #dbe6e1),
-  // Sections
-  ("blog", #698ea8, #9adffa),
-  ("design", #4e3c71, #bdb0d6),
-  ("project", #2fad94, #bde5c9),
-  ("development", #808c9d, #e8eaed),
-  ("work", #145277, #83d0cb),
-  ("order", #6d678e, #f6b5cc),
-  ("subscribe", #3781a9, #86bbd8),
-  ("about", #a67f8e, #dbb3b1),
-  // Partials
-  ("links", #e54b4b, #ffa987),
-  // Rewrite
-  ("gallery", #88a096, #bbab8b),
-  ("feature", #7c809b, #a1cdf4),
-  ("instruments", #a997df, #dccfec),
-  ("images", #475b5a, #a3a9aa),
-  ("done", #cf8e80, #fcb5b5),
-  ("type", #5d5d81, #bfcde0),
-  // ("purple-1", #d174ff, #a1a0ff),
-  ("type", #5d5d81, #bfcde0),
-  // new
   ("orange-1", #f59e0b, #f97316),
   ("purple-1", #8b5cf6, #6d28d9),
   ("pink-1", #ff76af, #f8494c),
@@ -191,8 +24,7 @@ $gradients: (
   ("green-1", #10b981, #22c55e),
   ("blue-2", #06b6d4, #3b82f6),
   ("white-1", #fff, #ffffff30),
-  ("pink-2", #ff0b85, #a96bc2),
-  // ("pink-2", #FF0B85, #d91376)
+  ("pink-2", #ff0b85, #a96bc2)
 );
 
 @include mx.colors($colors);

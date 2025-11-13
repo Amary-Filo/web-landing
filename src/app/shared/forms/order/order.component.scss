@@ -1,3 +1,5 @@
+@use "../../../../styles/mixins/mixins.scss" as mx;
+
 .content {
   position: relative;
   display: grid;
@@ -19,36 +21,54 @@
   background: linear-gradient(130deg, #12121a, #1f1f35);
   transition: 0.3s ease-in-out;
 
+  @include mx.b(tablet) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+  }
+
+  @include mx.b(mobile) {
+    padding: 40px 20px;
+  }
+
+  &::before,
   &::after {
-    content: "";
     position: absolute;
+    content: "";
     top: -3px;
     left: -3px;
     right: -3px;
     bottom: -3px;
     border-radius: 25px;
-    box-shadow: 0 0 100px -5px rgba(var(--cl-main-rgb, #fe70a1), 0.85);
-    opacity: 0;
     pointer-events: none;
     z-index: -1;
-
-    opacity: var(--flicker-opacity, 1);
-    transition: opacity 60ms ease-out;
-
-    // animation: flicker-glow 3s linear infinite;
+    opacity: 0;
+    will-change: opacity;
+    box-shadow: 0 0 100px -5px rgba(var(--cl-main-rgb, #fe70a1), 0.35);
   }
 
-  // &:hover {
-  //   &::after {
-  //     opacity: 1;
-  //     animation: none;
-  //   }
-  // }
+  &::before {
+    animation: flicker-a var(--flicker-duration-a, 4s) infinite;
+  }
+
+  &::after {
+    animation: flicker-b var(--flicker-duration-b, 8s) infinite;
+    mix-blend-mode: screen;
+  }
 }
 
 .head {
   .title {
     font-size: 36px;
+
+    @include mx.b(tablet) {
+      margin: 0 auto;
+      font-size: 45px;
+    }
+
+    @include mx.b(mobile) {
+      font-size: 30px;
+    }
   }
 }
 
@@ -57,8 +77,32 @@
   padding: 15px 20px;
   background-color: #29293f;
 
+  @include mx.b(tablet) {
+    width: 100%;
+  }
+
+  @include mx.b(mobile) {
+    border-radius: 10px;
+    padding: 15px 10px;
+  }
+
   .title {
     color: #9999b2;
+    width: 100%;
+  }
+
+  .text {
+    @include mx.b(350) {
+      font-size: 14px;
+    }
+  }
+}
+
+.info {
+  @include mx.b(tablet) {
+    border-bottom: 2px dashed #29293f;
+    padding-bottom: 40px;
+    text-align: center;
   }
 }
 
@@ -68,28 +112,66 @@
   object-fit: cover;
 }
 
-// @keyframes flicker-glow {
-//   0%,
-//   19%,
-//   22%,
-//   62%,
-//   64%,
-//   70%,
-//   100% {
-//     opacity: 1;
-//   }
-
-//   20%,
-//   21%,
-//   63%,
-//   65%,
-//   69% {
-//     opacity: 0;
-//   }
-// }
-
 .form-group {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 15px;
+
+  @include mx.b(mobile) {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes flicker-a {
+  0%,
+  8%,
+  12%,
+  20%,
+  55%,
+  100% {
+    opacity: 1;
+  }
+  9%,
+  11%,
+  21%,
+  23%,
+  54% {
+    opacity: 0.3;
+  }
+  30% {
+    opacity: 0.6;
+  }
+  32% {
+    opacity: 0.1;
+  }
+  40% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes flicker-b {
+  0%,
+  5%,
+  18%,
+  22%,
+  60%,
+  100% {
+    opacity: 0.9;
+  }
+  6%,
+  17%,
+  23%,
+  25%,
+  59% {
+    opacity: 0.2;
+  }
+  35% {
+    opacity: 0.7;
+  }
+  37% {
+    opacity: 0;
+  }
+  45% {
+    opacity: 0.5;
+  }
 }

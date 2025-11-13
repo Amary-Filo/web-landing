@@ -1,7 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
 import { UICalloutComponent } from '../../../../shared/components/callout/callout.component';
 import { UiFormOrderComponent } from '../../../../shared/forms/order/order.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 export type TTiers = 'start' | 'pro' | 'scale';
 type TData = {
@@ -24,6 +25,8 @@ type TData = {
   standalone: true,
 })
 export class CreateProjectSectionComponent {
+  private scroll = inject(ScrollService);
+
   readonly data: TData[] = [
     {
       title: 'Start',
@@ -80,4 +83,8 @@ export class CreateProjectSectionComponent {
 
   readonly selected = signal<number>(0);
   readonly formData = computed<TData>(() => this.data[this.selected()]);
+
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
+  }
 }

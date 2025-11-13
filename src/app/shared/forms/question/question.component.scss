@@ -1,3 +1,5 @@
+@use "../../../../styles/mixins/mixins.scss" as mx;
+
 .content {
   position: relative;
   display: grid;
@@ -17,10 +19,51 @@
 
   background: linear-gradient(130deg, #12121a, #1f1f35);
   transition: 0.3s ease-in-out;
+
+  @include mx.b(desktop) {
+    padding: 45px 35px;
+  }
+
+  @include mx.b(tablet) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 40px;
+  }
+
+  @include mx.b(mobile) {
+    padding: 40px 20px;
+  }
+}
+
+.info {
+  @include mx.b(tablet) {
+    border-bottom: 2px dashed #29293f;
+    padding-bottom: 40px;
+    text-align: center;
+    align-items: center;
+  }
+
+  .btn {
+    max-width: 450px;
+  }
 }
 
 .title {
   color: #e0e0f3;
+  width: 100%;
+
+  @include mx.b(800) {
+    font-size: 28px;
+  }
+
+  @include mx.b(tablet) {
+    margin: 0 auto;
+    font-size: 45px;
+  }
+
+  @include mx.b(mobile) {
+    font-size: 30px;
+  }
 }
 
 .text {
@@ -36,4 +79,14 @@
 
 .accent {
   color: #d174ff;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+
+  @include mx.b(mobile) {
+    grid-template-columns: 1fr;
+  }
 }

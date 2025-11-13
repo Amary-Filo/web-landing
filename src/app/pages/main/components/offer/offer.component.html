@@ -9,17 +9,17 @@
       </span>
     </div>
 
-    <div class="content fl fl-w g-20">
+    <div class="content">
       @for (item of data; track $index) {
-      <div class="item item--blue">
+      <div class="item fl fl-dc g-10">
+        <ui-icon
+          [gradient]="'#D174FF,#A1A0FF'"
+          [name]="item.icon"
+          size="var(--offer-icon-size)"
+        />
         <div class="info fl fl-dc g-10">
-          <ui-icon
-            [gradient]="'#D174FF,#A1A0FF'"
-            [name]="item.icon"
-            size="50px"
-          />
           <h3 class="title fw-7">{{ item.title }}</h3>
-          <p class="text fw-5 op-5 t-c">{{ item.text }}</p>
+          <p class="text fw-5 op-5">{{ item.text }}</p>
         </div>
       </div>
       }

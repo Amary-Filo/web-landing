@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UICalloutComponent } from '../../../../shared/components/callout/callout.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 type TData = {
   title: string;
@@ -14,6 +15,8 @@ type TData = {
   standalone: true,
 })
 export class ProcessSectionComponent {
+  private scroll = inject(ScrollService);
+
   readonly data: TData[] = [
     {
       title: 'Brief',
@@ -40,4 +43,8 @@ export class ProcessSectionComponent {
       text: 'Deployment, documentation, brief workshop; 7 days of stabilization (bugfix), followed by package support.',
     },
   ];
+
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
+  }
 }

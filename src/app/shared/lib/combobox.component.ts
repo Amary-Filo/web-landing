@@ -1,4 +1,3 @@
-// combobox.component.ts (замени на этот вариант)
 import { BooleanInput } from '@angular/cdk/coercion';
 import { CommonModule } from '@angular/common';
 import {
@@ -22,8 +21,6 @@ import {
 } from 'ng-primitives/combobox';
 import { ChangeFn, provideValueAccessor, TouchedFn } from 'ng-primitives/utils';
 import { UIIconComponent } from '../components/icon/icon.component';
-
-// БАЗОВЫЙ ТИП: обязательные key/value + любые доп. поля
 export type ComboItem = { key: string; value: string } & Record<string, any>;
 
 @Component({
@@ -83,7 +80,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
               [ngTemplateOutletContext]="{ $implicit: opt, selected: isSelected(opt) }"
             ></ng-container>
             } @else {
-            <!-- Дефолтный вид айтема -->
+            <!-- Item Default -->
             <span class="select-placeholder" [class.selected]="!!selectedOption()?.value">{{
               opt.value
             }}</span>
@@ -98,10 +95,6 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
   `,
   styles: [
     `
-      // :host {
-      //   display: block;
-      // }
-
       .selected {
         --ngp-selected: #e6e6f0;
       }
@@ -164,6 +157,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         margin-bottom: 10px;
         padding: 7px 10px;
         border-radius: 10px;
+        z-index: 999999999;
       }
 
       [ngpComboboxButton] {
@@ -193,7 +187,6 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         padding: 7px;
         margin-top: 4px;
 
-        // border: 2px solid rgba(var(--cl-main-rgb, rgba(77, 77, 116, 1)), 0.6);
         border: 2px solid rgba(77, 77, 116, 0.5);
         border-radius: 10px;
         box-shadow: var(--ngp-shadow-lg);
@@ -205,7 +198,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         box-shadow: 0px 5px 8px 0px #00000036;
 
         outline: none;
-        z-index: 999;
+        z-index: 999999;
       }
 
       .options-list {
@@ -292,54 +285,42 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
   ],
 })
 export class ComboboxComponent implements ControlValueAccessor {
-  // === ПУБЛИЧНЫЕ INPUT'ы ===
   readonly color = input<string>('');
   readonly placeholder = input<string>('');
   readonly options = input<readonly ComboItem[]>([]);
   readonly searchable = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
   readonly disabled = input<boolean, BooleanInput>(false, { transform: booleanAttribute });
 
-  /** Что отдавать в форму: 'key' (по умолчанию) или 'object' */
-  readonly emitMode = input<'key' | 'object'>('key');
-
-  /** Кастомный поиск: если передан — заменяет дефолтный */
+  readonly emitMode = input<'key' | 'object' | 'value'>('key');
   readonly searchFn = input<((o: ComboItem, term: string) => boolean) | null>(null);
-
-  /** Текущее значение (key | object) */
   readonly value = model<any | undefined>();
 
-  // === КАСТОМНЫЕ ШАБЛОНЫ (проекция) ===
   @ContentChild('optionTpl', { read: TemplateRef }) optionTpl?: TemplateRef<any>;
   @ContentChild('valueTpl', { read: TemplateRef }) valueTpl?: TemplateRef<any>;
 
-  // === ВНУТРЕННЕЕ СОСТОЯНИЕ ===
   protected readonly filter = signal<string>('');
   protected readonly formDisabled = signal(false);
 
-  // Выбранный объект по текущему value
   protected readonly selectedOption = computed<ComboItem | undefined>(() => {
     const list = this.options();
     const v = this.value();
     if (this.emitMode() === 'key') return list.find((o) => o.key === v);
+    if (this.emitMode() === 'value') return list.find((o) => o.value === v);
     return typeof v === 'object' && v ? (v as ComboItem) : undefined;
   });
 
-  // Фильтрованные опции
   protected readonly filteredOptions = computed(() => {
     const list = this.options() ?? [];
     const t = this.filter().toLowerCase().trim();
     const sf = this.searchFn();
     if (!t) return list;
     if (sf) return list.filter((o) => sf(o, t));
-    // дефолт: ищем по value и key
     return list.filter((o) => o.value.toLowerCase().includes(t) || o.key.toLowerCase().includes(t));
   });
 
-  // Подсветка выбранного в шаблоне айтема
   protected isSelected = (o: ComboItem) =>
     this.emitMode() === 'key' ? this.value() === o.key : this.value() === o;
 
-  // === CVA ===
   private onChange?: ChangeFn<any | undefined>;
   protected onTouched?: TouchedFn;
 
@@ -347,12 +328,15 @@ export class ComboboxComponent implements ControlValueAccessor {
     this.value.set(val);
     if (this.searchable()) this.filter.set(this.selectedOption()?.value ?? '');
   }
+
   registerOnChange(fn: ChangeFn<any | undefined>): void {
     this.onChange = fn;
   }
+
   registerOnTouched(fn: TouchedFn): void {
     this.onTouched = fn;
   }
+
   setDisabledState(isDisabled: boolean): void {
     this.formDisabled.set(isDisabled);
   }

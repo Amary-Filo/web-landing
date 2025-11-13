@@ -3,6 +3,26 @@
 .content {
   justify-content: center;
   margin-bottom: 100px;
+
+  @include mx.b(desktop) {
+    gap: 20px;
+  }
+
+  @include mx.b(tablet) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include mx.b(mobile) {
+    grid-template-columns: 1fr;
+    margin-bottom: 60px;
+  }
+}
+
+.section-head {
+  @include mx.b(mobile) {
+    --sc-bottom: 60px;
+  }
 }
 
 .item {
@@ -13,8 +33,37 @@
   background-color: #171721;
   overflow: hidden;
 
+  @include mx.b(desktop) {
+    max-width: 360px;
+  }
+
+  @include mx.b(tablet) {
+    max-width: 100%;
+  }
+
+  .top {
+    img {
+      @include mx.b(mobile) {
+        display: none;
+      }
+    }
+  }
+
   .head {
     padding: 20px 20px;
+
+    .title {
+      @include mx.b(tablet) {
+        font-size: 20px;
+      }
+    }
+
+    ui-icon {
+      display: flex;
+      background: linear-gradient(90deg, var(--cl-main), var(--cl-accent));
+      padding: 5px;
+      border-radius: 5px;
+    }
   }
 
   .info {

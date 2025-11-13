@@ -12,13 +12,6 @@
       </span>
     </div>
 
-    <!-- <h3 class="title t-u s-sm fw-9">Packages</h3>
-    <p class="line-text m-t-10 fz-md op-7">
-      We offer several ready-made service packages. They are designed to
-      simplify your choice and give you a rough estimate of the development
-      cost.
-    </p> -->
-
     <div class="list">
       @for (item of data; track $index) {
       <div
@@ -30,15 +23,15 @@
         <p class="text fz-sm op-8 fw-6">{{ item.text }}</p>
         <div class="best">
           <div class="best-wrap">
-            <span class="fw-8 t-gr fz-sm">
+            <span class="fw-8 t-gr">
               <span class="fz-xs">Best for</span>
               <br />
               {{ item.best }}
             </span>
           </div>
         </div>
-        <b>What’s included:</b>
         <div class="benefits fl fl-dc g-10">
+          <b>What’s included:</b>
           @for (benefit of item.included; track $index) {
           <div class="benefit-item fl g-10 fz-xs fw-6">
             <ui-icon name="checkLine" size="20px" [gradient]="item.gradient" />
@@ -56,15 +49,20 @@
             {{ item.estimate }} weeks
           </div>
         </div>
-        <div class="btn" [class.bordered]="selected() === $index">
+        <button
+          class="btn g-bg g-a fw-8"
+          [class]="'cl-g-' + item.color"
+          [disabled]="selected() === $index"
+        >
           @if(selected() === $index) { You choose this Tier } @else { Choose
           {{ item.title }} tier }
-        </div>
+        </button>
       </div>
       }
     </div>
 
     <ui-form-order
+      [tier]="formData().tier"
       [color]="formData().gradient[0]"
       [gradient]="formData().color"
       [price]="formData().from"
@@ -83,7 +81,7 @@
 
     <div class="callout-text m-t-20 m-auto t-c">
       Payment in stages: 50% at the start · 30% after the first demo · 20% upon
-      release. <span class="link">More info in FAQ.</span>
+      release. <span class="link" (click)="goTo('faq')">More info in FAQ.</span>
     </div>
   </div>
 </section>

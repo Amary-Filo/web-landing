@@ -1,7 +1,8 @@
-import { Component, computed, model, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { IconName } from '../../../../shared/components/icon/types';
 import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
 import { UiInfoBlockComponent } from '../../../../shared/components/info-block/info-block.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 type TChip = 'fees' | 'eco' | 'fast' | 'popular' | 'security' | 'large' | 'lz';
 type TLayer = 'layer-1' | 'layer-2' | 'layer-3' | 'other';
@@ -23,6 +24,7 @@ type TData = {
   standalone: true,
 })
 export class NetworksSectionComponent {
+  private scroll = inject(ScrollService);
   readonly chips: Record<TChip, string> = {
     eco: 'Broad ecosystem',
     popular: 'Popular',
@@ -165,7 +167,7 @@ export class NetworksSectionComponent {
   readonly tabs = computed<TLayer[]>(() => Array.from(new Set(this.data.map((i) => i.layer))));
   readonly dataFiltered = computed(() => this.data.filter((i) => i.layer === this.tab()));
 
-  btnClick() {
-    console.log('Click');
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
   }
 }

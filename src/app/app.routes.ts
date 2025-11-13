@@ -4,7 +4,6 @@ export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/main/main.page').then((m) => m.MainPage),
-    // resolve: { home: homeLatestResolver },
-    title: 'Amary Filo | Software Developer',
+    title: 'Create Web3 Projects',
   },
 ];

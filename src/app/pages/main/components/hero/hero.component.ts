@@ -1,5 +1,6 @@
-import { Component, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { UiArrowLineComponent } from '../../../../shared/components/arrow-line/arrow-line.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 @Component({
   selector: 'section-hero',
@@ -9,6 +10,7 @@ import { UiArrowLineComponent } from '../../../../shared/components/arrow-line/a
   styleUrl: './hero.component.scss',
 })
 export class HeroSectionComponent implements OnDestroy {
+  private scroll = inject(ScrollService);
   private readonly texts = ['DeFi', 'DEX', 'dApps', 'Crypto', 'Staking', 'Auctions'];
   private readonly colors = ['pink-1', 'blue-1', 'orange-1', 'green-1', 'purple-2', 'blue-2'];
 
@@ -33,5 +35,9 @@ export class HeroSectionComponent implements OnDestroy {
 
   ngOnDestroy() {
     if (this.intervalId) clearInterval(this.intervalId);
+  }
+
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
   }
 }

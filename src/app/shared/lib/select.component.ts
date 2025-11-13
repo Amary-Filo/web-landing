@@ -212,16 +212,9 @@ export class SelectComponent implements ControlValueAccessor {
     transform: booleanAttribute,
   });
 
-  /** The selected value. */
   readonly value = model<string | undefined>();
-
-  /** Store the form disabled state */
   protected readonly formDisabled = signal(false);
-
-  /** The on change callback */
   private onChange?: ChangeFn<string>;
-
-  /** The on touch callback */
   protected onTouched?: TouchedFn;
 
   writeValue(value: string | undefined): void {

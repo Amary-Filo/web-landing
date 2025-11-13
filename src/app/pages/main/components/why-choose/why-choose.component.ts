@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
 import { IconName } from '../../../../shared/components/icon/types';
 import { UiInfoBlockComponent } from '../../../../shared/components/info-block/info-block.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 type TData = {
   title: string;
@@ -17,6 +18,7 @@ type TData = {
   standalone: true,
 })
 export class WhyChooseSectionComponent {
+  private scroll = inject(ScrollService);
   readonly data: TData[] = [
     {
       title: 'Fast, focused delivery',
@@ -50,7 +52,7 @@ export class WhyChooseSectionComponent {
     },
   ];
 
-  btnClick() {
-    console.log('Click');
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
   }
 }

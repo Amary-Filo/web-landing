@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
 import { IconName } from '../../../../shared/components/icon/types';
 import { UiInfoBlockComponent } from '../../../../shared/components/info-block/info-block.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 type TData = {
   img: string;
+  icon: IconName;
   title: string;
   subtext: string;
   text: string;
@@ -32,6 +34,8 @@ type TBage = {
   standalone: true,
 })
 export class SolutionsSectionComponent {
+  private scroll = inject(ScrollService);
+
   readonly badge: Record<TBageKeys, TBage> = {
     popular: {
       title: 'Popular',
@@ -47,7 +51,8 @@ export class SolutionsSectionComponent {
 
   readonly data: TData[] = [
     {
-      img: 'defi.svg',
+      img: 'defi.png',
+      icon: 'rocket2Fill',
       title: 'DeFi dApp MVP',
       subtext: 'Ship a usable Web3 interface in weeks, not months.',
       text: 'Wallet onboarding, EVM integrations and branded UI connected to your contracts with a live testnet demo.',
@@ -59,7 +64,8 @@ export class SolutionsSectionComponent {
       hasDemo: true,
     },
     {
-      img: 'dex.svg',
+      img: 'dex.png',
+      icon: 'exchange2Fill',
       title: 'DEX UI ',
       subtext: 'Modular exchange components tailored to your protocol.',
       text: 'Production-ready UI blocks for swaps, pools and farming with clear pricing, slippage and confirmations.',
@@ -71,8 +77,9 @@ export class SolutionsSectionComponent {
       hasDemo: true,
     },
     {
-      img: 'vesting.svg',
-      title: 'Vesting & Token Utilities',
+      img: 'vesting.png',
+      icon: 'calendarScheduleFill',
+      title: 'Vesting & Token',
       subtext: 'Clear vesting schedules and token tools for teams and investors.',
       text: 'Cliff & linear schedules, claims, roles and exports, all in a clean, auditable interface.',
       from: '6.5k',
@@ -82,7 +89,8 @@ export class SolutionsSectionComponent {
       badges: [],
     },
     {
-      img: 'staking.svg',
+      img: 'staking.png',
+      icon: 'handCoinFill',
       title: 'Staking & Rewards',
       subtext: 'Stake, harvest, track history with transparent APR/APY and clear gas/fee feedback.',
       text: 'Wallet onboarding, EVM integrations and branded UI connected to your contracts with a live testnet demo.',
@@ -94,7 +102,8 @@ export class SolutionsSectionComponent {
       hasDemo: true,
     },
     {
-      img: 'dashboards.svg',
+      img: 'dashboards.png',
+      icon: 'barChartBoxAiFill',
       title: 'Dashboards & Admin',
       subtext: 'Operational visibility for your token, pools and users.',
       text: 'Metrics, filters and role-based controls to run your Web3 product with confidence.',
@@ -106,7 +115,7 @@ export class SolutionsSectionComponent {
     },
   ];
 
-  btnClick() {
-    console.log('Click');
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
   }
 }

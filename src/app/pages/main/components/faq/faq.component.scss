@@ -1,14 +1,21 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
+.section-head {
+  @include mx.b(mobile) {
+    --sc-bottom: 50px;
+  }
+}
+
 .content {
   border-radius: 25px;
   border: 2px solid #353540;
   overflow: hidden;
   transition: 0.3s ease-in-out;
+  background-color: #1f1f2a;
 
-  // &:hover {
-  // border-color: #6e3e87;
-  // }
+  @include mx.b(mobile) {
+    border-radius: 15px;
+  }
 }
 
 details {
@@ -18,9 +25,21 @@ details {
   transition: 0.3s ease-in-out;
   cursor: pointer;
 
+  @include mx.b(tablet) {
+    padding: 20px 30px;
+  }
+
+  @include mx.b(mobile) {
+    padding: 15px 20px;
+  }
+
   &:last-child {
     border-bottom-color: transparent;
     border-radius: 0 0 25px 25px;
+
+    @include mx.b(mobile) {
+      border-radius: 0 0 15px 15px;
+    }
   }
 
   &:hover {
@@ -33,13 +52,25 @@ details {
 
   summary {
     display: grid;
-    grid-template-columns: 1fr 55px;
+    grid-template-columns: 1fr max-content;
     align-items: center;
     grid-gap: 20px;
     opacity: 0.7;
 
     list-style: none;
     transition: 0.3s ease-in-out;
+
+    @include mx.b(desktop) {
+      font-size: 22px;
+    }
+
+    @include mx.b(tablet) {
+      font-size: 20px;
+    }
+
+    @include mx.b(mobile) {
+      font-size: 16px;
+    }
 
     &::-webkit-details-marker {
       display: none;
@@ -48,7 +79,11 @@ details {
 
   &[open] {
     background-color: #242432;
-    border-bottom: 10px solid #d174ff;
+    border-bottom: var(--faq-border-bottom, 10px) solid #d174ff;
+
+    @include mx.b(tablet) {
+      --faq-border-bottom: 5px;
+    }
 
     summary {
       opacity: 1;
@@ -62,11 +97,37 @@ details {
 
   .icon {
     transition: 0.3s ease-in-out;
+
+    --icon-size: 50px;
+
+    @include mx.b(desktop) {
+      --icon-size: 40px;
+    }
+
+    @include mx.b(tablet) {
+      --icon-size: 30px;
+    }
+
+    @include mx.b(mobile) {
+      --icon-size: 20px;
+    }
   }
 
   .answer {
     transition: 0.3s ease-in-out;
     color: #808095;
+
+    @include mx.b(desktop) {
+      font-size: 18px;
+    }
+
+    @include mx.b(tablet) {
+      font-size: 16px;
+    }
+
+    @include mx.b(mobile) {
+      font-size: 14px;
+    }
   }
 }
 
@@ -85,4 +146,22 @@ ui-form-question {
   display: block;
   margin: 0 auto;
   margin-top: 100px;
+}
+
+.faq-item--hidden {
+  display: none;
+}
+
+.load-more {
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+  color: white;
+  opacity: 0.5;
+
+  &.hide,
+  &:hover {
+    color: #d174ff;
+    opacity: 1;
+  }
 }

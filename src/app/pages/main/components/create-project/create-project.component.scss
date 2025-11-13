@@ -6,19 +6,56 @@
   gap: 20px;
   align-items: stretch;
   margin-top: 50px;
+
+  @include mx.b(1120) {
+    gap: 14px;
+  }
+
+  @include mx.b(desktop) {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    gap: 35px;
+  }
 }
 
 .item {
-  max-width: 370px;
+  position: relative;
   width: 100%;
   padding: 40px;
   border-radius: 25px;
   border: 3px solid transparent;
   border-bottom-width: 5px;
-  overflow: hidden;
   background-color: #1f1f2a;
   transition: 0.3s ease-in-out;
   cursor: pointer;
+
+  @include mx.b(1120) {
+    padding: 25px;
+  }
+
+  @include mx.b(desktop) {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    grid-template-areas:
+      "title title"
+      "text text"
+      "benefits info"
+      "button button";
+    padding: 15px;
+    gap: 15px;
+  }
+
+  @include mx.b(mobile) {
+    grid-template-areas:
+      "title title"
+      "text text"
+      "best best"
+      "benefits info"
+      "button button";
+
+    border-radius: 15px;
+  }
 
   &:hover {
     border-color: var(--cl-main);
@@ -48,11 +85,25 @@
     }
   }
 
+  .title {
+    grid-area: title;
+
+    @include mx.b(desktop) {
+      font-size: 40px;
+    }
+  }
+
+  .text {
+    grid-area: text;
+  }
+
   .best {
+    min-width: max-content;
     min-height: max-content;
     padding: 2px;
     border-radius: 10px;
     background: linear-gradient(90deg, var(--cl-main), var(--cl-accent));
+    font-size: 14px;
     overflow: hidden;
 
     &-wrap {
@@ -60,31 +111,88 @@
       border-radius: 8px;
       background-color: #29293f;
       line-height: 1;
+
+      @include mx.b(mobile) {
+        padding: 7px 10px;
+        border-radius: 5px;
+      }
+    }
+
+    @include mx.b(desktop) {
+      position: absolute;
+      top: -20px;
+      right: 20px;
+    }
+
+    @include mx.b(mobile) {
+      grid-area: best;
+      position: relative;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      font-size: 13px;
+      border-radius: 7px;
     }
   }
 
   .info {
+    grid-area: info;
     padding: 20px 0;
     border-top: 2px solid #3e3e53;
     border-bottom: 2px solid #3e3e53;
+
+    @include mx.b(desktop) {
+      flex-direction: column;
+      padding: 0;
+      border: none;
+    }
 
     &-item {
       padding: 7px 15px;
       border-radius: 5px;
       background-color: #29293f;
+
+      @include mx.b(desktop) {
+        width: 100%;
+        width: max-content;
+        height: 100%;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+      }
     }
   }
 
   .benefits {
     height: 100%;
+    grid-area: benefits;
+
+    @include mx.b(desktop) {
+      height: max-content;
+    }
   }
+}
+
+.benefit-item {
+  word-break: break-all;
 }
 
 .ui-form-order {
   display: block;
   margin-top: 200px;
+
+  @include mx.b(tablet) {
+    margin-top: 100px;
+  }
 }
 
 .ui-callout {
   margin-top: 70px;
+}
+
+.btn {
+  grid-area: button;
+  max-width: 100%;
+  min-height: max-content;
 }

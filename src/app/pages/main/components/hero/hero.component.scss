@@ -2,6 +2,23 @@
 
 .sc {
   margin-top: 150px;
+  position: relative;
+  overflow-x: clip;
+  overflow-y: visible;
+
+  @supports not (overflow: clip) {
+    overflow-x: hidden;
+  }
+
+  @include mx.b(mobile) {
+    margin-top: 50px;
+  }
+}
+
+ui-arrow-line {
+  @include mx.b(mobile) {
+    --arrow-size: 30px;
+  }
 }
 
 .content {
@@ -15,9 +32,14 @@
 
     b {
       transition: 0.3s ease-in-out;
+
       &:hover {
         opacity: 1;
       }
+    }
+
+    @include mx.b(mobile) {
+      font-size: 20px;
     }
   }
 
@@ -43,11 +65,40 @@
         content: "}";
         margin-left: 15px;
       }
+
+      @include mx.b(tablet) {
+        margin-left: 0;
+      }
+    }
+
+    @include mx.b(desktop) {
+      font-size: 85px;
+    }
+
+    @include mx.b(tablet) {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @include mx.b(mobile) {
+      font-size: 50px;
+    }
+
+    br {
+      @include mx.b(tablet) {
+        display: none;
+      }
     }
   }
 
   .text {
     margin-top: 30px;
+
+    @include mx.b(mobile) {
+      font-size: 20px;
+      max-width: 270px;
+    }
   }
 
   .depends,
@@ -61,6 +112,7 @@
     max-width: 800px;
     width: 100%;
     margin-top: 50px;
+    font-size: 20px;
 
     .btn {
       width: 100%;
@@ -70,9 +122,14 @@
       transition: 0.25s ease-in-out;
 
       &:hover {
-        // transform: scale(1.05);
         --btn-shadow: 10px;
       }
+    }
+
+    @include mx.b(mobile) {
+      flex-direction: column;
+      gap: 15px;
+      font-size: 15px;
     }
   }
 }

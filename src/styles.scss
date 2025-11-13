@@ -1,17 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
 @use "./styles/mixins/mixins.scss" as mx;
-@use "./styles/fonts.scss";
 @use "./styles/ui.scss";
-@use "./app/shared/kit/kit.tokens.scss";
-// @use "ng-primitives/example-theme/index.css";
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900");
 
 :root {
-  // Font
   --title-font: "Inter", sans-serif;
   --text-font: "Inter", sans-serif;
 
-  // Colors
   --body-bg-color: #12121a;
   --body-bg-color-rgb: 18, 18, 26;
   --body-text-color: #fff;
@@ -23,20 +18,6 @@
   --text-color: var(--accent-gray-color);
   --text-color-rgb: var(--accent-gray-color-rgb);
 }
-
-// body#dark {
-//   // colors
-//   --body-bg-color: #1c1727;
-//   --body-bg-color-rgb: 28, 23, 39;
-//   --body-text-color: #fff;
-//   --body-text-color-alt: #000;
-
-//   --accent-gray-color: #b3b3b3cc;
-//   --accent-gray-color-rgb: 179, 179, 179;
-
-//   --text-color: var(--accent-gray-color);
-//   --text-color-rgb: var(--accent-gray-color-rgb);
-// }
 
 *,
 *::before,
@@ -68,13 +49,7 @@ body {
   padding-top: mx.rem(50);
   background: var(--body-bg-color);
   color: var(--body-text-color);
-
-  &.sbx-frameless {
-    padding-top: 0;
-  }
 }
-
-// Typography
 
 p,
 h1,
@@ -85,30 +60,8 @@ h5,
 h6,
 .title {
   overflow-wrap: break-word;
-
   font-family: var(--title-font);
-  // font-weight: 700;
 }
-
-// h1 {
-//   font-size: mx.rem(49);
-// }
-// h2 {
-//   font-size: mx.rem(39);
-// }
-// h3 {
-//   font-size: mx.rem(31);
-// }
-// h4 {
-//   font-size: mx.rem(25);
-// }
-// h5 {
-//   font-size: mx.rem(20);
-// }
-
-// small {
-//   font-size: mx.rem(13);
-// }
 
 a {
   text-decoration: none;
@@ -138,22 +91,8 @@ select {
   font: inherit;
 }
 
-// Template
-
 .sc {
   position: relative;
-  // &:not(.pg-hd) {
-  //   margin-top: mx.rem(250);
-  //   @include mx.b(desktop) {
-  //     margin-top: mx.rem(200);
-  //   }
-  //   @include mx.b(tablet) {
-  //     margin-top: mx.rem(150);
-  //   }
-  //   @include mx.b(mobile) {
-  //     margin-top: mx.rem(100);
-  //   }
-  // }
 }
 
 .container {

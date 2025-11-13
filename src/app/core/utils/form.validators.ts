@@ -1,7 +1,7 @@
 import { AbstractControl, ValidationErrors, ValidatorFn, FormGroup } from '@angular/forms';
 
 export const contactGroupValidator = (group: AbstractControl): ValidationErrors | null => {
-  const type = group.get('type')?.value as 'telegram' | 'email' | undefined;
+  const type = group.get('formatContact')?.value as 'telegram' | 'email' | undefined;
   const contactCtrl = group.get('contact')!;
   const raw = contactCtrl.value ?? '';
   const v = typeof raw === 'string' ? raw.trim() : '';
@@ -28,7 +28,7 @@ export const contactGroupValidator = (group: AbstractControl): ValidationErrors 
 export const contactByTypeValidator = (): ValidatorFn => {
   return (control) => {
     const parent = control.parent as FormGroup | null;
-    const type = parent?.get('type')?.value as 'telegram' | 'email' | undefined;
+    const type = parent?.get('formatContact')?.value as 'telegram' | 'email' | undefined;
 
     const raw = control.value ?? '';
     const value = typeof raw === 'string' ? raw.trim() : '';

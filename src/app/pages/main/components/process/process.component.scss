@@ -2,6 +2,10 @@
 
 .section-head {
   --sc-bottom: 150px;
+
+  @include mx.b(mobile) {
+    --sc-bottom: 80px;
+  }
 }
 
 .container {
@@ -13,20 +17,47 @@
 }
 
 .content {
-  gap: 100px;
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--sc-process-width, 225px), 1fr)
+  );
+  justify-content: center;
+  grid-gap: 150px 105px;
   margin-bottom: 150px;
+
+  @include mx.b(desktop) {
+    grid-gap: 150px 30px;
+  }
+
+  @include mx.b(tablet) {
+    grid-gap: 120px 10px;
+    --sc-process-width: 250px;
+  }
+
+  @include mx.b(mobile) {
+    grid-gap: 30px;
+    grid-template-columns: 1fr;
+    margin-bottom: 80px;
+  }
 }
 
 .item {
   position: relative;
   justify-content: end;
-  max-width: 330px;
+  max-width: 100%;
   width: 100%;
   transition: 0.3s ease-in-out;
+  gap: 20px;
 
   .info {
     max-width: 240px;
     width: 100%;
+
+    @include mx.b(mobile) {
+      max-width: 100%;
+      gap: 5px;
+    }
   }
 
   &:before {
@@ -42,6 +73,13 @@
     -webkit-text-stroke: 2px #fff;
     opacity: 0.2;
     transition: 0.3s ease-in-out;
+
+    @include mx.b(mobile) {
+      position: relative;
+      font-size: 100px;
+      min-width: 60px;
+      top: 0px;
+    }
   }
 
   &:hover {
@@ -61,10 +99,18 @@
   .title {
     transition: 0.3s ease-in-out;
     opacity: 0.8;
+
+    @include mx.b(mobile) {
+      font-size: 20px;
+    }
   }
 
   .text {
     transition: 0.3s ease-in-out;
     opacity: 0.5;
+
+    @include mx.b(mobile) {
+      font-size: 14px;
+    }
   }
 }

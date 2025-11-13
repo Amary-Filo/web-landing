@@ -11,17 +11,28 @@
     <div class="content">
       @for (item of data; track $index) {
       <details
+        class="faq-item"
+        [class.faq-item--hidden]="$index >= visibleCount()"
         [open]="$index + 1 === opened()"
         (click)="opened.set(opened() === $index + 1 ? 0 : $index + 1)"
       >
         <summary class="fw-8 fz-xl">
-          {{ item.title }} <ui-icon class="icon" name="addFill" size="50px" />
+          {{ item.title }}
+          <ui-icon class="icon" name="addFill" size="var(--icon-size)" />
         </summary>
         <p class="answer fw-5 fz-lg m-t-10">
           {{ item.text }}
         </p>
       </details>
       }
+
+      <button
+        class="btn fw-6 fz-sm load-more"
+        [class.hide]="allVisible()"
+        (click)="allVisible() ? hideExtra() : showMore()"
+      >
+        {{ allVisible() ? "Hide extra questions" : "Load more questions" }}
+      </button>
     </div>
 
     <ui-form-question />

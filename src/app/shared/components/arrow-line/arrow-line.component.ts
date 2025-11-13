@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'ui-arrow-line',
-  imports: [],
+  standalone: true,
   templateUrl: './arrow-line.component.html',
   styleUrl: './arrow-line.component.scss',
-  standalone: true,
 })
-export class UiArrowLineComponent {}
+export class UiArrowLineComponent {
+  width = input<string>('15');
+  height = input<string>('52');
+  colorStart = input<string>('#ffffff80');
+  colorEnd = input<string>('#ffffffff');
+  rotate = input<number | string>('0');
+}
