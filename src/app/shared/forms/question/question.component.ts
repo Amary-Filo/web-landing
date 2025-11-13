@@ -14,6 +14,7 @@ import { TextareaComponent } from '../../lib/textarea.component';
 import { BaseFormControls, TFormType } from 'src/app/core/interfaces/form.interfaces';
 import { DataCollectorService } from 'src/app/core/services/data-collector.service';
 import { UIIconComponent } from '../../components/icon/icon.component';
+import { ScrollService } from 'src/app/core/services/scroll.service';
 
 @Component({
   selector: 'ui-form-question',
@@ -30,6 +31,8 @@ import { UIIconComponent } from '../../components/icon/icon.component';
   ],
 })
 export class UiFormQuestionComponent {
+  private scroll = inject(ScrollService);
+
   private dataCollector = inject(DataCollectorService);
   private http = inject(HttpClient);
   private endpoint = 'http://127.0.0.1:54321/functions/v1/contact';
@@ -75,5 +78,9 @@ export class UiFormQuestionComponent {
         this.formSent.set(false);
       },
     });
+  }
+
+  goTo(id: string) {
+    this.scroll.scrollTo(id);
   }
 }
