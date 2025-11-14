@@ -17,10 +17,10 @@ import { NgpInput } from 'ng-primitives/input';
       padding: 10px 10px 10px 20px;
       line-height: 1.2;
 
-      border-radius: 10px;
+      border-radius: var(--radius-lg, 10px);
       border: none;
 
-      background-color: #29293F;
+      background-color: var(--surface-300, #29293f);
       color: white;
       box-sizing: border-box;
       outline: 2px solid transparent;

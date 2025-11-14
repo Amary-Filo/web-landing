@@ -1,4 +1,5 @@
 @use "../../../../styles/mixins/mixins.scss" as mx;
+@use "../../../../styles/tokens.scss" as tokens;
 
 [ngpDialogOverlay] {
   position: fixed;
@@ -33,11 +34,11 @@
 
   padding: 50px;
 
-  border-radius: 25px;
+  border-radius: var(--radius-xl, #{tokens.$radius-xl});
   border: 3px solid var(--cl-main, #fe70a1);
 
-  box-shadow: 0 0 50px -5px rgba(var(--cl-main-rgb, #fe70a1), 0.35);
-  background: linear-gradient(130deg, #12121a, #1f1f35);
+  box-shadow: var(--shadow-glow, #{tokens.$shadow-glow});
+  background: linear-gradient(130deg, #12121a, var(--surface-500, #{tokens.$surface-500}));
   transition: 0.3s ease-in-out;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -72,7 +73,7 @@
 
   .info {
     @include mx.b(tablet) {
-      border-bottom: 2px dashed #29293f;
+      border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
       padding-bottom: 40px;
       text-align: center;
     }

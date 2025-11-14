@@ -1,0 +1,27 @@
+$surface-200: #1f1f2a;
+$surface-300: #29293f;
+$surface-350: #2b2b3b;
+$surface-400: #1d1d31;
+$surface-500: #1f1f35;
+$surface-border: #3e3e53;
+
+$radius-lg: 10px;
+$radius-xl: 25px;
+$radius-2xl: 30px;
+
+$shadow-glow: 0 0 50px -5px rgba(var(--cl-main-rgb, #fe70a1), 0.35);
+
+:root {
+  --surface-200: #{$surface-200};
+  --surface-300: #{$surface-300};
+  --surface-350: #{$surface-350};
+  --surface-400: #{$surface-400};
+  --surface-500: #{$surface-500};
+  --surface-border: #{$surface-border};
+
+  --radius-lg: #{$radius-lg};
+  --radius-xl: #{$radius-xl};
+  --radius-2xl: #{$radius-2xl};
+
+  --shadow-glow: #{$shadow-glow};
+}

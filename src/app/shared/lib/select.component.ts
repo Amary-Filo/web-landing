@@ -65,9 +65,9 @@ import { UIIconComponent } from '@components/icon/icon.component';
 
       padding: 10px 10px 10px 20px;
 
-      border-radius: 10px;
+      border-radius: var(--radius-lg, 10px);
       border: none;
-      background-color: #29293F;
+      background-color: var(--surface-300, #29293f);
       box-sizing: border-box;
     }
 
@@ -77,7 +77,7 @@ import { UIIconComponent } from '@components/icon/icon.component';
 
     .arrow {
       padding: 6px;
-      background-color: #1D1D31;
+      background-color: var(--surface-400, #1d1d31);
       border-radius: 5px;
       color: rgba(var(--cl-main-rgb, #4d4d74), 1);
       
@@ -119,9 +119,9 @@ import { UIIconComponent } from '@components/icon/icon.component';
       margin-top: 4px;
 
       border: 1px solid var(--ngp-border);
-      border-radius: 10px;
+      border-radius: var(--radius-lg, 10px);
       box-shadow: var(--ngp-shadow-lg);
-      background-color: #29293F;
+      background-color: var(--surface-300, #29293f);
 
       animation: popover-show 0.1s ease-out;
       transform-origin: var(--ngp-select-transform-origin);

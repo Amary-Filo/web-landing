@@ -12,9 +12,9 @@ import { NgpTextarea } from 'ng-primitives/textarea';
 
       padding: 10px 10px 10px 20px;
 
-      border-radius: 10px;
+      border-radius: var(--radius-lg, 10px);
       border: none;
-      background-color: #29293F;
+      background-color: var(--surface-300, #29293f);
       box-sizing: border-box;
       color: white;
 

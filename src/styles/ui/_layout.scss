@@ -1,5 +1,80 @@
 @use "../mixins/mixins" as mx;
 
+.m-auto {
+  margin: 0 auto;
+}
+
+// $gap-values: (4, 5, 8, 10, 12, 15, 16, 20, 24, 30, 32, 40, 48, 64);
+// $spacing-values: (4, 5, 8, 10, 12, 15, 16, 20, 24, 30, 32, 35, 40, 48, 64);
+$gap-values: (10, 15, 20, 30, 40);
+$spacing-values: (10, 20, 30, auto);
+
+$spacing-map: (
+  "m-t": (
+    margin-top,
+  ),
+  "m-b": (
+    margin-bottom,
+  ),
+  "m-l": (
+    margin-left,
+  ),
+  "m-r": (
+    margin-right,
+  ),
+  "m-x": (
+    margin-left,
+    margin-right,
+  ),
+  // "m-y": (
+  //   margin-top,
+  //   margin-bottom,
+  // ),
+  // "p-t": (
+  //   padding-top,
+  // ),
+  // "p-b": (
+  //   padding-bottom,
+  // ),
+  // "p-l": (
+  //   padding-left,
+  // ),
+  // "p-r": (
+  //   padding-right,
+  // ),
+  // "p-x": (
+  //   padding-left,
+  //   padding-right,
+  // ),
+  // "p-y": (
+  //   padding-top,
+  //   padding-bottom,
+  // ),,,,,,,,
+);
+
+@mixin generate-gap-utilities($values) {
+  @each $value in $values {
+    .g-#{$value} {
+      gap: mx.rem($value);
+    }
+  }
+}
+
+@mixin generate-spacing-utilities($map, $values) {
+  @each $prefix, $properties in $map {
+    @each $value in $values {
+      .#{$prefix}-#{$value} {
+        @each $property in $properties {
+          #{$property}: mx.rem($value);
+        }
+      }
+    }
+  }
+}
+
+@include generate-gap-utilities($gap-values);
+@include generate-spacing-utilities($spacing-map, $spacing-values);
+
 .line-text {
   max-width: 600px;
 }
@@ -177,33 +252,6 @@
   }
 }
 
-.g {
-  &-5 {
-    gap: mx.rem(5);
-  }
-  &-10 {
-    gap: mx.rem(10);
-  }
-  &-15 {
-    gap: mx.rem(15);
-  }
-  &-20 {
-    gap: mx.rem(20);
-  }
-  &-25 {
-    gap: mx.rem(25);
-  }
-  &-30 {
-    gap: mx.rem(30);
-  }
-  &-35 {
-    gap: mx.rem(35);
-  }
-  &-40 {
-    gap: mx.rem(40);
-  }
-}
-
 .t {
   &-u {
     text-transform: uppercase;
@@ -250,88 +298,29 @@
 // Grid
 .fl {
   display: flex;
-
-  &-dc {
-    flex-direction: column;
-  }
-
-  &-w {
-    flex-wrap: wrap;
-  }
-
-  &-cc {
-    justify-content: center;
-    align-items: center;
-  }
-
-  &-sbc {
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  // &-cb {
-  //   align-items: center;
-  //   justify-content: baseline;
-  // }
-
-  // &-bc {
-  //   align-items: baseline;
-  //   justify-content: center;
-  // }
 }
 
-.m {
-  margin: mx.rem(5);
+$flex-helper-map: (
+  dc: (
+    flex-direction: column,
+  ),
+  w: (
+    flex-wrap: wrap,
+  ),
+  cc: (
+    justify-content: center,
+    align-items: center,
+  ),
+  sbc: (
+    justify-content: space-between,
+    align-items: center,
+  ),
+);
 
-  &-auto {
-    margin: 0 auto;
-  }
-
-  &-t {
-    &-5 {
-      margin-top: mx.rem(5);
-    }
-    &-10 {
-      margin-top: mx.rem(10);
-    }
-    &-15 {
-      margin-top: mx.rem(15);
-    }
-    &-20 {
-      margin-top: mx.rem(20);
-    }
-    &-25 {
-      margin-top: mx.rem(25);
-    }
-    &-30 {
-      margin-top: mx.rem(30);
-    }
-    &-35 {
-      margin-top: mx.rem(35);
-    }
-  }
-
-  &-b {
-    &-5 {
-      margin-bottom: mx.rem(5);
-    }
-    &-10 {
-      margin-bottom: mx.rem(10);
-    }
-    &-15 {
-      margin-bottom: mx.rem(15);
-    }
-    &-20 {
-      margin-bottom: mx.rem(20);
-    }
-    &-25 {
-      margin-bottom: mx.rem(25);
-    }
-    &-30 {
-      margin-bottom: mx.rem(30);
-    }
-    &-35 {
-      margin-bottom: mx.rem(35);
+@each $name, $props in $flex-helper-map {
+  .fl-#{$name} {
+    @each $prop, $value in $props {
+      #{$prop}: $value;
     }
   }
 }

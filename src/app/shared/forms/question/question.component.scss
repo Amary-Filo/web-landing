@@ -1,4 +1,5 @@
 @use "../../../../styles/mixins/mixins.scss" as mx;
+@use "../../../../styles/tokens.scss" as tokens;
 
 .content {
   position: relative;
@@ -14,10 +15,10 @@
   margin: 0 auto;
   padding: 50px;
 
-  border-radius: 25px;
-  border: 3px solid var(--cl-main, #1f1f35);
+  border-radius: var(--radius-xl, #{tokens.$radius-xl});
+  border: 3px solid var(--cl-main, var(--surface-500, #{tokens.$surface-500}));
 
-  background: linear-gradient(130deg, #12121a, #1f1f35);
+  background: linear-gradient(130deg, #12121a, var(--surface-500, #{tokens.$surface-500}));
   transition: 0.3s ease-in-out;
 
   @include mx.b(desktop) {
@@ -37,7 +38,7 @@
 
 .info {
   @include mx.b(tablet) {
-    border-bottom: 2px dashed #29293f;
+    border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
     padding-bottom: 40px;
     text-align: center;
     align-items: center;
@@ -73,7 +74,7 @@
 .att {
   padding: 15px;
   border-radius: 10px;
-  background-color: #2b2b3b;
+  background-color: var(--surface-350, #{tokens.$surface-350});
   color: #808095;
 }
 

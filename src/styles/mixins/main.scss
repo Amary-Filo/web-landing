@@ -2,11 +2,11 @@
 @use "sass:color";
 
 @mixin rem($size) {
-  font-size: math.div($size, 16) + rem;
+  font-size: calc($size / 16) + rem;
 }
 
 @function rem($size) {
-  @return math.div($size, 16) + rem;
+  @return calc($size / 16) + rem;
 }
 
 @mixin theme($name, $global: false) {
