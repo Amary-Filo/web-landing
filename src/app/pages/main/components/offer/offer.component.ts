@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { IconName } from '../../../../shared/components/icon/types';
-import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
-import { UICalloutComponent } from '../../../../shared/components/callout/callout.component';
+import { IconName } from '@components/icon/types';
+import { UIIconComponent } from '@components/icon/icon.component';
+import { UICalloutComponent } from '@components/callout/callout.component';
 
 type TData = {
   title: string;

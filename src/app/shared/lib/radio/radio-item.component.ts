@@ -41,15 +41,11 @@ import { NgpRadioItem } from 'ng-primitives/radio';
       opacity: 1;
     }
 
-    // [ngpRadioIndicator] {
-      
-    // }
-
+    // [ngpRadioIndicator] {}
 
     // :host[data-hover] {
     //   background-color: var(--ngp-background-hover);
     // }
-
 
     // :host[data-press] {
     //   background-color: var(--ngp-background-active);

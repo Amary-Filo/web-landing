@@ -1,6 +1,6 @@
 import { Component, inject, OnDestroy, signal } from '@angular/core';
-import { UiArrowLineComponent } from '../../../../shared/components/arrow-line/arrow-line.component';
-import { ScrollService } from 'src/app/core/services/scroll.service';
+import { UiArrowLineComponent } from '@components/arrow-line/arrow-line.component';
+import { ScrollService } from '@services/scroll.service';
 
 @Component({
   selector: 'section-hero',

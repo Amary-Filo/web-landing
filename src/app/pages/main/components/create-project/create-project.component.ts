@@ -1,10 +1,12 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
-import { UICalloutComponent } from '../../../../shared/components/callout/callout.component';
-import { UiFormOrderComponent } from '../../../../shared/forms/order/order.component';
-import { ScrollService } from 'src/app/core/services/scroll.service';
 
-export type TTiers = 'start' | 'pro' | 'scale';
+import { ScrollService } from '@services/scroll.service';
+import { TTiers } from '@interfaces/form.interfaces';
+
+import { UiFormOrderComponent } from '@forms/order/order.component';
+import { UIIconComponent } from '@components/icon/icon.component';
+import { UICalloutComponent } from '@components/callout/callout.component';
+
 type TData = {
   title: string;
   text: string;

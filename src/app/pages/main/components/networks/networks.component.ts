@@ -1,8 +1,9 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { IconName } from '../../../../shared/components/icon/types';
-import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
-import { UiInfoBlockComponent } from '../../../../shared/components/info-block/info-block.component';
-import { ScrollService } from 'src/app/core/services/scroll.service';
+import { ScrollService } from '@services/scroll.service';
+
+import { IconName } from '@components/icon/types';
+import { UIIconComponent } from '@components/icon/icon.component';
+import { UiInfoBlockComponent } from '@components/info-block/info-block.component';
 
 type TChip = 'fees' | 'eco' | 'fast' | 'popular' | 'security' | 'large' | 'lz';
 type TLayer = 'layer-1' | 'layer-2' | 'layer-3' | 'other';

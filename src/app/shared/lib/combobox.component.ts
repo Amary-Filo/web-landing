@@ -21,7 +21,9 @@ import {
   NgpComboboxOption,
 } from 'ng-primitives/combobox';
 import { ChangeFn, provideValueAccessor, TouchedFn } from 'ng-primitives/utils';
-import { UIIconComponent } from '../components/icon/icon.component';
+
+import { UIIconComponent } from '@components/icon/icon.component';
+
 export type ComboItem = { key: string; value: string } & Record<string, any>;
 
 @Component({

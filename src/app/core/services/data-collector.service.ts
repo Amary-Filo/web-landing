@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UAParser } from 'ua-parser-js';
 import { DeviceDetectorService } from 'ngx-device-detector';
+import { UAParser } from 'ua-parser-js';
 import {
   TMetaBrowserControls,
   TMetaControls,
@@ -9,7 +9,7 @@ import {
   TMetaGeoControls,
   TMetaNavigationControls,
   TMetaUtmControls,
-} from '../interfaces/form.interfaces';
+} from '@interfaces/form.interfaces';
 
 export interface CollectedMetaData {
   timezone: string;

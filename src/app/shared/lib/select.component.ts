@@ -9,7 +9,8 @@ import {
   NgpSelectPortal,
 } from 'ng-primitives/select';
 import { ChangeFn, provideValueAccessor, TouchedFn } from 'ng-primitives/utils';
-import { UIIconComponent } from '../components/icon/icon.component';
+
+import { UIIconComponent } from '@components/icon/icon.component';
 
 @Component({
   selector: 'app-select',

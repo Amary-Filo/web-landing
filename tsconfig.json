@@ -14,7 +14,21 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "./",
+    "paths": {
+      "@env": ["src/environments/environment"],
+      "@app/*": ["src/app/*"],
+      "@core/*": ["src/app/core/*"],
+      "@interfaces/*": ["src/app/core/interfaces/*"],
+      "@services/*": ["src/app/core/services/*"],
+      "@utils/*": ["src/app/core/utils/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@components/*": ["src/app/shared/components/*"],
+      "@dialogs/*": ["src/app/shared/dialogs/*"],
+      "@kit/*": ["src/app/shared/lib/*"],
+      "@models/*": ["src/app/shared/models/*"],
+      "@forms/*": ["src/app/shared/forms/*"],
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

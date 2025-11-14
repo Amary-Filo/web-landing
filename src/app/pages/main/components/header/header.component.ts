@@ -9,11 +9,13 @@ import {
   ElementRef,
   inject,
 } from '@angular/core';
-import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
-import { IconName } from 'src/app/shared/components/icon/types';
-import { ScrollService } from 'src/app/core/services/scroll.service';
 import { NgpDialogManager } from 'ng-primitives/dialog';
-import { TalkDialog } from 'src/app/shared/dialogs/talk/talk-dialog.component';
+
+import { ScrollService } from '@services/scroll.service';
+import { TalkDialog } from '@dialogs/talk/talk-dialog.component';
+
+import { IconName } from '@components/icon/types';
+import { UIIconComponent } from '@components/icon/icon.component';
 
 @Component({
   selector: 'main-header',

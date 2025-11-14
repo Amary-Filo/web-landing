@@ -1,5 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
-import { TTiers } from 'src/app/pages/main/components';
+
+export type TTiers = 'start' | 'pro' | 'scale';
 
 export type TMetaGeo = {
   timezone: string;
@@ -72,27 +73,40 @@ export type TMetaControls = {
 };
 
 export type TContactType = 'telegram' | 'email';
-export type TFormType = 'brief' | 'question';
+export type TFormType = 'brief' | 'letstalk' | 'question';
+export type TCountryValue = {
+  key: string;
+  value: string;
+  flag: string;
+} | null;
 
 export interface TFormData {
   type: FormControl<TFormType>;
   meta: FormGroup<TMetaControls>;
 }
 
-export interface BaseFormControls extends TFormData {
+export interface IBaseFormControls extends TFormData {
   name: FormControl<string>;
   contact: FormControl<string>;
   message: FormControl<string | null>;
 }
 
-export interface OrderFormControls extends BaseFormControls {
+export type TBaseFormInit = {
+  type: TFormType;
+};
+
+export type TOrderFormInit = {
+  type: TFormType;
+  formatContact: TContactType;
+  tier: TTiers | null;
+  price: string | null;
+  estimate: string | null;
+};
+
+export interface IOrderFormControls extends IBaseFormControls {
   formatContact: FormControl<TContactType>;
-  country: FormControl<{
-    key: string;
-    value: string;
-    flag: string;
-  } | null>;
-  tier: FormControl<TTiers>;
-  price: FormControl<string>;
-  estimate: FormControl<string>;
+  country: FormControl<TCountryValue>;
+  tier: FormControl<TTiers | null>;
+  price: FormControl<string | null>;
+  estimate: FormControl<string | null>;
 }

@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { UICalloutComponent } from '../../../../shared/components/callout/callout.component';
-import { ScrollService } from 'src/app/core/services/scroll.service';
+import { ScrollService } from '@services/scroll.service';
+import { UICalloutComponent } from '@components/callout/callout.component';
 
 type TData = {
   title: string;

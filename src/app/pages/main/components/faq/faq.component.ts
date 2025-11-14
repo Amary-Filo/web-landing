@@ -1,6 +1,6 @@
 import { Component, computed, signal } from '@angular/core';
-import { UIIconComponent } from '../../../../shared/components/icon/icon.component';
-import { UiFormQuestionComponent } from '../../../../shared/forms/question/question.component';
+import { UIIconComponent } from '@components/icon/icon.component';
+import { UiFormQuestionComponent } from '@forms/question/question.component';
 
 type TData = {
   title: string;

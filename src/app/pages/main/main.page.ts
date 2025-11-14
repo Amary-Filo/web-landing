@@ -12,7 +12,7 @@ import {
   FaqSectionComponent,
   FooterMainComponent,
 } from './components';
-import { UiArrowLineComponent } from '../../shared/components/arrow-line/arrow-line.component';
+import { UiArrowLineComponent } from '@components/arrow-line/arrow-line.component';
 
 @Component({
   selector: 'page-main',
