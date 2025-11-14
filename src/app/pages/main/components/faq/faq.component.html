@@ -28,7 +28,6 @@
 
       <button
         class="btn fw-6 fz-sm load-more"
-        [class.hide]="allVisible()"
         (click)="allVisible() ? hideExtra() : showMore()"
       >
         {{ allVisible() ? "Hide extra questions" : "Load more questions" }}

@@ -38,9 +38,9 @@ export class HeaderMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readonly navItems = [
     { id: 'hero', label: 'Home' },
+    { id: 'solutions', label: 'Showcase' },
     { id: 'about', label: 'About' },
-    { id: 'solutions', label: 'Solutions' },
-    { id: 'brief', label: 'Brief' },
+    { id: 'brief', label: 'Price' },
     { id: 'faq', label: 'FAQ' },
   ];
 
@@ -119,8 +119,6 @@ export class HeaderMainComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   openDialog() {
-    this.dialogManager.open(TalkDialog, {
-      data: 'This came from the dialog opener!',
-    });
+    this.dialogManager.open(TalkDialog);
   }
 }
