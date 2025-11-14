@@ -22,8 +22,8 @@ import {
 import { contactByTypeValidator, contactGroupValidator } from 'src/app/core/utils/form.validators';
 import { TTiers } from 'src/app/pages/main/components';
 import { COUNTRIES_LIST } from '../../lib/data/combobox-data';
-import { HttpClient } from '@angular/common/http';
 import { DataCollectorService } from 'src/app/core/services/data-collector.service';
+import { ContactRequestService } from 'src/app/core/services/contact-request.service';
 
 @Component({
   selector: 'ui-dialog-talk',
@@ -47,9 +47,7 @@ import { DataCollectorService } from 'src/app/core/services/data-collector.servi
 export class TalkDialog {
   protected readonly dialogRef = injectDialogRef<string>();
   private dataCollector = inject(DataCollectorService);
-  private http = inject(HttpClient);
-  private endpoint = 'http://127.0.0.1:54321/functions/v1/contact';
-  // private endpoint = 'https://uyykrwzmbcgepwdwpyst.functions.supabase.co/contact';
+  private contactRequest = inject(ContactRequestService);
 
   readonly countries = COUNTRIES_LIST;
   readonly isSubmitting = signal<boolean>(false);
@@ -100,7 +98,7 @@ export class TalkDialog {
     this.isSubmitting.set(true);
     const formData = this.form.getRawValue();
 
-    this.http.post(this.endpoint, { ...formData, country: formData.country?.value }).subscribe({
+    this.contactRequest.submitBrief(formData).subscribe({
       next: () => {
         this.isSubmitting.set(false);
         this.form.reset();

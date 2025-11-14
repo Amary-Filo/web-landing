@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import {
   ReactiveFormsModule,
   FormsModule,
@@ -15,6 +14,7 @@ import { BaseFormControls, TFormType } from 'src/app/core/interfaces/form.interf
 import { DataCollectorService } from 'src/app/core/services/data-collector.service';
 import { UIIconComponent } from '../../components/icon/icon.component';
 import { ScrollService } from 'src/app/core/services/scroll.service';
+import { ContactRequestService } from 'src/app/core/services/contact-request.service';
 
 @Component({
   selector: 'ui-form-question',
@@ -34,9 +34,7 @@ export class UiFormQuestionComponent {
   private scroll = inject(ScrollService);
 
   private dataCollector = inject(DataCollectorService);
-  private http = inject(HttpClient);
-  private endpoint = 'http://127.0.0.1:54321/functions/v1/contact';
-  // private endpoint = 'https://uyykrwzmbcgepwdwpyst.functions.supabase.co/contact';
+  private contactRequest = inject(ContactRequestService);
 
   readonly isSubmitting = signal<boolean>(false);
   readonly formSent = signal<boolean>(false);
@@ -66,7 +64,7 @@ export class UiFormQuestionComponent {
     this.isSubmitting.set(true);
     const formData = this.form.getRawValue();
 
-    this.http.post(this.endpoint, formData).subscribe({
+    this.contactRequest.submitQuestion(formData).subscribe({
       next: () => {
         this.isSubmitting.set(false);
         this.form.reset();

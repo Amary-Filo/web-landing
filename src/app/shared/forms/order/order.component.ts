@@ -9,7 +9,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 import { RadioGroupComponent } from '../../lib/radio/radio-group.component';
 import { RadioItemComponent } from '../../lib/radio/radio-item.component';
@@ -24,6 +23,7 @@ import {
 } from 'src/app/core/interfaces/form.interfaces';
 import { contactByTypeValidator, contactGroupValidator } from 'src/app/core/utils/form.validators';
 import { UIIconComponent } from '../../components/icon/icon.component';
+import { ContactRequestService } from 'src/app/core/services/contact-request.service';
 
 @Component({
   selector: 'ui-form-order',
@@ -51,9 +51,7 @@ export class UiFormOrderComponent {
   isSend = input<boolean>(false);
 
   private dataCollector = inject(DataCollectorService);
-  private http = inject(HttpClient);
-  private endpoint = 'http://127.0.0.1:54321/functions/v1/contact';
-  // private endpoint = 'https://uyykrwzmbcgepwdwpyst.functions.supabase.co/contact';
+  private contactRequest = inject(ContactRequestService);
 
   readonly countries = COUNTRIES_LIST;
   readonly isSubmitting = signal<boolean>(false);
@@ -109,7 +107,7 @@ export class UiFormOrderComponent {
     this.isSubmitting.set(true);
     const formData = this.form.getRawValue();
 
-    this.http.post(this.endpoint, { ...formData, country: formData.country?.value }).subscribe({
+    this.contactRequest.submitBrief(formData).subscribe({
       next: () => {
         this.isSubmitting.set(false);
         this.form.reset();
