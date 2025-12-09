@@ -6,6 +6,123 @@
   }
 }
 
+.compare {
+  margin-top: 70px;
+
+  &-head {
+    margin-bottom: 70px;
+
+    text-align: center;
+  }
+
+  &-table {
+    --compare-label-max: 200px;
+    --compare-label-width: clamp(180px, 26vw, var(--compare-label-max));
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #24243a;
+    border-radius: 24px;
+    overflow: hidden;
+    background: rgba(20, 20, 36, 0.75);
+  }
+
+  .table-head {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr;
+    align-items: stretch;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid #24243a;
+
+    .table-th {
+      border-right: 1px solid #1f1f33;
+      text-align: center;
+
+      &:last-child {
+        border: none;
+      }
+    }
+  }
+
+  .table-row {
+    display: grid;
+    grid-template-columns: 150px 1fr 1fr;
+    align-items: stretch;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .table-info {
+      border-right: 1px solid #1f1f33;
+      text-align: center;
+
+      &:first-child {
+        background: rgba(255, 255, 255, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &:last-child {
+        border: none;
+      }
+    }
+
+    &:not(:last-child) {
+      border-bottom: 1px solid #1f1f33;
+    }
+  }
+
+  .table-th,
+  .table-info {
+    padding: 16px 18px;
+  }
+
+  .table-th {
+    font-weight: 700;
+    color: #e6e6ff;
+  }
+
+  .table-info {
+    color: #d3d3ea;
+  }
+
+  @include mx.b(tablet) {
+    &-table {
+      border-radius: 18px;
+      --compare-label-max: 220px;
+    }
+
+    .table-th,
+    .table-info {
+      padding: 14px 15px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+  }
+
+  @include mx.b(mobile) {
+    &-table {
+      border-radius: 14px;
+    }
+
+    .table-head,
+    .table-row {
+      grid-template-columns: 1fr;
+    }
+
+    .table-head .table-th:first-child,
+    .table-row .table-info:first-child,
+    .table-head .table-th:not(:first-child),
+    .table-row .table-info:not(:first-child) {
+      max-inline-size: none;
+      width: 100%;
+    }
+  }
+}
+
 .card {
   max-width: 1050px;
   width: 100%;
