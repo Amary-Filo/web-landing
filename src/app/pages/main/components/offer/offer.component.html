@@ -10,19 +10,48 @@
     </div>
 
     <div class="content">
-      @for (item of data; track $index) {
-      <div class="item fl fl-dc g-10">
-        <ui-icon
-          [gradient]="'#D174FF,#A1A0FF'"
-          [name]="item.icon"
-          size="var(--offer-icon-size)"
-        />
-        <div class="info fl fl-dc g-10">
-          <h3 class="title fw-7">{{ item.title }}</h3>
-          <p class="text fw-5 op-5">{{ item.text }}</p>
+      <div class="list products">
+        @for (item of dataProduct; track $index) {
+        <div class="item product fl fl-dc g-10">
+          <ui-icon
+            [gradient]="'#D174FF,#A1A0FF'"
+            [name]="item.icon"
+            size="var(--offer-icon-size)"
+          />
+          <div class="info fl fl-dc g-10">
+            <h4 class="title fw-7">{{ item.title }}</h4>
+            <p class="text fw-5 op-5">{{ item.text }}</p>
+            <div class="btn m-t-10">
+              <span class="cl-g-purple-2 fw-6 t-u t-gr">view more</span>
+            </div>
+          </div>
         </div>
+        }
       </div>
-      }
+
+      <div class="content-head">
+        <h3 class="title m-auto s-sm fw-9">Web3 features</h3>
+        <p class="t-c m-t-10 fz-md op-7">Web3 & UX features built-in</p>
+      </div>
+
+      <div class="list m-t-20">
+        @for (item of data; track $index) {
+        <div class="item features fl fl-dc g-10">
+          <ui-icon
+            [gradient]="'#D174FF,#A1A0FF'"
+            [name]="item.icon"
+            size="var(--offer-icon-size)"
+          />
+          <div class="info fl fl-dc g-10">
+            <h4 class="title fw-7">{{ item.title }}</h4>
+            <p class="text fw-5 op-5">{{ item.text }}</p>
+            <div class="btn m-t-10">
+              <span class="cl-g-purple-2 fw-6 t-u t-gr">view more</span>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
     </div>
 
     <ui-callout>
