@@ -40,15 +40,6 @@ export class OfferSectionComponent {
       },
     },
     {
-      title: 'Dev contracts + handover',
-      text: 'Example contracts for your Solidity developer to use as a starting point; we don’t ship production contracts.',
-      icon: 'wallet3Fill',
-      info: {
-        video: '',
-        text: '',
-      },
-    },
-    {
       title: 'Configurable UI Kit',
       text: 'Tokens for colors, spacing, themes and components. Change branding without rewriting everything.',
       icon: 'wallet3Fill',
