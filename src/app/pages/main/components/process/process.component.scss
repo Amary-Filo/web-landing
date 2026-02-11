@@ -1,10 +1,10 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
-.section-head {
-  --sc-bottom: 150px;
+:host {
+  --container-gap: 180px;
 
   @include mx.b(mobile) {
-    --sc-bottom: 80px;
+    --container-gap: 80px;
   }
 }
 
@@ -24,7 +24,6 @@
   );
   justify-content: center;
   grid-gap: 150px 105px;
-  margin-bottom: 150px;
 
   @include mx.b(desktop) {
     grid-gap: 150px 30px;
@@ -38,7 +37,6 @@
   @include mx.b(mobile) {
     grid-gap: 30px;
     grid-template-columns: 1fr;
-    margin-bottom: 80px;
   }
 }
 

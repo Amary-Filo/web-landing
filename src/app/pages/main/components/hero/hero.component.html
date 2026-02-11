@@ -1,50 +1,34 @@
 <section class="sc">
   <div class="container">
-    <div class="content fl fl-dc">
-      <img src="assets/img/hero.svg" class="bg-img" alt="" />
-      <div class="subtext">
-        <b class="op-7">Clean</b> <span class="op-7"> UX. </span>
-        <b class="op-7">Solid</b> <span class="op-7"> (Web3). </span>
-        <b class="op-7">Real</b> <span class="op-7"> Results. </span>
-      </div>
-      <h1 class="title s-xl">
-        <span class="t-gr cl-g-white-1">Make </span>
-        <span class="app">
-          <span
-            class="flip"
-            [class.animating]="isAnimating()"
-            [class]="'t-gr cl-g-' + color()"
+    <div class="content">
+      <div class="info">
+        <div class="logo t-u fw-9">
+          atomic<span class="t-gr cl-g-white-1 fw-6">
+            <span class="logo-slash">\</span>web</span
           >
-            {{ text() }}
-          </span>
-        </span>
-        <br />
-        Feel Simple.
-      </h1>
-      <ui-arrow-line height="var(--arrow-size, 50px)" />
-      <p class="text fz-xl">
-        From Idea to (<span
-          class="flip"
-          [class.animating]="isAnimating()"
-          [class]="'t-gr cl-g-' + color()"
-        >
-          {{ text() }} </span
-        >) in <span [class]="'fw-7 t-gr cl-g-' + color()">Weeks</span>, not
-        Months
-      </p>
-      <span class="depends">depends on project requirements</span>
-      <div class="buttons fl g-30 fl-sbc">
-        <div
-          [class]="'btn fw-7 fz-md g-bg g-a cl-g-' + color()"
-          (click)="goTo('brief')"
-        >
-          Get a quote
         </div>
-        <span class="fw-6">OR</span>
-        <div class="btn btn-demo fw-7" (click)="goTo('solutions')">
-          Check our demo
+
+        <h1 class="title fw-9 t-u">
+          Build a Real
+          <span class="t-gr cl-g-purple-5">Crypto Product</span>
+          <span class="op-7">within a days not month</span>
+        </h1>
+
+        <p class="text fw-6 op-7 fz-lg">
+          We turn your idea into a working crypto interface: wallets,
+          transactions, smart-contracts and clean UX — ready to test, show
+          investors, or launch.
+        </p>
+
+        <div class="btns fl g-30">
+          <button class="btn fw-9 g-bg g-a use-bg cl-g-purple-5">
+            Get a quote
+          </button>
+          <button class="btn fw-9">See our demos</button>
         </div>
       </div>
+
+      <img class="img" src="./assets/img/hero-image.png" alt="" />
     </div>
   </div>
 </section>

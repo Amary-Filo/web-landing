@@ -1,0 +1,189 @@
+@use "../../../../../../styles/mixins/mixins.scss" as mx;
+
+.product-badge {
+  width: max-content;
+  gap: 7px;
+
+  line-height: 1.2;
+  font-size: 14px;
+
+  padding: 6px 15px;
+  border-radius: 10em;
+
+  border: 2px solid rgba(var(--cl-main-rgb), 0.5);
+  color: var(--cl-main);
+
+  @include mx.b(desktop) {
+    font-size: 12px;
+    padding: 5px 10px;
+    font-weight: 600;
+  }
+
+  @include mx.b(mobile) {
+    font-size: 14px;
+  }
+
+  ui-icon {
+    @include mx.b(desktop) {
+      display: none;
+    }
+
+    @include mx.b(mobile) {
+      display: flex;
+    }
+  }
+}
+
+.list-item {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 50px;
+
+  height: 100%;
+
+  padding: 40px 30px;
+  border-radius: 20px;
+  outline: 3px solid transparent;
+
+  background-color: #171721;
+  transition: 0.3s ease-in-out;
+
+  @include mx.b(desktop) {
+    padding: 30px 25px;
+    gap: 30px;
+    border-radius: 15px;
+  }
+
+  @include mx.b(mobile) {
+    scroll-snap-align: center;
+    min-width: 75vw;
+    // min-width: 280px;
+  }
+
+  &::before {
+    content: "+";
+
+    position: absolute;
+    top: 0;
+    right: 10px;
+
+    font-weight: 600;
+    font-size: 70px;
+    line-height: 1;
+
+    color: rgba(var(--cl-main-rgb), var(--item-op, 0.5));
+
+    transition: 0.3s ease-in-out;
+
+    @include mx.b(desktop) {
+      font-size: clamp(30px, 5vw, 50px);
+    }
+
+    @include mx.b(tablet) {
+      font-size: clamp(30px, 8vw, 45px);
+    }
+
+    @include mx.b(mobile) {
+      font-size: 50px;
+    }
+  }
+
+  &:hover {
+    outline-color: var(--cl-main);
+    border-radius: 30px;
+    --item-op: 1;
+
+    @include mx.b(desktop) {
+      border-radius: 25px;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+  }
+
+  .info {
+    @include mx.b(desktop) {
+      gap: 10px;
+    }
+  }
+
+  .title {
+    font-size: 24px;
+    line-height: 1.3;
+
+    @include mx.b(desktop) {
+      font-size: clamp(16px, 2.4vw, 24px);
+    }
+
+    @include mx.b(title) {
+      font-size: clamp(16px, 2.5vw, 20px);
+      line-height: 1.4;
+    }
+
+    @include mx.b(mobile) {
+      font-size: 22px;
+    }
+
+    .accent {
+      font-size: 30px;
+
+      @include mx.b(desktop) {
+        font-size: clamp(20px, 2.5vw, 28px);
+      }
+
+      @include mx.b(tablet) {
+        font-size: clamp(20px, 3.1vw, 24px);
+      }
+
+      @include mx.b(mobile) {
+        font-size: 26px;
+      }
+    }
+  }
+
+  .text {
+    font-size: 18px;
+
+    @include mx.b(desktop) {
+      font-size: clamp(14px, 1.6vw, 16px);
+    }
+
+    @include mx.b(tablet) {
+      font-size: clamp(14px, 2vw, 16px);
+    }
+
+    @include mx.b(mobile) {
+      font-size: 16px;
+    }
+  }
+
+  .media {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    max-height: 200px;
+
+    border-radius: 20px;
+    overflow: hidden;
+
+    @include mx.b(desktop) {
+      aspect-ratio: 2/1;
+    }
+
+    @include mx.b(tablet) {
+      // display: none;
+    }
+
+    .img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+  }
+}

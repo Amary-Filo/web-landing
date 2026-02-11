@@ -14,17 +14,17 @@ import { NgpTextarea } from 'ng-primitives/textarea';
 
       border-radius: var(--radius-lg, 10px);
       border: none;
-      background-color: var(--surface-300, #29293f);
+      background-color: #20202c;
       box-sizing: border-box;
       color: white;
 
       outline: 2px solid transparent;
       outline-offset: 2px;
-      transition: .3s ease-in-out;
+      transition: 0.3s ease-in-out;
     }
 
     :host[data-focus] {
-      outline-color:rgba(var(--cl-main-rgb, #4d4d74), 0.6);
+      outline-color: rgba(var(--cl-main-rgb, #4d4d74), 0.6);
     }
 
     :host::placeholder {

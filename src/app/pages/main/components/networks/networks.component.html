@@ -1,7 +1,7 @@
 <section class="sc">
   <div class="container">
-    <div class="section-head left">
-      <h2 class="title s-lg">
+    <div class="section-head left g-20">
+      <h2 class="title s-md t-u">
         Networks <br />
         & Multichain Coverage
       </h2>
@@ -12,52 +12,39 @@
     </div>
 
     <div class="content">
-      <div class="tabs fl g-30">
-        @for (item of tabs(); track $index) {
-        <span
-          class="tab fz-xxl t-u fw-9 lh-1"
-          [class.active]="tab() === item"
-          (click)="tab.set(item)"
-          >{{ item.replace("-", " ") }}</span
-        >
-        }
-      </div>
-
-      <div class="list">
-        @for (item of dataFiltered(); track $index) {
+      @for (item of data; track $index) {
         <div
-          class="item fl fl-dc g-20"
-          [attr.style]="
-            '--border-cl:' + item.color[0] + ';--item-cl:' + item.color[1]
-          "
+          class="item fl g-20"
+          [attr.style]="'--cl-1:' + item.color[0] + ';--cl-2:' + item.color[1]"
+          [class.item-hidden]="$index >= visibleCount()"
         >
-          <div class="fl fl-sbc">
-            <ui-icon [gradient]="item.color" [name]="item.icon" size="50px" />
-            <div class="chain fl fl-cc fw-7 fz-sm">{{ item.chain }}</div>
-          </div>
-          <div class="fl fl-dc g-10">
+          <ui-icon
+            [gradient]="['var(--icon-cl-1)', 'var(--icon-cl-2)']"
+            [name]="item.icon"
+            size="var(--icon-size)"
+          />
+          <div class="fl fl-dc g-5">
             <h3 class="title">{{ item.title }}</h3>
-            <p class="text">{{ item.text }}</p>
-          </div>
-          <div class="chips fl fl-w g-10">
-            @for (chip of item.chips; track $index) {
-            <div [class]="'chip fw-8 fz-xs t-gr cl-g-' + colorChip[chip]">
-              {{ chips[chip] }}
-            </div>
-            }
+            <p class="text op-7">{{ item.text }}</p>
           </div>
         </div>
-        }
-      </div>
+      }
 
-      <ui-info-block
-        [title]="`Can't find your network?`"
-        accent="Don't worry"
-        text="tell us which network you use and we'll add it for you!"
-        btnText="I have another network!"
-        color="pink-2"
-        (btnClick)="goTo('brief')"
-      />
+      <button
+        class="btn fw-6 fz-sm load-more"
+        (click)="allVisible() ? hideExtra() : showMore()"
+      >
+        {{ allVisible() ? "Hide more" : "Show more" }}
+      </button>
     </div>
+
+    <ui-info-block
+      [title]="`Can't find your network?`"
+      accent="Don't worry"
+      text="tell us which network you use and we'll add it for you!"
+      btnText="I have another network!"
+      color="pink-2"
+      (btnClick)="goTo('brief')"
+    />
   </div>
 </section>

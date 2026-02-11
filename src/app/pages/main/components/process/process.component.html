@@ -1,7 +1,7 @@
 <section class="sc">
   <div class="container">
-    <div class="section-head">
-      <h2 class="title s-xl">
+    <div class="section-head g-30">
+      <h2 class="title s-lg">
         The process <br />
         of working with us
       </h2>
@@ -13,26 +13,29 @@
 
     <div class="content">
       @for (item of data; track $index) {
-      <div class="item fl" [attr.data-number]="$index + 1">
-        <div class="info fl fl-dc g-10">
-          <h3 class="title t-u fz-xl">{{ item.title }}</h3>
-          <div class="text fw-7">{{ item.text }}</div>
+        <div class="item fl" [attr.data-number]="$index + 1">
+          <div class="info fl fl-dc g-10">
+            <h3 class="title t-u fz-xl">{{ item.title }}</h3>
+            <div class="text fw-7">{{ item.text }}</div>
+          </div>
         </div>
-      </div>
       }
     </div>
 
-    <ui-callout>
-      <span class="t-c fz-sm">
-        Expenses for contractors and external services are not included in our
-        fee: smart contract auditing, RPC/node providers, subgraphs/indexing,
-        on-ramps, paid analytics, translations, design assets/fonts.
-      </span>
-    </ui-callout>
+    <div class="fl fl-dc">
+      <ui-callout>
+        <span class="t-c fz-sm">
+          Expenses for contractors and external services are not included in our
+          fee: smart contract auditing, RPC/node providers, subgraphs/indexing,
+          on-ramps, paid analytics, translations, design assets/fonts.
+        </span>
+      </ui-callout>
 
-    <div class="callout-text m-t-20 m-auto t-c">
-      Payment in stages: 50% at the start · 30% after the first demo · 20% upon
-      release. <span class="link" (click)="goTo('faq')">More info in FAQ.</span>
+      <div class="callout-text m-t-20 m-auto t-c">
+        Payment in stages: 50% at the start · 30% after the first demo · 20%
+        upon release.
+        <span class="link" (click)="goTo('faq')">More info in FAQ.</span>
+      </div>
     </div>
   </div>
 </section>

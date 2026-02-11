@@ -1,175 +1,194 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
 .sc {
+  // width: 100%;
+  // margin-top: 180px;
+  // overflow-x: clip;
+  // overflow-y: visible;
+
+  display: flex;
+  align-items: center;
+
   margin-top: 150px;
-  position: relative;
+
+  // height: 100vh;
+  // min-height: 650px;
+
   overflow-x: clip;
-  overflow-y: visible;
-
-  @supports not (overflow: clip) {
-    overflow-x: hidden;
-  }
 
   @include mx.b(mobile) {
-    margin-top: 50px;
-  }
-}
-
-ui-arrow-line {
-  @include mx.b(mobile) {
-    --arrow-size: 30px;
+    margin-top: 100px;
+    // height: max-content;
+    // min-height: max-content;
   }
 }
 
 .content {
+  display: grid;
+  // grid-template-columns: 1fr minmax(350px, 550px);
+  grid-template-columns: 1fr auto;
   align-items: center;
-  text-align: center;
+  grid-gap: 50px;
 
-  .subtext {
-    font-size: 28px;
-    margin-bottom: 30px;
-    z-index: 99;
+  justify-content: space-between;
 
-    b {
-      transition: 0.3s ease-in-out;
+  @include mx.b(tablet) {
+    grid-template-columns: 1fr;
+    gap: 100px;
+  }
+}
 
-      &:hover {
-        opacity: 1;
-      }
+.info {
+  display: flex;
+  flex-direction: column;
+
+  @include mx.b(tablet) {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+.logo {
+  font-size: 24px;
+
+  @include mx.b(desktop) {
+    font-size: 20px;
+  }
+
+  &-slash {
+    font-size: 32px;
+    font-weight: 900;
+
+    @include mx.b(desktop) {
+      font-size: 28px;
+    }
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 10px;
+
+  font-size: 84px;
+  line-height: 1.2;
+
+  @include mx.b(desktop) {
+    font-size: 64px;
+  }
+
+  @include mx.b(tablet) {
+    // width: 100%;
+  }
+
+  @include mx.b(mobile) {
+    // font-size: 45px;
+    font-size: clamp(32px, 13vw, 45px);
+  }
+
+  .t-gr {
+    font-size: 63px;
+    font-weight: 800;
+
+    @include mx.b(desktop) {
+      font-size: 47px;
     }
 
     @include mx.b(mobile) {
-      font-size: 20px;
+      // font-size: 40px;
+      font-size: clamp(28px, 10vw, 40px);
     }
   }
 
-  .title {
-    margin-bottom: 30px;
-
-    .app {
-      margin-left: 20px;
-      transition: 0.3s ease-in-out;
-
-      &::before,
-      &::after {
-        font-weight: 500;
-        transition: 0.3s ease-in-out;
-      }
-
-      &::before {
-        content: "{";
-        margin-right: 15px;
-      }
-
-      &::after {
-        content: "}";
-        margin-left: 15px;
-      }
-
-      @include mx.b(tablet) {
-        margin-left: 0;
-      }
-    }
+  .op-7 {
+    font-size: 41px;
 
     @include mx.b(desktop) {
-      font-size: 85px;
+      font-size: 31px;
+    }
+
+    @include mx.b(mobile) {
+      // font-size: 28px;
+      font-size: clamp(18px, 6.4vw, 28px);
+    }
+  }
+}
+
+.text {
+  margin-top: 30px;
+
+  @include mx.b(desktop) {
+    font-size: 16px;
+  }
+
+  @include mx.b(tablet) {
+    max-width: 500px;
+    font-size: 18px;
+  }
+
+  @include mx.b(mobile) {
+    margin-top: 20px;
+    max-width: 350px;
+    font-size: 16px;
+  }
+}
+
+.btns {
+  --btn-padding: 15px 20px;
+
+  margin-top: 70px;
+
+  @include mx.b(desktop) {
+    --btn-padding: 10px 15px;
+    margin-top: 50px;
+  }
+
+  @include mx.b(tablet) {
+    --btn-padding: 13px;
+
+    display: flex;
+    justify-content: center;
+
+    width: 100%;
+  }
+
+  @include mx.b(mobile) {
+    --btn-padding: 13px 10px;
+    --btn-fz: 14px;
+
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .btn {
+    max-width: 210px;
+    width: 100%;
+    color: #fff;
+
+    @include mx.b(desktop) {
+      max-width: 180px;
     }
 
     @include mx.b(tablet) {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    @include mx.b(mobile) {
-      font-size: 50px;
-    }
-
-    br {
-      @include mx.b(tablet) {
-        display: none;
-      }
-    }
-  }
-
-  .text {
-    margin-top: 30px;
-
-    @include mx.b(mobile) {
-      font-size: 20px;
-      max-width: 270px;
-    }
-  }
-
-  .depends,
-  .depends::before {
-    background: linear-gradient(90deg, #ffffff30, #fff, #ffffff30);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  .buttons {
-    max-width: 800px;
-    width: 100%;
-    margin-top: 50px;
-    font-size: 20px;
-
-    .btn {
-      width: 100%;
-      max-width: 100%;
-      box-shadow: 0px 0px 10px var(--btn-shadow, -10px)
-        rgba(var(--cl-main-rgb), 0.3);
-      transition: 0.25s ease-in-out;
-
-      &:hover {
-        --btn-shadow: 10px;
-      }
-    }
-
-    @include mx.b(mobile) {
-      flex-direction: column;
-      gap: 15px;
-      font-size: 15px;
+      max-width: 210px;
     }
   }
 }
 
-.bg-img {
-  position: absolute;
-  z-index: -1;
-  pointer-events: none;
-  user-select: none;
-
-  left: 50%;
-  top: -100px;
-  transform: translateX(-50%);
-
-  width: 1200px;
-  min-width: 1200px;
+.img {
+  width: 550px;
+  max-width: none;
   height: auto;
-}
 
-.flip {
-  position: relative;
-  display: inline-block;
-  will-change: transform, opacity;
-
-  &.animating {
-    animation: slideFlip 0.6s ease forwards;
+  @include mx.b(desktop) {
+    width: 450px;
   }
-}
 
-.btn-demo {
-  color: #fff;
-}
-
-@keyframes slideFlip {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
+  @include mx.b(tablet) {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
   }
 }

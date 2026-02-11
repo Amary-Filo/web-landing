@@ -1,84 +1,73 @@
 <section class="sc">
   <div class="container">
-    <div class="content">
-      <div class="info fl fl-dc g-20">
-        <div class="fl fl-dc g-10">
-          <h3 class="title fz-xxl">Still have questions?</h3>
-          <span class="text fz-md op-8 fw-6">
-            Write to us to clarify all questions once and for all!
-          </span>
-        </div>
-
-        <div class="att fz-sm fw-5">
-          This form is
-          <span class="t-gr fw-7 cl-g-purple-2">only for questions</span>.
-          <br />
-          Responses depend on the workload of our managers. To apply for a
-          project click button below!
-        </div>
-
-        <div
-          class="btn fw-7 fz-sm g-bg g-a cl-g-purple-2"
-          (click)="goTo('brief')"
-        >
-          Apply for a project!
-        </div>
+    <div class="content fl fl-dc fl-sbc fl-cc t-c g-30">
+      <div class="fl fl-dc g-10">
+        <h3 class="title fz-xxl">Didn't find answers?</h3>
+        <span class="text fz-md op-8 fw-6">
+          Write to us to clarify all questions once and for all!
+        </span>
       </div>
 
-      <form
-        [formGroup]="form"
-        (ngSubmit)="onSubmit()"
-        class="fl fl-dc g-15 cl-g-pink-1"
-      >
-        @if(formSent()) {
-        <div class="fl fl-dc fl-cc g-10">
-          <ui-icon
-            name="checkDoubleLine"
-            size="50px"
-            gradient="#d174ff, #a1a0ff"
-          />
-          <div class="callout-text m-t-10 m-auto t-c">
-            Your request successfully sent! <br />
-            Our managers will answer as soon as possible.
-          </div>
-        </div>
-        } @else {
-        <div class="form-group">
-          <input
-            app-input
-            type="text"
-            placeholder="Your name"
-            formControlName="name"
-          />
-          <input
-            app-input
-            type="text"
-            placeholder="Your email"
-            formControlName="contact"
-          />
-        </div>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" class="cl-g-pink-1">
+        <div class="form-wrap fl fl-dc g-15">
+          @if (formSent()) {
+            <div class="fl fl-dc fl-cc g-10">
+              <ui-icon
+                name="checkDoubleLine"
+                size="50px"
+                gradient="#d174ff, #a1a0ff"
+              />
+              <div class="callout-text m-t-10 m-auto t-c">
+                Your request successfully sent! <br />
+                Our managers will answer as soon as possible.
+              </div>
+            </div>
+          } @else {
+            <div class="form-group">
+              <input
+                app-input
+                type="text"
+                placeholder="Your name"
+                formControlName="name"
+              />
+              <input
+                app-input
+                type="text"
+                placeholder="Your email"
+                formControlName="contact"
+              />
+            </div>
 
-        <textarea
-          app-textarea
-          placeholder="Your question or message"
-          formControlName="message"
-        ></textarea>
+            <textarea
+              app-textarea
+              placeholder="Your question or message"
+              formControlName="message"
+            ></textarea>
 
-        <button
-          class="btn fw-7 g-bg g-a w-100 m-t-10 cl-g-pink-1"
-          type="submit"
-          [disabled]="form.invalid || isSubmitting()"
-        >
-          Let's ask it!
-        </button>
-        <div class="callout-text m-auto t-c fz-sm">
-          By clicking the button, you agree to <br />
-          our
-          <a href="#" class="link accent">privacy policy</a>
-          and <a href="#" class="link accent">terms</a> of data transfer.
+            <button
+              class="btn fw-7 g-bg g-a w-100 m-t-10 use-bg cl-g-pink-1"
+              type="submit"
+              [disabled]="form.invalid || isSubmitting()"
+            >
+              Let's ask it!
+            </button>
+            <div class="callout-text m-auto t-c fz-sm">
+              By clicking the button, you agree to <br />
+              our
+              <a href="#" class="link accent">privacy policy</a>
+              and <a href="#" class="link accent">terms</a> of data transfer.
+            </div>
+          }
         </div>
-        }
       </form>
+
+      <div class="att fz-sm fw-5">
+        This form is only for questions. Responses depend on the workload of our
+        managers. To apply for a project
+        <span class="t-gr cl-g-purple-2 link" (click)="goTo('brief')">
+          click here
+        </span>
+      </div>
     </div>
   </div>
 </section>

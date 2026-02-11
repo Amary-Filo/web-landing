@@ -10,22 +10,22 @@ import { NgpInput } from 'ng-primitives/input';
       display: flex;
       justify-content: space-between;
       align-items: center;
-      
+
       max-width: var(--kit-input-max-width);
       width: 100%;
 
-      padding: 10px 10px 10px 20px;
-      line-height: 1.2;
+      padding: 15px 10px 15px 20px;
+      line-height: 1.25;
 
       border-radius: var(--radius-lg, 10px);
       border: none;
 
-      background-color: var(--surface-300, #29293f);
+      background-color: #20202c;
       color: white;
       box-sizing: border-box;
       outline: 2px solid transparent;
       outline-offset: 2px;
-      transition: .3s ease-in-out;
+      transition: 0.3s ease-in-out;
     }
 
     :host:focus {

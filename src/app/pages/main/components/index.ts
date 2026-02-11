@@ -2,7 +2,7 @@ export * from './header/header.component';
 export * from './hero/hero.component';
 export * from './about/about.component';
 export * from './offer/offer.component';
-export * from './solutions/solutions.component';
+export * from './showcase/showcase.component';
 export * from './networks/networks.component';
 export * from './why-choose/why-choose.component';
 export * from './process/process.component';

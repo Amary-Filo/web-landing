@@ -1,52 +1,20 @@
 @use "../../../../styles/mixins/mixins.scss" as mx;
 @use "../../../../styles/tokens.scss" as tokens;
 
-.content {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(300px, 390px) minmax(300px, 385px);
-  grid-gap: 30px;
-  justify-content: space-between;
-  align-items: center;
-
-  width: 100%;
-  max-width: 950px;
-
-  margin: 0 auto;
-  padding: 50px;
-
-  border-radius: var(--radius-xl, #{tokens.$radius-xl});
-  border: 3px solid var(--cl-main, var(--surface-500, #{tokens.$surface-500}));
-
-  background: linear-gradient(130deg, #12121a, var(--surface-500, #{tokens.$surface-500}));
-  transition: 0.3s ease-in-out;
-
-  @include mx.b(desktop) {
-    padding: 45px 35px;
-  }
-
-  @include mx.b(tablet) {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    padding: 40px;
-  }
-
-  @include mx.b(mobile) {
-    padding: 40px 20px;
-  }
+.container {
+  --container-width: 630px;
 }
 
-.info {
-  @include mx.b(tablet) {
-    border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
-    padding-bottom: 40px;
-    text-align: center;
-    align-items: center;
-  }
+form {
+  width: 100%;
+  padding: 50px 15px 40px 15px;
+  border-radius: 25px;
+  background: #171721;
+}
 
-  .btn {
-    max-width: 450px;
-  }
+.form-wrap {
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .title {
@@ -73,8 +41,6 @@
 
 .att {
   padding: 15px;
-  border-radius: 10px;
-  background-color: var(--surface-350, #{tokens.$surface-350});
   color: #808095;
 }
 

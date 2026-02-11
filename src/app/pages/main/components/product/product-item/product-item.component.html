@@ -1,0 +1,23 @@
+<div class="list-item" [class]="itemColorClass()">
+  <div class="info fl fl-dc g-20">
+    <div class="product-badge fl fl-cc fw-7">
+      <ui-icon class="product-icon" [name]="data().icon" size="20px" />
+      {{ data().badge }}
+    </div>
+
+    <h2 class="title t-u fw-9">
+      <div class="accent t-gr" [innerHTML]="data().title"></div>
+      {{ data().subtitle }}
+    </h2>
+
+    <p class="text fw-6 op-7">
+      {{ data().text }}
+    </p>
+  </div>
+
+  @if (itemImgSrc()) {
+    <div class="media">
+      <img class="img" [src]="itemImgSrc()" [alt]="data().imgAlt" />
+    </div>
+  }
+</div>

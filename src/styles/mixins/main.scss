@@ -48,64 +48,65 @@
   }
 }
 
-@mixin gradient-animation($start, $end) {
-  background-size: 100%;
-  background-image: linear-gradient(45deg, $start, $end);
-  position: relative;
-  z-index: 100;
+// @mixin gradient-animation($start, $end) {
+//   background-size: 100%;
+//   background-image: linear-gradient(45deg, $start, $end);
+//   position: relative;
+//   z-index: 100;
 
-  &:before {
-    background-image: linear-gradient(35deg, $end, $start);
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    width: 100%;
-    z-index: -100;
-    transition: opacity 1s;
-  }
+//   &:before {
+//     background-image: linear-gradient(35deg, $end, $start);
+//     content: "";
+//     display: block;
+//     height: 100%;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     opacity: 0;
+//     width: 100%;
+//     z-index: -100;
+//     transition: opacity 1s;
+//   }
 
-  &::after {
-    background-image: linear-gradient(-15deg, $end, $start);
-    content: "";
-    display: block;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    width: 100%;
-    z-index: -100;
-    transition: opacity 0.6s;
-  }
-  &.g-a {
-    &:hover {
-      &:before {
-        opacity: 1;
-      }
-    }
-    &:active {
-      &::after {
-        opacity: 1;
-      }
-    }
-  }
-}
+//   &::after {
+//     background-image: linear-gradient(-15deg, $end, $start);
+//     content: "";
+//     display: block;
+//     height: 100%;
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     opacity: 0;
+//     width: 100%;
+//     z-index: -100;
+//     transition: opacity 0.6s;
+//   }
+//   &.g-a {
+//     &:hover {
+//       &:before {
+//         opacity: 1;
+//       }
+//     }
+//     &:active {
+//       &::after {
+//         opacity: 1;
+//       }
+//     }
+//   }
+// }
 
 @mixin gcolors($colors) {
   @each $name, $fcolor, $scolor in $colors {
     .cl-g-#{$name} {
-      &.g-bg {
-        @include gradient-animation($fcolor, $scolor);
-      }
+      // &.g-bg {
+      //   @include gradient-animation($fcolor, $scolor);
+      // }
 
       --cl-main: #{$fcolor};
       --cl-main-rgb: #{HexToRGB($fcolor)};
 
       --cl-accent: #{$scolor};
+      --cl-accent-rgb: #{HexToRGB($scolor)};
       --cl-text-rgb: #{HexToRGB(text-contrast($fcolor))};
     }
   }

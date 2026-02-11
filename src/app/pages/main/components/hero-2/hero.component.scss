@@ -1,0 +1,147 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.sc {
+  // margin-top: 180px;
+  // overflow-x: clip;
+  // overflow-y: visible;
+
+  display: flex;
+  align-items: center;
+
+  margin-top: 50px;
+
+  // height: 100vh;
+  // min-height: 650px;
+
+  @include mx.b(mobile) {
+    margin-top: 50px;
+    // height: max-content;
+    // min-height: max-content;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.logo {
+  font-size: 24px;
+
+  @include mx.b(mobile) {
+    font-size: 20px;
+  }
+
+  &-slash {
+    font-size: 32px;
+    font-weight: 900;
+
+    @include mx.b(mobile) {
+      font-size: 28px;
+    }
+  }
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 10px;
+
+  font-size: 100px;
+  line-height: 1.2;
+
+  @include mx.b(desktop) {
+    font-size: 75px;
+  }
+
+  @include mx.b(tablet) {
+    font-size: 60px;
+  }
+
+  @include mx.b(mobile) {
+    // font-size: 45px;
+    font-size: clamp(32px, 13vw, 45px);
+  }
+
+  .t-gr {
+    font-size: 90px;
+    font-weight: 800;
+
+    @include mx.b(desktop) {
+      font-size: 65px;
+    }
+
+    @include mx.b(tablet) {
+      font-size: 50px;
+    }
+
+    @include mx.b(mobile) {
+      // font-size: 40px;
+      font-size: clamp(28px, 10vw, 40px);
+    }
+  }
+
+  .op-7 {
+    font-size: 48px;
+
+    @include mx.b(desktop) {
+      font-size: 44px;
+    }
+
+    @include mx.b(tablet) {
+      font-size: 34px;
+    }
+
+    @include mx.b(mobile) {
+      // font-size: 28px;
+      font-size: clamp(18px, 6.4vw, 28px);
+    }
+  }
+}
+
+.text {
+  max-width: 600px;
+  margin-top: 30px;
+
+  @include mx.b(desktop) {
+    font-size: 18px;
+  }
+
+  @include mx.b(mobile) {
+    margin-top: 20px;
+    max-width: 450px;
+    font-size: 14px;
+  }
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+
+  width: 100%;
+  margin-top: 70px;
+
+  --btn-padding: 15px 20px;
+
+  @include mx.b(mobile) {
+    --btn-padding: 13px 10px;
+    --btn-fz: 14px;
+
+    gap: 10px;
+    margin-top: 40px;
+  }
+
+  .btn {
+    max-width: 210px;
+    width: 100%;
+    color: #fff;
+  }
+}
+
+.img {
+}

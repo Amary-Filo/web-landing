@@ -1,8 +1,8 @@
 <section class="sc">
   <div class="container">
-    <div class="section-head left">
-      <h2 class="title s-xxl">FAQ</h2>
-      <span class="sub-text s-lg">
+    <div class="section-head g-20">
+      <h2 class="title s-lg">FAQ</h2>
+      <span class="sub-text w-100">
         Everything that didn't make it onto the pages was marked with an
         asterisk, in the comments, in small print — you can find it here.
       </span>
@@ -10,20 +10,20 @@
 
     <div class="content">
       @for (item of data; track $index) {
-      <details
-        class="faq-item"
-        [class.faq-item--hidden]="$index >= visibleCount()"
-        [open]="$index + 1 === opened()"
-        (click)="opened.set(opened() === $index + 1 ? 0 : $index + 1)"
-      >
-        <summary class="fw-8 fz-xl">
-          {{ item.title }}
-          <ui-icon class="icon" name="addFill" size="var(--icon-size)" />
-        </summary>
-        <p class="answer fw-5 fz-lg m-t-10">
-          {{ item.text }}
-        </p>
-      </details>
+        <details
+          class="faq-item"
+          [class.faq-item--hidden]="$index >= visibleCount()"
+          [open]="$index + 1 === opened()"
+          (click)="opened.set(opened() === $index + 1 ? 0 : $index + 1)"
+        >
+          <summary class="fw-8 fz-md">
+            {{ item.title }}
+            <ui-icon class="icon" name="addFill" size="var(--icon-size)" />
+          </summary>
+          <p class="answer fw-5">
+            {{ item.text }}
+          </p>
+        </details>
       }
 
       <button

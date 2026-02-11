@@ -1,0 +1,46 @@
+<section class="sc">
+  <div class="container">
+    <div class="section-head g-20">
+      <h2 class="title s-lg">Showcases</h2>
+      <span class="sub-text"
+        >Our ready-made web3 demo projects for your inspiration with finished
+        modules and real-world use cases.
+      </span>
+    </div>
+
+    <div class="content fl fl-w g-20">
+      @for (item of data; track $index) {
+        <div class="item fl fl-dc g-15" [class]="'cl-g-' + item.color">
+          <div class="fl fl-sbc fl-cc g-5">
+            <ui-icon class="icon" [name]="item.icon" size="var(--icon-size)" />
+            <div class="fl fl-dc g-5">
+              @for (dbItem of item.badges; track $index) {
+                <div
+                  class="badge fl fl-sbc g-5 fw-7"
+                  [class]="'cl-g-' + badge[dbItem].color"
+                >
+                  <ui-icon [name]="badge[dbItem].icon" size="15px" />
+                  {{ badge[dbItem].title }}
+                </div>
+              }
+            </div>
+          </div>
+          <div class="info fl fl-dc g-10">
+            <h3 class="title fw-7 fz-xl">{{ item.title }}</h3>
+            <p class="text op-7">{{ item.text }}</p>
+          </div>
+          <button class="btn fw-7">View more</button>
+        </div>
+      }
+    </div>
+
+    <ui-info-block
+      [title]="`Want something like this?`"
+      accent="It’s not a problem"
+      text="just create your own brief with prepared tiers and add-ons."
+      btnText="Create my own solution"
+      color="purple-1"
+      (btnClick)="goTo('brief')"
+    />
+  </div>
+</section>

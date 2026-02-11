@@ -3,4 +3,8 @@
   align-items: center;
   max-width: fit-content;
   color: var(--cp-icon-color, inherit);
+
+  ng-icon {
+    z-index: var(--ng-icon-z, 1);
+  }
 }

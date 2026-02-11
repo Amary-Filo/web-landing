@@ -6,7 +6,7 @@
 
 // $gap-values: (4, 5, 8, 10, 12, 15, 16, 20, 24, 30, 32, 40, 48, 64);
 // $spacing-values: (4, 5, 8, 10, 12, 15, 16, 20, 24, 30, 32, 35, 40, 48, 64);
-$gap-values: (10, 15, 20, 30, 40);
+$gap-values: (1, 2, 3, 4, 5, 10, 15, 20, 30, 40);
 $spacing-values: (10, 20, 30, auto);
 
 $spacing-map: (
@@ -49,7 +49,7 @@ $spacing-map: (
   // "p-y": (
   //   padding-top,
   //   padding-bottom,
-  // ),,,,,,,,
+   // ),,,,,,,,
 );
 
 @mixin generate-gap-utilities($values) {
@@ -235,6 +235,9 @@ $spacing-map: (
   &-sm {
     font-size: 14px;
   }
+  &-nd {
+    font-size: 16px;
+  }
   &-md {
     font-size: 18px;
   }
@@ -264,12 +267,13 @@ $spacing-map: (
   &-gr,
   &-gr::before {
     background: linear-gradient(
-      45deg,
+      var(--cl-rotate, 45deg),
       var(--cl-main, #eddbc3),
       var(--cl-accent, #86acb9)
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    transition: --cl-rotate 0.1s linear;
   }
 
   &-cw {

@@ -1,17 +1,16 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
-.section-head {
-  @include mx.b(mobile) {
-    --sc-bottom: 50px;
-  }
+.container {
+  --container-width: 730px;
 }
 
 .content {
   border-radius: 25px;
-  border: 2px solid #353540;
-  overflow: hidden;
+  border: 2px solid #29293f;
+
   transition: 0.3s ease-in-out;
   background-color: #1f1f2a;
+  overflow: hidden;
 
   @include mx.b(mobile) {
     border-radius: 15px;
@@ -19,9 +18,9 @@
 }
 
 details {
-  padding: 30px 40px;
-  background-color: #1f1f2a;
-  border-bottom: 2px solid #353540;
+  padding: 20px 25px;
+  border-bottom: 2px solid #29293f;
+  background-color: #171721;
   transition: 0.3s ease-in-out;
   cursor: pointer;
 
@@ -46,7 +45,7 @@ details {
     border-bottom-color: #d174ff;
 
     &:not([open]) {
-      background-color: #21212f;
+      background-color: #20202c;
     }
   }
 
@@ -79,10 +78,10 @@ details {
 
   &[open] {
     background-color: #242432;
-    border-bottom: var(--faq-border-bottom, 10px) solid #d174ff;
+    border-bottom: var(--faq-border-bottom, 2px) solid #d174ff;
 
     @include mx.b(tablet) {
-      --faq-border-bottom: 5px;
+      --faq-border-bottom: 2px;
     }
 
     summary {
@@ -98,17 +97,13 @@ details {
   .icon {
     transition: 0.3s ease-in-out;
 
-    --icon-size: 50px;
+    --icon-size: 40px;
 
     @include mx.b(desktop) {
-      --icon-size: 40px;
-    }
-
-    @include mx.b(tablet) {
       --icon-size: 30px;
     }
 
-    @include mx.b(mobile) {
+    @include mx.b(tablet) {
       --icon-size: 20px;
     }
   }
@@ -142,12 +137,6 @@ details[open] > *:not(summary) {
   }
 }
 
-ui-form-question {
-  display: block;
-  margin: 0 auto;
-  margin-top: 100px;
-}
-
 .faq-item--hidden {
   display: none;
 }
@@ -163,4 +152,8 @@ ui-form-question {
     color: #d174ff;
     opacity: 1;
   }
+}
+
+ui-form-question {
+  margin-top: 50px;
 }

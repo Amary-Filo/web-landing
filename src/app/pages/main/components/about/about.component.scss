@@ -1,1 +1,185 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.container {
+  --container-width: 1060px;
+}
+
+.section-head {
+  padding-right: 20px;
+
+  @include mx.b(desktop) {
+    padding-right: 0;
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 50px;
+
+  @include mx.b(tablet) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .sub-text {
+    @include mx.b(desktop) {
+      font-size: 20px;
+    }
+
+    @include mx.b(tablet) {
+      text-align: center;
+    }
+
+    @include mx.b(mobile) {
+      grid-gap: 60px;
+    }
+  }
+}
+
+.numbers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 30px;
+  align-items: stretch;
+
+  @include mx.b(tablet) {
+    display: flex;
+    flex-wrap: wrap;
+    // grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    // justify-content: center;
+    grid-gap: 15px;
+  }
+
+  @include mx.b(mobile) {
+    grid-gap: 10px;
+  }
+
+  .section-head {
+    align-items: flex-start;
+    padding: 0;
+    text-align: left;
+
+    @include mx.b(tablet) {
+      align-items: center;
+      text-align: center;
+      // max-width: 500px;
+    }
+  }
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+
+  width: 100%;
+  height: max-content;
+
+  padding: 20px 35px;
+  border-radius: 20px;
+
+  background-color: #171721;
+
+  @include mx.b(tablet) {
+    flex: 1 1 30%;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0;
+
+    height: auto;
+    min-width: 220px;
+
+    text-align: center;
+    padding: 30px 25px 40px 25px;
+  }
+
+  @include mx.b(mobile) {
+    flex-direction: row;
+    gap: 15px;
+
+    min-width: 100%;
+
+    padding: 20px;
+
+    text-align: left;
+    line-height: 1.3;
+
+    border-radius: 15px;
+  }
+
+  &.no-bg {
+    background: none;
+    align-items: center;
+    padding: 0;
+    height: 100%;
+
+    @include mx.b(tablet) {
+      min-width: 100%;
+      margin-bottom: 30px;
+    }
+  }
+
+  &-number {
+    min-width: 110px;
+    font-weight: 900;
+    font-size: 60px;
+    text-align: right;
+
+    @include mx.b(desktop) {
+      min-width: 90px;
+      font-size: 50px;
+    }
+
+    @include mx.b(tablet) {
+      min-width: auto;
+      font-size: 50px;
+      text-align: center;
+    }
+
+    @include mx.b(mobile) {
+      font-size: 40px;
+      text-align: right;
+      min-width: 70px;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  width: 100%;
+  max-width: 490px;
+
+  @include mx.b(desktop) {
+    font-size: 20px;
+  }
+
+  @include mx.b(tablet) {
+    text-align: center;
+    max-width: 350px;
+
+    &::before,
+    &::after {
+      content: "";
+      height: 2px;
+      width: 300px;
+      background: linear-gradient(90deg, #ffffff00, #ffffff95, #ffffff00);
+    }
+
+    &::before {
+      margin-bottom: 40px;
+    }
+
+    &::after {
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+  }
+}

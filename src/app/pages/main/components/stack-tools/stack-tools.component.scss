@@ -1,0 +1,70 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+:host {
+  --container-gap: 80px;
+
+  --icon-size: 50px;
+
+  @include mx.b(desktop) {
+    --icon-size: 40px;
+  }
+
+  @include mx.b(tablet) {
+    --icon-size: 30px;
+  }
+}
+
+.content {
+  width: 100%;
+  max-width: 980px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  justify-content: center;
+  grid-gap: 20px;
+
+  margin: 0 auto;
+
+  @include mx.b(tablet) {
+    grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  }
+}
+
+.item {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  grid-gap: 10px 20px;
+  grid-template-areas: "icon title" "icon text";
+  align-items: flex-start;
+
+  width: 100%;
+  padding: 30px 20px;
+
+  border-radius: 15px;
+  background-color: #171721;
+
+  @include mx.b(tablet) {
+    grid-template-areas: "icon title" "text text";
+    grid-gap: 10px;
+    align-items: center;
+  }
+
+  .icon {
+    grid-area: icon;
+  }
+
+  .title {
+    grid-area: title;
+
+    &:before {
+      background: linear-gradient(90deg, #fff, #ffffff30);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  }
+
+  .text {
+    grid-area: text;
+  }
+}

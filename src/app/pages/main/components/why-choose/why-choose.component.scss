@@ -1,11 +1,5 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
-.section-head {
-  @include mx.b(tablet) {
-    --sc-bottom: 70px;
-  }
-}
-
 .compare {
   margin-top: 70px;
 

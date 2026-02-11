@@ -1,0 +1,184 @@
+@use "../../../../../styles/mixins/mixins.scss" as mx;
+
+.container {
+  // --container-width: 1060px;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: stretch;
+  width: 100%;
+
+  @include mx.b(desktop) {
+    grid-template-columns: minmax(240px, 300px) minmax(330px, 1fr) minmax(
+        330px,
+        1fr
+      );
+  }
+
+  @include mx.b(930) {
+    grid-template-columns: minmax(150px, 300px) repeat(2, minmax(295px, 1fr));
+  }
+
+  @include mx.b(tablet) {
+    grid-template-columns: minmax(140px, 160px) repeat(2, minmax(250px, 1fr));
+  }
+
+  @include mx.b(669) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @include mx.b(mobile) {
+    display: flex;
+    flex-direction: column;
+
+    max-width: 380px;
+    margin: 0 auto;
+  }
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  padding: 10px 30px;
+
+  @include mx.b(930) {
+    padding: 10px 20px;
+  }
+
+  @include mx.b(tablet) {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  @include mx.b(669) {
+    text-align: left;
+  }
+
+  @include mx.b(mobile) {
+    font-size: 16px;
+  }
+
+  &.empty {
+    padding: 0;
+
+    @include mx.b(669) {
+      display: none;
+    }
+  }
+
+  ui-icon {
+    @include mx.b(tablet) {
+      display: none;
+    }
+
+    @include mx.b(669) {
+      display: flex;
+    }
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  font-weight: 900;
+  font-size: 20px;
+  white-space: nowrap;
+
+  @include mx.b(950) {
+    padding: 10px 15px;
+    gap: 10px;
+  }
+
+  @include mx.b(930) {
+    font-size: 16px;
+  }
+
+  @include mx.b(669) {
+    display: none;
+  }
+
+  .arrow {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    width: 100%;
+    height: 1.5px;
+
+    background: linear-gradient(90deg, transparent 0%, #ffffff 100%);
+
+    &::after {
+      content: "";
+
+      width: 7px;
+      height: 7px;
+
+      border-top: 1.5px solid #ffffff;
+      border-right: 1.5px solid #ffffff;
+
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.cell-header {
+  justify-content: center;
+  text-align: center;
+
+  font-weight: 800;
+  font-size: 24px;
+
+  padding-top: 50px;
+  padding-bottom: 30px;
+
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+}
+
+.our {
+  background-color: #f44336;
+
+  @include mx.b(mobile) {
+    order: 1;
+  }
+
+  &:not(.cell-header, .cell-footer) {
+    gap: 15px;
+    font-weight: 700;
+  }
+
+  &.cell-footer {
+    padding-bottom: 50px;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+    @include mx.b(mobile) {
+      margin-bottom: 40px;
+    }
+  }
+}
+
+.other {
+  @include mx.b(mobile) {
+    order: 2;
+  }
+
+  &:not(.cell-header, .cell-footer) {
+    justify-content: center;
+    text-align: center;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  @include mx.b(mobile) {
+    &:not(.cell-header):not(&:last-child) {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+}

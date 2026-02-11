@@ -1,0 +1,258 @@
+<section class="sc">
+  <div class="container">
+    <div class="content fl fl-dc">
+      <div class="product-banner cl-g-pink-1">
+        <div class="info fl fl-dc g-20">
+          <div class="product-badge fl fl-cc fw-7">
+            <ui-icon class="product-icon" name="checkLine" size="20px" />
+            Fast demo
+          </div>
+          <h2 class="title t-u fw-8">
+            See your product working
+            <div class="accent fw-9 t-gr">
+              in real wallets <br />
+              within days
+            </div>
+          </h2>
+          <p class="text fw-6 op-7">
+            We set up your project with real networks, wallets and contracts
+            logic — so you can interact with your product exactly like your
+            users will.
+          </p>
+        </div>
+        <div class="features fl fl-dc g-20">
+          <div class="features-title fl fl-cc g-15 op-8 fw-7">
+            <span>Features <span class="op-6">you will get</span></span>
+          </div>
+          <div class="features-list">
+            <div class="feature-item">Connect Wallets</div>
+            <div class="feature-item">Desktop & mobile</div>
+            <div class="feature-item">Real token balances</div>
+            <div class="feature-item">Contract actions</div>
+            <div class="feature-item">Branded UI</div>
+          </div>
+        </div>
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="product-banner reverse cl-g-purple-2">
+        <div class="info fl fl-dc g-20">
+          <div class="product-badge fl fl-cc fw-7">
+            <ui-icon class="product-icon" name="checkLine" size="20px" />
+            Scalable by design
+          </div>
+          <h2 class="title t-u fw-8">
+            <div class="accent fw-9 t-gr">Built to grow</div>
+            not to be thrown away <br />
+            after demo
+          </h2>
+          <p class="text fw-6 op-7">
+            Your PoC or MVP is not a dead end. It’s a foundation that can be
+            extended with new features, pages, networks and contracts.
+          </p>
+        </div>
+        <div class="features fl fl-dc g-20">
+          <div class="features-title fl fl-cc g-15 op-8 fw-7">
+            <span>Features <span class="op-6">you will get</span></span>
+          </div>
+          <div class="features-list">
+            <div class="feature-item">Extend functionality</div>
+            <div class="feature-item">Add pages, flows, integrations</div>
+            <div class="feature-item">Replace contracts</div>
+            <div class="feature-item">Development after launch</div>
+          </div>
+        </div>
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="product-banner cl-g-green-1">
+        <div class="info fl fl-dc g-20">
+          <div class="product-badge fl fl-cc fw-7">
+            <ui-icon class="product-icon" name="checkLine" size="20px" />
+            Product-first
+          </div>
+          <h2 class="title t-u fw-8">
+            <div class="accent fw-9 t-gr">
+              design <br />
+              the product logic
+            </div>
+            not just screens
+          </h2>
+          <p class="text fw-6 op-7">
+            You describe your idea. We turn it into a clear user flow, screens,
+            and interactions that make sense to real users.
+          </p>
+        </div>
+        <div class="features fl fl-dc g-20">
+          <div class="features-title fl fl-cc g-15 op-8 fw-7">
+            <span>Features <span class="op-6">you will get</span></span>
+          </div>
+          <div class="features-list">
+            <div class="feature-item">User flows</div>
+            <div class="feature-item">Screens mapping</div>
+            <div class="feature-item">Figma UI kit</div>
+            <div class="feature-item">Clear scope</div>
+            <div class="feature-item">Feature breakdown</div>
+            <div class="feature-item">Structured SOW</div>
+          </div>
+        </div>
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+    </div>
+
+    <div class="section-head g-10">
+      <h2 class="title s-sm t-u">Crypto features</h2>
+      <span class="sub-text fz-md">Web3 & UX features built-in </span>
+    </div>
+
+    <div class="list">
+      @for (p of products; track $index) {
+        <product-item [data]="p" />
+      }
+
+      <!-- <div class="list-item cl-g-pink-1">
+        <div class="product-badge fl fl-cc fw-7">
+          <ui-icon class="product-icon" name="checkLine" size="20px" />
+          Design & UI Kit
+        </div>
+
+        <h2 class="title t-u fw-9">
+          <div class="accent t-gr">
+            Design that <br />
+            already works
+          </div>
+          everywhere
+        </h2>
+
+        <p class="text fw-6 op-7">
+          Responsive layouts, ready sections and components — no guessing how it
+          should look on mobile.
+        </p>
+
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="list-item cl-g-purple-1">
+        <div class="product-badge fl fl-cc fw-7">
+          <ui-icon class="product-icon" name="checkLine" size="20px" />
+          Wallets & Networks
+        </div>
+
+        <h2 class="title t-u fw-9">
+          <div class="accent t-gr">Connect real <br />wallets</div>
+          on real networks
+        </h2>
+
+        <p class="text fw-6 op-7">
+          MetaMask, WalletConnect, injected wallets. Single or multichain — your
+          users connect the way they expect.
+        </p>
+
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="list-item cl-g-green-1">
+        <div class="product-badge fl fl-cc fw-7">
+          <ui-icon class="product-icon" name="checkLine" size="20px" />
+          Transactions UX
+        </div>
+
+        <h2 class="title t-u fw-9">
+          flow for users
+          <div class="accent t-gr">
+            Clear <br />
+            transaction
+          </div>
+        </h2>
+
+        <p class="text fw-6 op-7">
+          Users always understand what they sign, send or approve — no
+          confusion, no scary popups.
+        </p>
+
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="list-item cl-g-orange-1">
+        <div class="product-badge fl fl-cc fw-7">
+          <ui-icon class="product-icon" name="checkLine" size="20px" />
+          Translations & Theming
+        </div>
+
+        <h2 class="title t-u fw-9">
+          <div class="accent t-gr">
+            Multi-language <br />
+            & theming
+          </div>
+          ready
+        </h2>
+
+        <p class="text fw-6 op-7">
+          Add languages, light/dark themes or custom styles without rebuilding
+          the UI.
+        </p>
+
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="list-item cl-g-blue-2">
+        <div class="product-badge fl fl-cc fw-7">
+          <ui-icon class="product-icon" name="checkLine" size="20px" />
+          Analytics & Errors
+        </div>
+
+        <h2 class="title t-u fw-9">
+          <div class="accent t-gr">
+            Built-in error <br />
+            and analytics
+          </div>
+          tracking
+        </h2>
+
+        <p class="text fw-6 op-7">
+          Know how users behave. See errors instantly. No waiting weeks to “add
+          it later”.
+        </p>
+
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div>
+
+      <div class="list-item cl-g-pink-2">
+        <div class="product-badge fl fl-cc fw-7">
+          <ui-icon class="product-icon" name="checkLine" size="20px" />
+          SEO & Performance
+        </div>
+
+        <h2 class="title t-u fw-9">
+          for browsers
+          <div class="accent t-gr">Optimized from <br />day one</div>
+        </h2>
+
+        <p class="text fw-6 op-7">
+          SEO-friendly structure, fast loading and clean markup — even for
+          crypto products.
+        </p>
+
+        <div class="media">
+          <img class="img" src="./assets/img/media.png" alt="" />
+        </div>
+      </div> -->
+    </div>
+  </div>
+</section>
