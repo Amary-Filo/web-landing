@@ -34,15 +34,15 @@ export class HeaderMainComponent implements OnInit, AfterViewInit, OnDestroy {
 
   readonly menuOpen = signal(false);
   readonly isDesktop = signal(
-    typeof window !== 'undefined' ? window.innerWidth >= HeaderMainComponent.MOBILE_BP : true
+    typeof window !== 'undefined' ? window.innerWidth >= HeaderMainComponent.MOBILE_BP : true,
   );
   readonly icon = computed<IconName>(() => (this.menuOpen() ? 'closeLine' : 'menuFill'));
 
   readonly navItems = [
     { id: 'hero', label: 'Home' },
-    { id: 'solutions', label: 'Showcase' },
     { id: 'about', label: 'About' },
-    { id: 'brief', label: 'Price' },
+    { id: 'showcases', label: 'Showcase' },
+    { id: 'brief', label: 'Brief' },
     { id: 'faq', label: 'FAQ' },
   ];
 

@@ -7,14 +7,16 @@
   <div class="info fl fl-dc g-5">
     <div class="title fw-7">{{ title() }}</div>
     <p class="text fz-sm">
-      @if(accent()) {
-      <b class="accent">{{ accent() }}</b
-      >, {{ " " }} } {{ text() }}
+      @if (accent()) {
+        <b class="accent">{{ accent() }}</b
+        >, {{ " " }}
+      }
+      {{ text() }}
     </p>
   </div>
   <div
     (click)="btnClick.emit()"
-    class="btn fw-7 g-bg g-a"
+    class="btn use-bg fw-7 g-bg g-a"
     [class]="'cl-g-' + color()"
   >
     {{ btnText() }}

@@ -14,7 +14,7 @@ import { NgpTextarea } from 'ng-primitives/textarea';
 
       border-radius: var(--radius-lg, 10px);
       border: none;
-      background-color: #20202c;
+      background-color: #222233;
       box-sizing: border-box;
       color: white;
 

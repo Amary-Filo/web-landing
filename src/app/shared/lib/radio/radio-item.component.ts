@@ -11,7 +11,7 @@ import { NgpRadioItem } from 'ng-primitives/radio';
   ],
   template: `<span class="item-title"><ng-content /></span>`,
   styles: `
-  :host {
+    :host {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -23,8 +23,8 @@ import { NgpRadioItem } from 'ng-primitives/radio';
     }
 
     .item-title {
-      opacity: .5;
-      transition: .3s ease-in-out;
+      opacity: 0.5;
+      transition: 0.3s ease-in-out;
     }
 
     :host[data-focus-visible] {
@@ -33,7 +33,7 @@ import { NgpRadioItem } from 'ng-primitives/radio';
     }
 
     :host[data-checked] {
-      background-color: #29293F;
+      background-color: #222233;
       cursor: default;
     }
 

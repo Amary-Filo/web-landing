@@ -50,24 +50,23 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
       <button ngpComboboxButton type="button" aria-label="Toggle dropdown" (click)="toggleOpen()">
         <div class="combobox-wrap">
           @if (valueTpl) {
-          <ng-container
-            [ngTemplateOutlet]="valueTpl!"
-            [ngTemplateOutletContext]="{ $implicit: selectedOption() }"
-          ></ng-container>
-          } @else if(useInput()) {
-          <input
-            class="base-input"
-            ngpComboboxInput
-            [placeholder]="placeholder()"
-            [value]="filter()"
-            (input)="onFilterChange($event)"
-            (blur)="onTouched?.()"
-          />
-
+            <ng-container
+              [ngTemplateOutlet]="valueTpl!"
+              [ngTemplateOutletContext]="{ $implicit: selectedOption() }"
+            ></ng-container>
+          } @else if (useInput()) {
+            <input
+              class="base-input"
+              ngpComboboxInput
+              [placeholder]="placeholder()"
+              [value]="filter()"
+              (input)="onFilterChange($event)"
+              (blur)="onTouched?.()"
+            />
           } @else {
-          <div class="select-placeholder" [class.selected]="!!selectedOption()?.value">
-            {{ selectedOption()?.value || placeholder() || 'Select' }}
-          </div>
+            <div class="select-placeholder" [class.selected]="!!selectedOption()?.value">
+              {{ selectedOption()?.value || placeholder() || 'Select' }}
+            </div>
           }
           <div class="arrow">
             <ui-icon name="arrowDownSFill" size="20px" />
@@ -76,44 +75,44 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
       </button>
 
       @if (isOpen()) {
-      <div
-        ngpComboboxDropdown
-        [class]="color()"
-        [class.data-enter]="isOpen()"
-        [class.data-exit]="!isOpen()"
-      >
-        @if (searchable() && !useInput()) {
-        <input
-          ngpComboboxInput
-          [value]="filter()"
-          [placeholder]="placeholder()"
-          (input)="onFilterChange($event)"
-          (blur)="onTouched?.()"
-        />
-        }
-        <div class="options-list">
-          @for (opt of filteredOptions(); track opt.key) {
-          <div
-            ngpComboboxOption
-            [ngpComboboxOptionValue]="emitMode() === 'key' ? opt.key : opt"
-            (click)="onOptionClick()"
-          >
-            @if (optionTpl) {
-            <ng-container
-              [ngTemplateOutlet]="optionTpl!"
-              [ngTemplateOutletContext]="{ $implicit: opt, selected: isSelected(opt) }"
-            ></ng-container>
-            } @else {
-            <span class="select-placeholder" [class.selected]="!!selectedOption()?.value">
-              {{ opt.value }}
-            </span>
+        <div
+          ngpComboboxDropdown
+          [class]="color()"
+          [class.data-enter]="isOpen()"
+          [class.data-exit]="!isOpen()"
+        >
+          @if (searchable() && !useInput()) {
+            <input
+              ngpComboboxInput
+              [value]="filter()"
+              [placeholder]="placeholder()"
+              (input)="onFilterChange($event)"
+              (blur)="onTouched?.()"
+            />
+          }
+          <div class="options-list">
+            @for (opt of filteredOptions(); track opt.key) {
+              <div
+                ngpComboboxOption
+                [ngpComboboxOptionValue]="emitMode() === 'key' ? opt.key : opt"
+                (click)="onOptionClick()"
+              >
+                @if (optionTpl) {
+                  <ng-container
+                    [ngTemplateOutlet]="optionTpl!"
+                    [ngTemplateOutletContext]="{ $implicit: opt, selected: isSelected(opt) }"
+                  ></ng-container>
+                } @else {
+                  <span class="select-placeholder" [class.selected]="!!selectedOption()?.value">
+                    {{ opt.value }}
+                  </span>
+                }
+              </div>
+            } @empty {
+              <div class="empty-message">No data found</div>
             }
           </div>
-          } @empty {
-          <div class="empty-message">No data found</div>
-          }
         </div>
-      </div>
       }
     </div>
   `,
@@ -147,7 +146,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 10px 10px 20px;
+        padding: 14px 10px 14px 20px;
       }
 
       [ngpCombobox] {
@@ -158,7 +157,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
 
         border-radius: 10px;
         border: none;
-        background-color: #29293f;
+        background-color: #222233;
         box-sizing: border-box;
         outline: 2px solid transparent;
         outline-offset: 2px;
@@ -180,12 +179,12 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         width: 100%;
         border: none;
         font-size: 14px;
-        background-color: #3b3b5b;
+        background-color: #313145;
         color: #e6e6f0;
         font-weight: 600;
         outline: none;
         margin-bottom: 10px;
-        padding: 7px 10px;
+        padding: 10px 10px;
         border-radius: 10px;
         z-index: 999999999;
       }
@@ -239,7 +238,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         border: 2px solid rgba(77, 77, 116, 0.5);
         border-radius: 10px;
         box-shadow: var(--ngp-shadow-lg);
-        background-color: #29293f;
+        background-color: #222233;
 
         animation: popover-show 0.1s ease-out;
         transform-origin: var(--ngp-select-transform-origin);
@@ -271,10 +270,10 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         align-items: center;
         gap: 0.5rem;
 
-        height: 36px;
+        // height: 36px;
         width: 100%;
 
-        padding: 0.375rem 0.75rem;
+        padding: 10px 12px;
         font-size: 14px;
 
         border-radius: 0.5rem;
@@ -287,7 +286,7 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
       [ngpComboboxOption][data-hover],
       [ngpComboboxOption][data-active],
       [ngpComboboxOption][data-press] {
-        background: #3e3e5d;
+        background: #313145;
       }
 
       .lbl {

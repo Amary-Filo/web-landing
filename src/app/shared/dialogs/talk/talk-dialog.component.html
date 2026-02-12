@@ -1,5 +1,5 @@
 <div ngpDialogOverlay>
-  <div ngpDialog class="cl-g-pink-1">
+  <div ngpDialog class="cl-g-purple-5">
     <ui-icon
       class="dialog-close op-6"
       size="30px"
@@ -29,108 +29,110 @@
     </div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="fl fl-dc g-15">
-      @if(formSent()) {
-      <div class="fl fl-dc fl-cc g-10">
-        <ui-icon
-          name="checkDoubleLine"
-          size="50px"
-          gradient="#d174ff, #a1a0ff"
-        />
-        <div class="callout-text m-t-10 m-auto t-c">
-          Your request successfully sent! <br />
-          Our managers will answer as soon as possible.
+      @if (formSent()) {
+        <div class="fl fl-dc fl-cc g-10">
+          <ui-icon
+            name="checkDoubleLine"
+            size="50px"
+            gradient="#d174ff, #a1a0ff"
+          />
+          <div class="callout-text m-t-10 m-auto t-c">
+            Your request successfully sent! <br />
+            Our managers will answer as soon as possible.
+          </div>
         </div>
-      </div>
       } @else {
-
-      <app-combobox
-        [options]="countries"
-        [emitMode]="'object'"
-        [searchable]="true"
-        color="cl-g-pink-1"
-        [placeholder]="'Select your country'"
-        formControlName="country"
-      >
-        <ng-template #optionTpl let-o let-selected>
-          <span class="fl g-10" [style.opacity]="selected ? 1 : 0.8">
-            <img
-              width="20px"
-              class="ico"
-              [src]="o.flag"
-              alt="flag {{ o.value }}"
-              loading="lazy"
-            />
-            <span class="lbl">{{ o.value }}</span>
-          </span>
-        </ng-template>
-
-        <ng-template #valueTpl let-o let-selected>
-          @if (o) {
-          <span class="fl g-10 select-placeholder" [class.selected]="selected">
-            <img width="20px" class="ico" [src]="o.flag" alt="" />
-            <span class="lbl">{{ o.value }}</span>
-          </span>
-          } @else {
-          <span class="select-placeholder">Select your country*</span>
-          }
-        </ng-template>
-      </app-combobox>
-
-      <input
-        app-input
-        type="text"
-        placeholder="Your name*"
-        formControlName="name"
-      />
-
-      <div class="form-group">
-        <app-radio-group
-          formControlName="formatContact"
-          orientation="horizontal"
+        <app-combobox
+          [options]="countries"
+          [emitMode]="'object'"
+          [searchable]="true"
+          color="cl-g-pink-1"
+          [placeholder]="'Select your country'"
+          formControlName="country"
         >
-          <app-radio-item value="telegram">Telegram</app-radio-item>
-          <app-radio-item value="email">Email</app-radio-item>
-        </app-radio-group>
-        <input
-          app-input
-          type="text"
-          [placeholder]="'Your ' + form.controls.formatContact.value + '*'"
-          formControlName="contact"
-        />
-      </div>
-      <div class="form-group">
-        <input
-          app-input
-          type="text"
-          placeholder="Estimated budget"
-          formControlName="price"
-        />
-        <input
-          app-input
-          type="text"
-          placeholder="Estimated time (weeks/months)"
-          formControlName="estimate"
-        />
-      </div>
-      <textarea
-        app-textarea
-        placeholder="Describe your project*"
-        formControlName="message"
-      ></textarea>
+          <ng-template #optionTpl let-o let-selected>
+            <span class="fl g-10" [style.opacity]="selected ? 1 : 0.8">
+              <img
+                width="20px"
+                class="ico"
+                [src]="o.flag"
+                alt="flag {{ o.value }}"
+                loading="lazy"
+              />
+              <span class="lbl">{{ o.value }}</span>
+            </span>
+          </ng-template>
 
-      <button
-        class="btn g-bg g-a w-100 m-t-10 cl-g-pink-1"
-        type="submit"
-        [disabled]="form.invalid || isSubmitting()"
-      >
-        Send! To the moon?
-      </button>
-      <div class="callout-text m-auto t-c fz-sm">
-        By clicking the button, you agree to <br />
-        our
-        <a href="#" class="link accent">privacy policy</a>
-        and <a href="#" class="link accent">terms</a> of data transfer.
-      </div>
+          <ng-template #valueTpl let-o let-selected>
+            @if (o) {
+              <span
+                class="fl g-10 select-placeholder"
+                [class.selected]="selected"
+              >
+                <img width="20px" class="ico" [src]="o.flag" alt="" />
+                <span class="lbl">{{ o.value }}</span>
+              </span>
+            } @else {
+              <span class="select-placeholder">Select your country*</span>
+            }
+          </ng-template>
+        </app-combobox>
+
+        <input
+          app-input
+          type="text"
+          placeholder="Your name*"
+          formControlName="name"
+        />
+
+        <div class="form-group">
+          <app-radio-group
+            formControlName="formatContact"
+            orientation="horizontal"
+          >
+            <app-radio-item value="telegram">Telegram</app-radio-item>
+            <app-radio-item value="email">Email</app-radio-item>
+          </app-radio-group>
+          <input
+            app-input
+            type="text"
+            [placeholder]="'Your ' + form.controls.formatContact.value + '*'"
+            formControlName="contact"
+          />
+        </div>
+        <div class="form-group">
+          <input
+            app-input
+            type="text"
+            placeholder="Estimated budget"
+            formControlName="price"
+          />
+          <input
+            app-input
+            type="text"
+            placeholder="Estimated time (weeks/months)"
+            formControlName="estimate"
+          />
+        </div>
+        <textarea
+          app-textarea
+          placeholder="Describe your project*"
+          formControlName="message"
+        ></textarea>
+
+        <button
+          class="btn g-bg fw-8 use-bg g-a w-100 m-t-10"
+          type="submit"
+          [disabled]="form.invalid || isSubmitting()"
+        >
+          Send! To the moon?
+        </button>
+        <div class="callout-text m-auto t-c fz-sm">
+          By clicking the button, you agree to <br />
+          our
+          <a href="#" class="link accent">privacy policy</a>
+          and <a href="#" class="link accent">terms</a> of data transfer.
+        </div>
       }
     </form>
   </div>

@@ -20,7 +20,7 @@ import { NgpInput } from 'ng-primitives/input';
       border-radius: var(--radius-lg, 10px);
       border: none;
 
-      background-color: #20202c;
+      background-color: #222233;
       color: white;
       box-sizing: border-box;
       outline: 2px solid transparent;

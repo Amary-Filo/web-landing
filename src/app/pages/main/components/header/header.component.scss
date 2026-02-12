@@ -9,6 +9,8 @@
 }
 
 .content {
+  --icon-size: 24px;
+
   position: relative;
   width: max-content;
   margin: 0 auto;
@@ -88,6 +90,9 @@ nav {
 .btn {
   grid-area: button;
   border-radius: 10em;
+  padding: 10px 30px;
+  font-size: 16px;
+  font-weight: 700;
 }
 
 .logo {

@@ -117,6 +117,7 @@ details {
     }
 
     @include mx.b(tablet) {
+      margin-top: 10px;
       font-size: 16px;
     }
 
