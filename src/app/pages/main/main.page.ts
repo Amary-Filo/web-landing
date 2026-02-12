@@ -2,45 +2,41 @@ import { Component } from '@angular/core';
 import {
   HeaderMainComponent,
   HeroSectionComponent,
-  // OfferSectionComponent,
+  BenefitsSectionComponent,
+  ProductSectionComponent,
+  SmartContractsSectionComponent,
   AboutSectionComponent,
+  ComparisonSectionComponent,
+  ShowcaseSectionComponent,
   NetworksSectionComponent,
-  SolutionsSectionComponent,
-  // WhyChooseSectionComponent,
   ProcessSectionComponent,
   CreateProjectSectionComponent,
   FaqSectionComponent,
+  StackToolsSectionComponent,
+  BannerSectionComponent,
   FooterMainComponent,
 } from './components';
 import { UiArrowLineComponent } from '@components/arrow-line/arrow-line.component';
-import { StackToolsSectionComponent } from './components/stack-tools/stack-tools.component';
-import { ComparisonSectionComponent } from './components/comparison/comparison.component';
-import { BannerSectionComponent } from './components/banner/banner.component';
-import { BenefitsSectionComponent } from './components/benefits/benefits.component';
-// import { Hero2SectionComponent } from './components/hero-2/hero.component';
-import { ProductSectionComponent } from './components/product/product.component';
 
 @Component({
   selector: 'page-main',
   imports: [
     HeaderMainComponent,
     HeroSectionComponent,
-    SolutionsSectionComponent,
+    BenefitsSectionComponent,
+    ProductSectionComponent,
+    SmartContractsSectionComponent,
     AboutSectionComponent,
     ComparisonSectionComponent,
-    // OfferSectionComponent,
+    ShowcaseSectionComponent,
     NetworksSectionComponent,
-    // WhyChooseSectionComponent,
     ProcessSectionComponent,
     CreateProjectSectionComponent,
     FaqSectionComponent,
-    FooterMainComponent,
-    UiArrowLineComponent,
     StackToolsSectionComponent,
     BannerSectionComponent,
-    BenefitsSectionComponent,
-    // Hero2SectionComponent,
-    ProductSectionComponent,
+    FooterMainComponent,
+    UiArrowLineComponent,
   ],
   templateUrl: './main.page.html',
   styleUrl: './main.page.scss',

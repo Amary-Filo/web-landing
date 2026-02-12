@@ -28,7 +28,11 @@
   }
 
   @include mx.b(tablet) {
-    max-width: 360px;
+    max-width: 450px;
+  }
+
+  @include mx.b(mobile) {
+    // max-width: 360px;
   }
 
   // @include mx.b(mobile) {
@@ -38,6 +42,10 @@
   .title {
     width: var(--sc-title-w, max-content);
     max-width: 100%;
+
+    @include mx.b(mobile) {
+      margin: 0 auto;
+    }
   }
 
   .title,
@@ -52,6 +60,10 @@
 
   .sub-text {
     max-width: var(--sc-sub-text-mw, 600px);
+
+    @include mx.b(tablet) {
+      font-size: 18px;
+    }
 
     @include mx.b(mobile) {
       font-size: 18px;

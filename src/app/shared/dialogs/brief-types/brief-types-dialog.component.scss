@@ -1,0 +1,221 @@
+@use "../../../../styles/mixins/mixins.scss" as mx;
+@use "../../../../styles/tokens.scss" as tokens;
+
+[ngpDialogOverlay] {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 15px;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+
+  inset: 0;
+  animation: fadeIn 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[ngpDialogOverlay][data-exit] {
+  animation: fadeOut 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[ngpDialog] {
+  position: relative;
+  width: max-content;
+  max-width: 950px;
+
+  padding: 30px;
+
+  border-radius: var(--radius-xl, #{tokens.$radius-xl});
+  border: 3px solid var(--cl-main, #fe70a1);
+
+  box-shadow: var(--shadow-glow, #{tokens.$shadow-glow});
+  background: linear-gradient(
+    130deg,
+    #12121a,
+    var(--surface-500, #{tokens.$surface-500})
+  );
+
+  transition: 0.3s ease-in-out;
+  overflow: hidden;
+  outline: none;
+
+  animation: slideIn 300ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  @include mx.b(tablet) {
+    max-width: 500px;
+    height: 100%;
+    max-height: 550px;
+    padding: 0;
+  }
+}
+
+.dialog-content {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(300px, 380px));
+  grid-gap: 15px;
+
+  width: 100%;
+  height: 100%;
+
+  @include mx.b(tablet) {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    padding: 40px 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @include mx.b(mobile) {
+    padding: 20px 15px;
+  }
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+
+  max-height: 100%;
+  border-radius: 10px;
+
+  background-color: #222233;
+  overflow-y: auto;
+
+  @include mx.b(tablet) {
+    flex-shrink: 0;
+    width: 90%;
+    // min-width: 85vw;
+
+    scroll-snap-align: center;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+.title-wrap {
+  position: sticky;
+  top: 0;
+
+  font-size: 22px;
+  padding: 30px 30px 10px 30px;
+
+  background-color: #222233;
+  z-index: 10;
+}
+
+.head {
+  padding: 0 30px;
+}
+
+.text {
+  @include mx.b(tablet) {
+    font-size: 14px;
+  }
+}
+
+.list {
+  flex-wrap: wrap;
+  padding: 0 30px 10px 30px;
+
+  &-title {
+    padding: 10px 30px 0 30px;
+  }
+
+  &-item {
+    display: flex;
+    width: max-content;
+    padding: 4px 10px;
+    border-radius: 3px;
+    background-color: #34344c;
+  }
+}
+
+.callout-text {
+  padding: 0px 30px 30px 30px;
+}
+
+[ngpDialog][data-exit] {
+  animation: slideOut 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+@keyframes slideOut {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+
+.dialog-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 10px;
+
+  z-index: 20;
+
+  border-radius: 0px 0px 0px 20px;
+  transition: 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.ico {
+  border-radius: 20px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+
+  @include mx.b(mobile) {
+    grid-template-columns: 1fr;
+  }
+}

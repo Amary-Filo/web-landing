@@ -86,6 +86,10 @@ $spacing-map: (
   font-weight: var(--title-fw, 900);
   line-height: var(--title-lh, 1.15);
 
+  @include mx.b(mobile) {
+    width: 100%;
+  }
+
   &.s {
     &-xs {
       --title-fz: 16px;
@@ -93,17 +97,25 @@ $spacing-map: (
 
     &-sm {
       --title-fz: 36px;
+
+      @include mx.b(mobile) {
+        --title-fz: 30px;
+      }
     }
 
     &-md {
       --title-fz: 48px;
 
+      @include mx.b(desktop) {
+        --title-fz: 38px;
+      }
+
       @include mx.b(tablet) {
-        --title-fz: 48px;
+        --title-fz: 32px;
       }
 
       @include mx.b(mobile) {
-        --title-fz: 36px;
+        --title-fz: 30px;
       }
     }
 
@@ -111,15 +123,15 @@ $spacing-map: (
       --title-fz: 64px;
 
       @include mx.b(desktop) {
-        --title-fz: 60px;
+        --title-fz: 48px;
       }
 
       @include mx.b(tablet) {
-        --title-fz: 50px;
+        --title-fz: 40px;
       }
 
       @include mx.b(mobile) {
-        --title-fz: 35px;
+        --title-fz: 30px;
       }
     }
 
@@ -135,7 +147,7 @@ $spacing-map: (
       }
 
       @include mx.b(mobile) {
-        --title-fz: 50px;
+        --title-fz: 30px;
       }
     }
 
@@ -151,7 +163,7 @@ $spacing-map: (
       }
 
       @include mx.b(mobile) {
-        --title-fz: 50px;
+        --title-fz: 30px;
       }
     }
   }
@@ -179,6 +191,14 @@ $spacing-map: (
 
     &-md {
       --sub-text-fz: 24px;
+
+      @include mx.b(desktop) {
+        --sub-text-fz: 20px;
+      }
+
+      @include mx.b(mobile) {
+        --sub-text-fz: 18px;
+      }
     }
 
     &-lg {
@@ -189,7 +209,11 @@ $spacing-map: (
       }
 
       @include mx.b(tablet) {
-        --sub-text-fz: 24px;
+        --sub-text-fz: 18px;
+      }
+
+      @include mx.b(mobile) {
+        --sub-text-fz: 16px;
       }
     }
   }

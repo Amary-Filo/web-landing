@@ -31,11 +31,10 @@ import { UIIconComponent } from '@components/icon/icon.component';
   ],
 })
 export class UiFormOrderComponent extends BaseFormModel<IOrderFormControls> {
-  color = input<string>('#fe70a1');
   gradient = input<string>('pink-1');
   price = input<string>('10000');
   estimate = input<string>('4+');
-  tier = input<TTiers>('start');
+  tier = input<TTiers>('poc');
   isSend = input<boolean>(false);
 
   protected override formFactory = this.formService.createOrderForm({

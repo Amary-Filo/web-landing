@@ -60,7 +60,6 @@
   @include mx.b(mobile) {
     scroll-snap-align: center;
     min-width: 75vw;
-    // min-width: 280px;
   }
 
   &::before {

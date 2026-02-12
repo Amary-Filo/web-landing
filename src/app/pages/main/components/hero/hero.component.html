@@ -21,10 +21,15 @@
         </p>
 
         <div class="btns fl g-30">
-          <button class="btn fw-9 g-bg g-a use-bg cl-g-purple-5">
-            Get a quote
+          <button
+            class="btn fw-9 g-bg g-a use-bg cl-g-purple-5"
+            (click)="goTo('brief')"
+          >
+            Prepare brief
           </button>
-          <button class="btn fw-9">See our demos</button>
+          <button class="btn fw-9" (click)="goTo('showcases')">
+            See our demos
+          </button>
         </div>
       </div>
 

@@ -252,36 +252,21 @@
   }
 
   @include mx.b(mobile) {
-    // 1. Включаем горизонтальный флекс
     display: flex;
-    flex-wrap: nowrap; // Запрещаем перенос
+    flex-wrap: nowrap;
     gap: 15px;
 
-    // Отступы, чтобы тени не обрезались и был "воздух" по краям
     padding: 10px 20px;
 
-    // 2. Включаем скролл и "Магию" Snap
     overflow-x: auto;
-    scroll-snap-type: x mandatory; // x - ось, mandatory - обязательно прилипать
+    scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
 
-    // Для плавности на iOS
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 
-    // 3. Скрываем скроллбар (визуально красивее)
-    scrollbar-width: none; // Firefox
     &::-webkit-scrollbar {
-      display: none; // Chrome, Safari
+      display: none;
     }
   }
-
-  // @include mx.b(mobile) {
-  //   display: flex;
-  //   gap: 15px;
-
-  //   padding: 10px;
-
-  //   overflow: hidden;
-  //   overflow-x: scroll;
-  // }
 }

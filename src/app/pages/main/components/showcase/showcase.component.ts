@@ -36,7 +36,7 @@ type TBage = {
   styleUrl: './showcase.component.scss',
   standalone: true,
 })
-export class SolutionsSectionComponent {
+export class ShowcaseSectionComponent {
   private scroll = inject(ScrollService);
 
   readonly badge: Record<TBageKeys, TBage> = {

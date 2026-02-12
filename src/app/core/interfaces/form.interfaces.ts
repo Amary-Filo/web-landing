@@ -1,6 +1,6 @@
 import { FormControl, FormGroup } from '@angular/forms';
 
-export type TTiers = 'start' | 'pro' | 'scale';
+export type TTiers = 'mvp' | 'poc';
 
 export type TMetaGeo = {
   timezone: string;

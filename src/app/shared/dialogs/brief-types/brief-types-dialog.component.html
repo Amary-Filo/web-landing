@@ -1,0 +1,44 @@
+<div ngpDialogOverlay>
+  <div ngpDialog class="cl-g-purple-5">
+    <ui-icon
+      class="dialog-close op-6"
+      size="30px"
+      name="closeLine"
+      (click)="close()"
+    />
+
+    <div class="dialog-content">
+      @for (item of data; track $index) {
+        <div [class]="'info fl fl-dc g-10 cl-g-' + item.color">
+          <div class="title-wrap">
+            <h3 class="title t-gr t-u">
+              {{ item.title }}
+            </h3>
+          </div>
+
+          <div class="head fl fl-dc g-15">
+            <p class="text op-8 fw-6">
+              {{ item.text }}
+            </p>
+            <p class="text about op-8 fw-6">
+              {{ item.about }}
+            </p>
+          </div>
+
+          <div class="list-title fw-7 t-gr m-b-5">Features:</div>
+
+          <div class="list fl g-5 fw-6">
+            @for (i of item.benefits; track $index) {
+              <div class="list-item fl g-10 op-8 fz-sm">{{ i }}</div>
+            }
+          </div>
+
+          <div class="callout-text fw-5 fz-sm">
+            The additional information you provide in the form serves as a
+            guideline for us and is not final.
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

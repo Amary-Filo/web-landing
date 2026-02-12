@@ -1,69 +1,45 @@
 <section class="sc">
   <div class="container">
-    <div class="section-head">
-      <h2 class="title s-xl t-u">
+    <div class="section-head g-20">
+      <h2 class="title s-md t-u">
         let’s <br />
         create project
       </h2>
-      <span class="sub-text">
-        We offer several ready-made service packages. They are designed to
-        simplify your choice and give you a rough estimate of the development
-        cost.
+      <span class="sub-text s-md">
+        Clear tiers you can start with. Exact scope and quote after a short
+        brief. Choose what project type you want to create.
       </span>
     </div>
 
     <div class="list">
-      @for (item of data; track $index) {
-      <div
-        [class]="'item fl fl-dc g-20 cl-g-' + item.color"
-        [class.selected]="selected() === $index"
-        (click)="selected.set($index)"
-      >
-        <h4 class="title fz-3xl">{{ item.title }}</h4>
-        <p class="text fz-sm op-8 fw-6">{{ item.text }}</p>
-        <div class="best">
-          <div class="best-wrap">
-            <span class="fw-8 t-gr">
-              <span class="fz-xs">Best for</span>
-              <br />
-              {{ item.best }}
-            </span>
-          </div>
+      <div class="list-title fl fl-dc g-10">
+        <h3 class="title fz-md">Select Type of project</h3>
+        <p class="text fw-7 op-7">
+          Feel free in your choice, we can change it in process.
+        </p>
+        <div class="link t-gr fw-7 cl-g-purple-5" (click)="openDialog()">
+          Learn more about types
         </div>
-        <div class="benefits fl fl-dc g-10">
-          <b>What’s included:</b>
-          @for (benefit of item.included; track $index) {
-          <div class="benefit-item fl g-10 fz-xs fw-6">
-            <ui-icon name="checkLine" size="20px" [gradient]="item.gradient" />
-            {{ benefit }}
-          </div>
-          }
-        </div>
-        <div class="info m-t-10 fl fl-sbc g-10">
-          <div class="info-item fl g-10 fw-9 fz-sm">
-            <ui-icon name="moneyEuroBoxLine" size="20px" />
-            from {{ item.from }}+
-          </div>
-          <div class="info-item fl g-10 fw-9 fz-sm">
-            <ui-icon name="calendar2Line" size="20px" />
-            {{ item.estimate }} weeks
-          </div>
-        </div>
-        <button
-          class="btn g-bg g-a fw-8"
-          [class]="'cl-g-' + item.color"
-          [disabled]="selected() === $index"
-        >
-          @if(selected() === $index) { You choose this Tier } @else { Choose
-          {{ item.title }} tier }
-        </button>
       </div>
+
+      @for (item of data; track $index) {
+        <div
+          [class]="'item cl-g-' + item.color"
+          [class.selected]="selected() === $index"
+          (click)="selected.set($index)"
+        >
+          <div class="item-wrap fl fl-dc fl-cc t-c">
+            <h4 class="title" [class.t-gr]="selected() === $index">
+              {{ item.title }}
+            </h4>
+            <p class="text op-7 fz-sm fw-6">{{ item.text }}</p>
+          </div>
+        </div>
       }
     </div>
 
     <ui-form-order
       [tier]="formData().tier"
-      [color]="formData().gradient[0]"
       [gradient]="formData().color"
       [price]="formData().from"
       [tier]="formData().tier"
@@ -81,7 +57,10 @@
 
     <div class="callout-text m-t-20 m-auto t-c">
       Payment in stages: 50% at the start · 30% after the first demo · 20% upon
-      release. <span class="link" (click)="goTo('faq')">More info in FAQ.</span>
+      release.
+      <span class="link t-gr cl-g-purple-5" (click)="goTo('faq')"
+        >More info in FAQ.</span
+      >
     </div>
   </div>
 </section>
