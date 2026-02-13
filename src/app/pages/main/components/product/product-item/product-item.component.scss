@@ -1,21 +1,20 @@
 @use "../../../../../../styles/mixins/mixins.scss" as mx;
 
 .product-badge {
-  width: max-content;
   gap: 7px;
-
-  line-height: 1.2;
-  font-size: 14px;
-
+  width: max-content;
   padding: 6px 15px;
-  border-radius: 10em;
 
+  font-size: 14px;
+  line-height: 1.2;
+
+  border-radius: 10em;
   border: 2px solid rgba(var(--cl-main-rgb), 0.5);
   color: var(--cl-main);
 
   @include mx.b(desktop) {
-    font-size: 12px;
     padding: 5px 10px;
+    font-size: 12px;
     font-weight: 600;
   }
 
@@ -36,15 +35,11 @@
 
 .list-item {
   position: relative;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   gap: 50px;
 
   height: 100%;
-
   padding: 40px 30px;
+
   border-radius: 20px;
   outline: 3px solid transparent;
 
@@ -52,14 +47,14 @@
   transition: 0.3s ease-in-out;
 
   @include mx.b(desktop) {
-    padding: 30px 25px;
     gap: 30px;
+    padding: 30px 25px;
     border-radius: 15px;
   }
 
   @include mx.b(mobile) {
-    scroll-snap-align: center;
     min-width: 75vw;
+    scroll-snap-align: center;
   }
 
   &::before {
@@ -69,12 +64,11 @@
     top: 0;
     right: 10px;
 
-    font-weight: 600;
     font-size: 70px;
+    font-weight: 600;
     line-height: 1;
 
     color: rgba(var(--cl-main-rgb), var(--item-op, 0.5));
-
     transition: 0.3s ease-in-out;
 
     @include mx.b(desktop) {
@@ -91,9 +85,9 @@
   }
 
   &:hover {
-    outline-color: var(--cl-main);
-    border-radius: 30px;
     --item-op: 1;
+    border-radius: 30px;
+    outline-color: var(--cl-main);
 
     @include mx.b(desktop) {
       border-radius: 25px;
@@ -161,12 +155,7 @@
   }
 
   .media {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
     max-height: 200px;
-
     border-radius: 20px;
     overflow: hidden;
 
@@ -174,14 +163,9 @@
       aspect-ratio: 2/1;
     }
 
-    @include mx.b(tablet) {
-      // display: none;
-    }
-
     .img {
       width: 100%;
       height: 100%;
-
       object-fit: cover;
     }
   }

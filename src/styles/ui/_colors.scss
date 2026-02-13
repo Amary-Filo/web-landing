@@ -1,50 +1,30 @@
 @use "../mixins/mixins.scss" as mx;
 
-$colors: (
-  // Social
-  // ("dribble", #ea4c89),
-  // ("facebook", #1877f2),
-  // ("instagram", #e1306c),
-  // ("linkedin", #0077b5),
-  // ("twitter", #1da1f2),
-  // ("youtube", #f00),
-  // ("telegram", #0088cc),
-  // Sandbox
-  // ("app", #007bff),
-  // ("crypto", #ae00ff),
-   // ("ui", #088942)
-);
-
 $gradients: (
-  ("orange-1", #f59e0b, #f97316),
-  ("purple-1", #8b5cf6, #6d28d9),
-  ("pink-1", #ff76af, #f8494c),
-  ("purple-2", #d174ff, #a1a0ff),
-  ("green-1", #10b981, #22c55e),
-  ("blue-2", #06b6d4, #3b82f6),
+  // White
   ("white-1", #fff, #ffffff30),
-  ("pink-2", #ff0b85, #a96bc2),
-  // new
-  ("blue-1", #3aadad, #5249f8),
-  ("pink-3", #ffc5cb, #d84766),
-  ("purple-4", #d5d2ff, #c95cff),
-  ("yellow-4", #ebf7ad, #a8ffa7),
-  ("peach-1", #ffabab, #ffdf8e),
-  ("aqua-1", #adf7f1, #b2a7ff),
-  ("purple-5", #f19fff, #ff9292),
-  ("blue-5", #adb1ff, #ff9cc2),
-  ("red-5", #ff989a, #ff393d),
-  ("green-5", #a8ffa7, #ebf7ad),
-  // 2
-  ("sky-1", #c3e1fc, #dd83ad),
-  ("purple-3", #9d5cf0, #e0a9bb),
   ("mist-1", #6d90b9, #bbc7dc),
-  // 3
-  ("orange-2", #ca7bde, #f5895c),
-  // ("orange-2", #f5895c, #ca7bde),
+  // Blue
+  ("blue-1", #3aadad, #5249f8),
+  ("blue-5", #adb1ff, #ff9cc2),
+  ("sky-1", #c3e1fc, #dd83ad),
+  ("sky-2", #12b3eb, #298884),
+  ("aqua-1", #adf7f1, #b2a7ff),
+  // Purple
+  ("purple-3", #9d5cf0, #e0a9bb),
+  ("purple-4", #d5d2ff, #c95cff),
+  ("purple-5", #f19fff, #ff9292),
+  // Yellow
+  ("yellow-4", #ebf7ad, #a8ffa7),
+  // Green
   ("green-2", #5abc98, #24594b),
-  ("sky-2", #12b3eb, #298884)
+  ("green-5", #a8ffa7, #ebf7ad),
+  // Orange
+  ("orange-2", #ca7bde, #f5895c),
+  ("peach-1", #ffabab, #ffdf8e),
+  // Red
+  ("red-5", #ff989a, #ff393d),
+  ("pink-3", #ffc5cb, #d84766)
 );
 
-@include mx.colors($colors);
 @include mx.gcolors($gradients);

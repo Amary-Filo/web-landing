@@ -1,9 +1,5 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
-.container {
-  // --container-width: 1060px;
-}
-
 .content {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -35,14 +31,13 @@
     column-gap: 10px;
     row-gap: 0;
 
+    padding: 0 10px;
+
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-
-    padding-left: 10px;
-    padding-right: 10px;
-
     scrollbar-width: none;
+
     &::-webkit-scrollbar {
       display: none;
     }
@@ -59,8 +54,8 @@
   }
 
   @include mx.b(tablet) {
-    text-align: center;
     font-size: 14px;
+    text-align: center;
   }
 
   @include mx.b(669) {
@@ -91,17 +86,12 @@
 }
 
 .label {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-
-  font-weight: 900;
   font-size: 20px;
   white-space: nowrap;
 
   @include mx.b(950) {
-    padding: 10px 15px;
     gap: 10px;
+    padding: 10px 15px;
   }
 
   @include mx.b(930) {
@@ -140,18 +130,14 @@
   justify-content: center;
   text-align: center;
 
-  font-weight: 800;
   font-size: 24px;
-
-  padding-top: 50px;
-  padding-bottom: 30px;
+  padding: 50px 0 30px 0;
 
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
 
   @include mx.b(mobile) {
-    padding-top: 30px;
-    padding-bottom: 20px;
+    padding: 30px 0 20px 0;
   }
 }
 

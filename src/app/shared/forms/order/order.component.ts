@@ -31,7 +31,7 @@ import { UIIconComponent } from '@components/icon/icon.component';
   ],
 })
 export class UiFormOrderComponent extends BaseFormModel<IOrderFormControls> {
-  gradient = input<string>('pink-1');
+  gradient = input<string>('blue-5');
   price = input<string>('10000');
   estimate = input<string>('4+');
   tier = input<TTiers>('poc');

@@ -5,8 +5,8 @@ footer {
 }
 
 .company-info {
-  margin: 10px auto;
   width: 100%;
+  margin: 10px auto;
   text-align: center;
 }
 
@@ -19,16 +19,16 @@ footer {
 
 .img {
   width: 100%;
-  margin: 0 auto;
-  margin-top: 80px;
+  margin: 80px auto 0 auto;
 }
 
 .info-wrap {
+  align-items: center;
+
   max-width: 650px;
   width: 100%;
-  margin: 0 auto;
-  margin-bottom: 50px;
-  align-items: center;
+
+  margin: 0 auto 50px auto;
   border-radius: 30px;
   border: 1px solid #29293f;
   background-color: #171721;
@@ -38,9 +38,8 @@ footer {
   width: 100%;
   justify-content: center;
   padding: 20px;
-  border-top: 2px dashed #29293f;
-
   font-size: 14px;
+  border-top: 2px dashed #29293f;
 }
 
 .item {

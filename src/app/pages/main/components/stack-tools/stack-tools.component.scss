@@ -15,15 +15,13 @@
 }
 
 .content {
-  width: 100%;
-  max-width: 980px;
-
   display: grid;
   grid-template-columns: 1fr 1fr;
-
-  justify-content: center;
   grid-gap: 20px;
+  justify-content: center;
 
+  width: 100%;
+  max-width: 980px;
   margin: 0 auto;
 
   @include mx.b(tablet) {
@@ -34,8 +32,8 @@
 .item {
   display: grid;
   grid-template-columns: max-content 1fr;
-  grid-gap: 10px 20px;
   grid-template-areas: "icon title" "icon text";
+  grid-gap: 10px 20px;
   align-items: flex-start;
 
   width: 100%;

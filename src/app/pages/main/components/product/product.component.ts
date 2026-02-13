@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component } from '@angular/core';
 import { UIIconComponent } from '@app/shared/components/icon/icon.component';
 import { ProductItemComponent } from './product-item/product-item.component';
 import { IconName } from '@app/shared/components/icon/types';

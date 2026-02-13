@@ -16,7 +16,7 @@
           [open]="$index + 1 === opened()"
           (click)="opened.set(opened() === $index + 1 ? 0 : $index + 1)"
         >
-          <summary class="fw-8 fz-md">
+          <summary class="fw-8 op-7 fz-md">
             {{ item.title }}
             <ui-icon class="icon" name="addFill" size="var(--icon-size)" />
           </summary>
@@ -27,7 +27,7 @@
       }
 
       <button
-        class="btn fw-6 fz-sm load-more"
+        class="btn fw-6 fz-sm load-more op-5"
         (click)="allVisible() ? hideExtra() : showMore()"
       >
         {{ allVisible() ? "Hide extra questions" : "Load more questions" }}

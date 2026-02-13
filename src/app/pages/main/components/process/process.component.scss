@@ -1,19 +1,17 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
-:host {
+.container {
   --container-gap: 180px;
 
-  @include mx.b(mobile) {
-    --container-gap: 80px;
-  }
-}
-
-.container {
   background: radial-gradient(
     circle,
     rgba(225, 0, 255, 0.1254901961) 10%,
     rgb(18 18 26) 70%
   );
+
+  @include mx.b(mobile) {
+    --container-gap: 80px;
+  }
 }
 
 .content {
@@ -22,31 +20,32 @@
     auto-fill,
     minmax(var(--sc-process-width, 225px), 1fr)
   );
-  justify-content: center;
   grid-gap: 150px 105px;
+  justify-content: center;
 
   @include mx.b(desktop) {
     grid-gap: 150px 30px;
   }
 
   @include mx.b(tablet) {
-    grid-gap: 120px 10px;
     --sc-process-width: 250px;
+    grid-gap: 120px 10px;
   }
 
   @include mx.b(mobile) {
-    grid-gap: 30px;
     grid-template-columns: 1fr;
+    grid-gap: 30px;
   }
 }
 
 .item {
   position: relative;
   justify-content: end;
+
   max-width: 100%;
   width: 100%;
+
   transition: 0.3s ease-in-out;
-  gap: 20px;
 
   .info {
     max-width: 240px;
@@ -60,23 +59,26 @@
 
   &:before {
     content: attr(data-number);
-    font-family: var(--title-font);
+
     position: absolute;
     top: -20px;
     left: 0;
+
+    font-family: var(--title-font);
     font-size: 250px;
     font-weight: 700;
     line-height: 0.75;
+
     color: transparent;
+    transition: 0.3s ease-in-out;
     -webkit-text-stroke: 2px #fff;
     opacity: 0.2;
-    transition: 0.3s ease-in-out;
 
     @include mx.b(mobile) {
       position: relative;
-      font-size: 100px;
-      min-width: 60px;
       top: 0px;
+      min-width: 60px;
+      font-size: 100px;
     }
   }
 
@@ -96,7 +98,6 @@
 
   .title {
     transition: 0.3s ease-in-out;
-    opacity: 0.8;
 
     @include mx.b(mobile) {
       font-size: 20px;
@@ -105,7 +106,6 @@
 
   .text {
     transition: 0.3s ease-in-out;
-    opacity: 0.5;
 
     @include mx.b(mobile) {
       font-size: 14px;

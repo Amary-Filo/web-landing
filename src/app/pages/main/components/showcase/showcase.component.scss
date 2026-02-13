@@ -7,7 +7,6 @@
     minmax(var(--sc-network-width, 286px), 1fr)
   );
   justify-content: center;
-
   transition: 0.3s ease-in-out;
 
   @include mx.b(tablet) {
@@ -16,9 +15,9 @@
   }
 
   @include mx.b(mobile) {
+    --btn-padding: 10px;
     display: flex;
     flex-direction: column;
-    --btn-padding: 10px;
   }
 }
 
@@ -26,8 +25,8 @@
   --btn-width-max: 100%;
   --icon-size: 30px;
 
+  justify-content: space-between;
   width: 100%;
-
   padding: 20px;
 
   border: 1px solid #29293f;
@@ -37,8 +36,6 @@
   outline: 4px solid transparent;
   transition: 0.3s ease-in-out;
   overflow: hidden;
-
-  justify-content: space-between;
 
   .info {
     height: 100%;
@@ -92,11 +89,12 @@
   }
 
   &:hover {
-    outline-color: rgb(var(--cl-main-rgb));
     border-color: rgb(var(--cl-main-rgb));
+    outline-color: rgb(var(--cl-main-rgb));
 
     .icon {
       outline-color: rgba(var(--cl-main-rgb), 0.2);
+
       &::before {
         opacity: 1;
       }

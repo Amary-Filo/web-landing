@@ -1,4 +1,4 @@
-<div class="list-item" [class]="itemColorClass()">
+<div class="list-item fl fl-dc fl-sbc" [class]="itemColorClass()">
   <div class="info fl fl-dc g-20">
     <div class="product-badge fl fl-cc fw-7">
       <ui-icon class="product-icon" [name]="data().icon" size="20px" />
@@ -16,7 +16,7 @@
   </div>
 
   @if (itemImgSrc()) {
-    <div class="media">
+    <div class="media fl fl-cc">
       <img class="img" [src]="itemImgSrc()" [alt]="data().imgAlt" />
     </div>
   }

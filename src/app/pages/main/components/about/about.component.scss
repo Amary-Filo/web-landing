@@ -47,8 +47,6 @@
   @include mx.b(tablet) {
     display: flex;
     flex-wrap: wrap;
-    // grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    // justify-content: center;
     grid-gap: 15px;
   }
 
@@ -64,17 +62,11 @@
     @include mx.b(tablet) {
       align-items: center;
       text-align: center;
-      // max-width: 500px;
     }
   }
 }
 
 .item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-
   width: 100%;
   height: max-content;
 
@@ -92,8 +84,8 @@
     height: auto;
     min-width: 220px;
 
-    text-align: center;
     padding: 30px 25px 40px 25px;
+    text-align: center;
   }
 
   @include mx.b(mobile) {
@@ -101,7 +93,6 @@
     gap: 15px;
 
     min-width: 100%;
-
     padding: 20px;
 
     text-align: left;
@@ -111,10 +102,10 @@
   }
 
   &.no-bg {
-    background: none;
     align-items: center;
-    padding: 0;
     height: 100%;
+    padding: 0;
+    background: none;
 
     @include mx.b(tablet) {
       min-width: 100%;
@@ -124,7 +115,6 @@
 
   &-number {
     min-width: 110px;
-    font-weight: 900;
     font-size: 60px;
     text-align: right;
 
@@ -140,20 +130,14 @@
     }
 
     @include mx.b(mobile) {
+      min-width: 70px;
       font-size: 40px;
       text-align: right;
-      min-width: 70px;
     }
   }
 }
 
 .info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-
   width: 100%;
   max-width: 490px;
 
@@ -162,8 +146,8 @@
   }
 
   @include mx.b(tablet) {
-    text-align: center;
     max-width: 350px;
+    text-align: center;
 
     &::before,
     &::after {

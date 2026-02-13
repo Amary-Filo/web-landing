@@ -1,35 +1,24 @@
 @use "../../../../../styles/mixins/mixins.scss" as mx;
 
 .sc {
-  // width: 100%;
-  // margin-top: 180px;
-  // overflow-x: clip;
-  // overflow-y: visible;
-
-  display: flex;
-  align-items: center;
-
   margin-top: 180px;
-
-  // height: 100vh;
-  // min-height: 650px;
-
   overflow-x: clip;
+
+  @include mx.b(tablet) {
+    margin-top: 120px;
+  }
 
   @include mx.b(mobile) {
     margin-top: 100px;
-    // height: max-content;
-    // min-height: max-content;
   }
 }
 
 .content {
   display: grid;
-  // grid-template-columns: 1fr minmax(350px, 550px);
   grid-template-columns: 1fr auto;
-  align-items: center;
   grid-gap: 50px;
 
+  align-items: center;
   justify-content: space-between;
 
   @include mx.b(tablet) {
@@ -39,9 +28,6 @@
 }
 
 .info {
-  display: flex;
-  flex-direction: column;
-
   @include mx.b(tablet) {
     align-items: center;
     justify-content: center;
@@ -58,7 +44,6 @@
 
   &-slash {
     font-size: 32px;
-    font-weight: 900;
 
     @include mx.b(desktop) {
       font-size: 28px;
@@ -67,9 +52,6 @@
 }
 
 .title {
-  display: flex;
-  flex-direction: column;
-
   margin-top: 10px;
 
   font-size: 84px;
@@ -79,12 +61,7 @@
     font-size: 64px;
   }
 
-  @include mx.b(tablet) {
-    // width: 100%;
-  }
-
   @include mx.b(mobile) {
-    // font-size: 45px;
     font-size: clamp(32px, 13vw, 45px);
   }
 
@@ -97,7 +74,6 @@
     }
 
     @include mx.b(mobile) {
-      // font-size: 40px;
       font-size: clamp(28px, 10vw, 40px);
     }
   }
@@ -110,7 +86,6 @@
     }
 
     @include mx.b(mobile) {
-      // font-size: 28px;
       font-size: clamp(18px, 6.4vw, 28px);
     }
   }
@@ -137,7 +112,6 @@
 
 .btns {
   --btn-padding: 15px 20px;
-
   margin-top: 70px;
 
   @include mx.b(desktop) {

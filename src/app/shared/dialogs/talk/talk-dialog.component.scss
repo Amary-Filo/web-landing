@@ -3,10 +3,6 @@
 
 [ngpDialogOverlay] {
   position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   padding: 15px;
 
   background-color: rgba(0, 0, 0, 0.5);
@@ -22,9 +18,11 @@
 
 [ngpDialog] {
   position: relative;
+
   display: grid;
   grid-template-columns: minmax(300px, 360px) minmax(300px, 400px);
   grid-gap: 30px;
+
   justify-content: space-between;
   align-items: center;
 
@@ -33,12 +31,15 @@
   max-height: 100%;
 
   padding: 50px;
-
   border-radius: var(--radius-xl, #{tokens.$radius-xl});
   border: 3px solid var(--cl-main, #fe70a1);
 
   box-shadow: var(--shadow-glow, #{tokens.$shadow-glow});
-  background: linear-gradient(130deg, #12121a, var(--surface-500, #{tokens.$surface-500}));
+  background: linear-gradient(
+    130deg,
+    #12121a,
+    var(--surface-500, #{tokens.$surface-500})
+  );
   transition: 0.3s ease-in-out;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -57,8 +58,8 @@
 
   .head {
     .title {
-      font-size: 45px;
       width: 100%;
+      font-size: 45px;
 
       @include mx.b(tablet) {
         margin: 0 auto;
@@ -73,9 +74,9 @@
 
   .info {
     @include mx.b(tablet) {
-      border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
       padding-bottom: 40px;
       text-align: center;
+      border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
     }
   }
 }
@@ -128,8 +129,10 @@
   position: absolute;
   top: 0px;
   right: 0px;
+
   padding: 10px;
   border-radius: 0px 0px 0px 20px;
+
   transition: 0.3s ease-in-out;
   cursor: pointer;
   z-index: 999;

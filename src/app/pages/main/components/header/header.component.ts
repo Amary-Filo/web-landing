@@ -39,7 +39,8 @@ export class HeaderMainComponent implements OnInit, AfterViewInit, OnDestroy {
   readonly icon = computed<IconName>(() => (this.menuOpen() ? 'closeLine' : 'menuFill'));
 
   readonly navItems = [
-    { id: 'hero', label: 'Home' },
+    // { id: 'hero', label: 'Home' },
+    { id: 'product', label: 'Product' },
     { id: 'about', label: 'About' },
     { id: 'showcases', label: 'Showcase' },
     { id: 'brief', label: 'Brief' },

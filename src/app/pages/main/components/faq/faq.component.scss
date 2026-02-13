@@ -8,8 +8,8 @@
   border-radius: 25px;
   border: 2px solid #29293f;
 
-  transition: 0.3s ease-in-out;
   background-color: #1f1f2a;
+  transition: 0.3s ease-in-out;
   overflow: hidden;
 
   @include mx.b(mobile) {
@@ -20,6 +20,7 @@
 details {
   padding: 20px 25px;
   border-bottom: 2px solid #29293f;
+
   background-color: #171721;
   transition: 0.3s ease-in-out;
   cursor: pointer;
@@ -33,8 +34,8 @@ details {
   }
 
   &:last-child {
-    border-bottom-color: transparent;
     border-radius: 0 0 25px 25px;
+    border-bottom-color: transparent;
 
     @include mx.b(mobile) {
       border-radius: 0 0 15px 15px;
@@ -54,17 +55,12 @@ details {
     grid-template-columns: 1fr max-content;
     align-items: center;
     grid-gap: 20px;
-    opacity: 0.7;
 
     list-style: none;
     transition: 0.3s ease-in-out;
 
     @include mx.b(desktop) {
-      font-size: 22px;
-    }
-
-    @include mx.b(tablet) {
-      font-size: 20px;
+      font-size: 18px;
     }
 
     @include mx.b(mobile) {
@@ -147,7 +143,6 @@ details[open] > *:not(summary) {
   margin: 0;
   border-radius: 0;
   color: white;
-  opacity: 0.5;
 
   &:hover {
     color: #d174ff;

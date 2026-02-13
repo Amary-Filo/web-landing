@@ -13,10 +13,10 @@
 
     <div class="content">
       @for (item of data; track $index) {
-        <div class="item fl" [attr.data-number]="$index + 1">
+        <div class="item g-20 fl" [attr.data-number]="$index + 1">
           <div class="info fl fl-dc g-10">
-            <h3 class="title t-u fz-xl">{{ item.title }}</h3>
-            <div class="text fw-7">{{ item.text }}</div>
+            <h3 class="title op-8 t-u fz-xl">{{ item.title }}</h3>
+            <div class="text op-5 fw-7">{{ item.text }}</div>
           </div>
         </div>
       }

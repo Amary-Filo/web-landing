@@ -29,13 +29,13 @@
             <div class="features-title fl fl-cc g-15 op-8 fw-7">
               <span>Features <span class="op-6">you will get</span></span>
             </div>
-            <div class="features-list">
+            <div class="features-list fl fl-w g-5">
               @for (feature of item.features; track $index) {
-                <div class="feature-item">{{ feature }}</div>
+                <div class="feature-item fw-7">{{ feature }}</div>
               }
             </div>
           </div>
-          <div class="media">
+          <div class="media fl fl-cc">
             <img class="img" [src]="itemImgSrc(item.img)" [alt]="item.imgAlt" />
           </div>
         </div>

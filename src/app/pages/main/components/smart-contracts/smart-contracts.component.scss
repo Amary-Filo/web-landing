@@ -2,7 +2,6 @@
 
 .content {
   position: relative;
-
   padding: 50px 30px;
 
   border-radius: 80px;
@@ -116,10 +115,7 @@
     }
 
     &-list {
-      display: flex;
-      flex-wrap: wrap;
       justify-content: center;
-      gap: 5px;
     }
   }
 
@@ -132,7 +128,6 @@
       font-weight: 700;
 
       border-radius: 5px;
-
       background-color: #1f1f2a33;
       color: #d2d2d4;
 
@@ -149,8 +144,8 @@
   width: max-content;
   gap: 7px;
 
-  line-height: 1.2;
   padding: 6px 15px;
+  line-height: 1.2;
   border-radius: 10em;
 
   background-color: rgba(var(--cl-accent-rgb), 0.2);

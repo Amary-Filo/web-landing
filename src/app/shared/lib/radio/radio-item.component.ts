@@ -40,20 +40,6 @@ import { NgpRadioItem } from 'ng-primitives/radio';
     :host[data-checked] .item-title {
       opacity: 1;
     }
-
-    // [ngpRadioIndicator] {}
-
-    // :host[data-hover] {
-    //   background-color: var(--ngp-background-hover);
-    // }
-
-    // :host[data-press] {
-    //   background-color: var(--ngp-background-active);
-    // }
-
-    // :host[data-checked] {
-    //   background-color: var(--ngp-background-inverse);
-    // }
   `,
 })
 export class RadioItemComponent {}

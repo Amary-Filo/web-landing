@@ -3,9 +3,11 @@
 
 .content {
   position: relative;
+
   display: grid;
   grid-template-columns: minmax(300px, 360px) minmax(300px, 385px);
   grid-gap: 30px;
+
   justify-content: space-between;
   align-items: center;
 
@@ -38,18 +40,20 @@
 
   &::before,
   &::after {
-    position: absolute;
     content: "";
+    position: absolute;
+
     top: -3px;
     left: -3px;
     right: -3px;
     bottom: -3px;
+
     border-radius: var(--radius-xl, #{tokens.$radius-xl});
+    box-shadow: 0 0 100px -5px rgba(var(--cl-main-rgb, #fe70a1), 0.35);
     pointer-events: none;
+    will-change: opacity;
     z-index: -1;
     opacity: 0;
-    will-change: opacity;
-    box-shadow: 0 0 100px -5px rgba(var(--cl-main-rgb, #fe70a1), 0.35);
   }
 
   &::before {
@@ -88,8 +92,8 @@
 }
 
 .item {
-  border-radius: 15px;
   padding: 15px 20px;
+  border-radius: 15px;
   background-color: #222233;
 
   @include mx.b(tablet) {
@@ -97,13 +101,13 @@
   }
 
   @include mx.b(mobile) {
-    border-radius: 10px;
     padding: 15px 10px;
+    border-radius: 10px;
   }
 
   .title {
-    color: #9999b2;
     width: 100%;
+    color: #9999b2;
   }
 
   .text {
@@ -115,9 +119,9 @@
 
 .info {
   @include mx.b(tablet) {
-    border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
     padding-bottom: 30px;
     text-align: center;
+    border-bottom: 2px dashed var(--surface-300, #{tokens.$surface-300});
   }
 }
 

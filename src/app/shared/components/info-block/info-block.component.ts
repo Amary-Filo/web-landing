@@ -11,7 +11,7 @@ export class UiInfoBlockComponent {
   text = input<string>('Text');
   accent = input<string>();
   btnText = input<string>('Click me!');
-  color = input<string>('pink-1');
+  color = input<string>('blue-5');
   width = input<string>('700px');
   bgColor = input<string>('#1f1f2a');
   btnClick = output<void>();

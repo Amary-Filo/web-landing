@@ -8,21 +8,23 @@
 
   max-width: var(--max-width, 700px);
   width: 100%;
+
   margin: 0 auto;
   padding: 25px 50px;
+
   border-radius: 15px;
   background-color: var(--bg-color, #1f1f2a);
 
   @include mx.b(tablet) {
-    max-width: 100%;
-    grid-gap: 20px;
-    padding: 25px;
     grid-template-columns: 1fr;
+    grid-gap: 20px;
+    max-width: 100%;
+    padding: 25px;
   }
 
   .title {
-    color: #9595af;
     width: 100%;
+    color: #9595af;
   }
 
   .text {

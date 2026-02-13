@@ -270,7 +270,6 @@ export type ComboItem = { key: string; value: string } & Record<string, any>;
         align-items: center;
         gap: 0.5rem;
 
-        // height: 36px;
         width: 100%;
 
         padding: 10px 12px;

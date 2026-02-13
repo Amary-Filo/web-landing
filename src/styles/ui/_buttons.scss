@@ -29,10 +29,6 @@
   overflow: hidden;
   cursor: pointer;
 
-  // &-text {
-  //   background: none;
-  // }
-
   &[disabled] {
     opacity: 0.5;
     cursor: not-allowed;
@@ -46,7 +42,6 @@
     }
   }
 
-  // &:not([class*="cl-g-"]) {
   &:not(.g-bg) {
     background-color: rgba(var(--btn-bgc-rgb), var(--btn-bgc-opacity, 1));
     &:hover {
