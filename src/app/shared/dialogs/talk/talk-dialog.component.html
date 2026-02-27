@@ -126,11 +126,17 @@
         >
           Send! To the moon?
         </button>
-        <div class="callout-text m-auto t-c fz-sm">
+        <div class="callout-text fw-6 m-auto t-c fz-sm">
           By clicking the button, you agree to <br />
           our
-          <a href="#" class="link accent">privacy policy</a>
-          and <a href="#" class="link accent">terms</a> of data transfer.
+          <a [routerLink]="'/privacy-policy'" target="_blank" class="link t-gr"
+            >privacy policy</a
+          >
+          and
+          <a [routerLink]="'/privacy-policy'" target="_blank" class="link t-gr"
+            >terms</a
+          >
+          of data transfer.
         </div>
       }
     </form>

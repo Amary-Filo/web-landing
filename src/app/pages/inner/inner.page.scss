@@ -1,0 +1,17 @@
+@use "../../../styles/mixins/mixins.scss" as mx;
+
+ui-arrow-line {
+  margin: var(--ui-margin, 150px) auto;
+
+  @include mx.b(desktop) {
+    --ui-margin: 120px;
+  }
+
+  @include mx.b(tablet) {
+    --ui-margin: 100px;
+  }
+
+  @include mx.b(mobile) {
+    --ui-margin: 80px;
+  }
+}

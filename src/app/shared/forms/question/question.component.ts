@@ -9,6 +9,7 @@ import { InputComponent } from '@kit/input.component';
 import { TextareaComponent } from '@kit/textarea.component';
 
 import { UIIconComponent } from '@components/icon/icon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ui-form-question',
@@ -22,6 +23,7 @@ import { UIIconComponent } from '@components/icon/icon.component';
     InputComponent,
     TextareaComponent,
     UIIconComponent,
+    RouterLink,
   ],
 })
 export class UiFormQuestionComponent extends BaseFormModel<IBaseFormControls> {

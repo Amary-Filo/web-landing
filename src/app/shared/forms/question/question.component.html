@@ -54,9 +54,17 @@
             <div class="callout-text m-auto t-c fz-sm fw-6">
               By clicking the button, you agree to <br />
               our
-              <a href="#" class="link t-gr cl-g-purple-5">privacy policy</a>
-              and <a href="#" class="link t-gr cl-g-purple-5">terms</a> of data
-              transfer.
+              <a
+                [routerLink]="'/privacy-policy'"
+                target="_blank"
+                class="link t-gr cl-g-purple-5"
+                >privacy policy</a
+              >
+              and
+              <a [routerLink]="'/terms'" class="link t-gr cl-g-purple-5"
+                >terms</a
+              >
+              of data transfer.
             </div>
           }
         </div>

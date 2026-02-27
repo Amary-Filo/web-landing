@@ -12,6 +12,7 @@ import { RadioItemComponent } from '@kit/radio/radio-item.component';
 import { ComboboxComponent } from '@kit/combobox.component';
 
 import { UIIconComponent } from '@components/icon/icon.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ui-form-order',
@@ -28,6 +29,7 @@ import { UIIconComponent } from '@components/icon/icon.component';
     RadioItemComponent,
     ComboboxComponent,
     UIIconComponent,
+    RouterLink,
   ],
 })
 export class UiFormOrderComponent extends BaseFormModel<IOrderFormControls> {

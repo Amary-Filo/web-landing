@@ -1,0 +1,34 @@
+<header>
+  <div class="container">
+    <div class="content fl fl-sbc g-30" [class.menu-opened]="menuOpen()">
+      <ui-icon
+        class="menu-bars"
+        size="30px"
+        [name]="icon()"
+        [class.menu-opened]="menuOpen()"
+        (click)="toggleMenu()"
+      />
+
+      <div class="logo">
+        <ui-icon name="amfiLogoFill" size="var(--icon-size)" />
+      </div>
+
+      <nav class="fl g-30">
+        @for (item of navItems; track $index) {
+          <a
+            href="javascript:void(0)"
+            class="link fw-6"
+            [routerLink]="item.link"
+            (click)="onNavItemClick()"
+          >
+            {{ item.label }}
+          </a>
+        }
+      </nav>
+
+      <span class="btn use-bg g-bg g-a cl-g-purple-5" (click)="openDialog()"
+        >Let's Talk</span
+      >
+    </div>
+  </div>
+</header>

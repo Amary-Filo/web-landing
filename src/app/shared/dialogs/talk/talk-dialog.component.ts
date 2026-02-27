@@ -12,6 +12,7 @@ import { InputComponent } from '@kit/input.component';
 import { RadioGroupComponent } from '@kit/radio/radio-group.component';
 import { RadioItemComponent } from '@kit/radio/radio-item.component';
 import { TextareaComponent } from '@kit/textarea.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'ui-dialog-talk',
@@ -28,6 +29,7 @@ import { TextareaComponent } from '@kit/textarea.component';
     RadioItemComponent,
     ComboboxComponent,
     UIIconComponent,
+    RouterLink,
   ],
   templateUrl: './talk-dialog.component.html',
   styleUrl: './talk-dialog.component.scss',
